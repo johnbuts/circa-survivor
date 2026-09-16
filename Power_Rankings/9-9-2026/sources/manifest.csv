@@ -1,0 +1,11 @@
+id,label,outlet,date,url,has_sb_odds,note
+espn_fpi,ESPN_FPI,ESPN FPI,2026-09-09,https://www.espn.com/nfl/fpi,no,Live 2026 FPI table fetched Sep 9 (0-0-0)
+nfl_com,NFL_com,NFL.com (Nick Shook),2026-09-08,https://www.nfl.com/news/nfl-power-rankings-week-1-2026-nfl-season,no,Week 1 regular-season edition
+thescore,theScore,theScore,2026-09-08,https://www.thescore.com/nfl/news/3572167/nfl-power-rankings-week-1-where-does-your-team-stand,no,Week 1 entering regular season
+pff,PFF,Pro Football Focus,2026-09-08,https://www.pff.com/news/2026-nfl-week-1-power-rankings-rams-seahawks-begin-season-on-top,no,PFF holistic power rankings model
+cbs_prisco,CBS_Prisco,CBS Sports (Pete Prisco),2026-09-08,https://www.cbssports.com/nfl/news/priscos-nfl-week-1-power-rankings-jaguars-cowboys-deserve-attention-rams-super-team-too-good-to-be-true/,no,Week 1 Prisco table
+sharp_football,Sharp_Football,Sharp Football Analysis,2026-09-03,https://www.sharpfootballanalysis.com/analysis/nfl-power-rankings/,no,Updated weekly table entering Week 1
+si_betting,SI_betting,SI Betting,2026-09-07,https://www.si.com/betting/nfl-power-rankings-based-on-super-bowl-odds-ahead-of-week-1-rams-enter-season-as-favorite-17-teams-inside-30-1,yes,Writer order informed by Super Bowl odds; odds stored on this file
+yahoo_schwab,Yahoo_Schwab,Yahoo Sports (Frank Schwab),2026-09-07,https://sports.yahoo.com/article/nfl-power-rankings-are-the-bills-and-josh-allen-the-biggest-threat-to-the-rams-reign-071327328.html,no,Week 1 edition; independent Schwab list
+fox_vacchiano,FOX_Vacchiano,FOX Sports (Ralph Vacchiano),2026-09-08,https://www.foxsports.com/stories/nfl/2026-nfl-power-rankings-where-every-team-stands-heading-season,no,Week 1 entering regular season
+the_ringer,The_Ringer,The Ringer (Diante Lee),2026-09-07,https://www.theringer.com/2026/09/07/nfl/nfl-power-rankings-2026-preseason-rams-seahawks-broncos,no,Preseason/Week 1 entering regular season

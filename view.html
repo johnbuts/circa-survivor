@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026 — docs</title>
+  <style>
+    :root {
+      --bg: #0c0d0b;
+      --panel: #141610;
+      --panel2: #1b1d16;
+      --ink: #e8e4d4;
+      --muted: #8b8878;
+      --line: #2c2f24;
+      --gold: #d4b562;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    header {
+      padding: 22px 24px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .hint { color: var(--muted); font-size: 12px; }
+    .mono { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+  </style>
+  <link rel="stylesheet" href="assets/circa.css" />
+</head>
+<body data-page="docs" data-root="" data-default-week="2" data-week="2">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+      <div class="brand">
+        <b>Circa Survivor 2026</b>
+        <span data-week-label data-label-1="Week 1 docs" data-label-2="Week 2 docs">Week 2 docs</span>
+      </div>
+      <div class="week-toggle" role="tablist" aria-label="Contest week">
+        <button type="button" data-set-week="1">Week 1</button>
+        <button type="button" data-set-week="2" class="on">Week 2</button>
+      </div>
+      <div class="links">
+        <a data-carry-week data-href="index.html">Hub</a>
+        <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
+        <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
+        <a data-carry-week data-href="entries.html">Entries</a>
+        <a class="here" href="view.html">Docs</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page">
+    <header>
+      <div>
+        <h1>In-site files</h1>
+        <p>Markdown and CSV stay on this page. Nothing downloads.</p>
+      </div>
+    </header>
+    <div class="docs-layout">
+      <aside class="docs-side" id="docsSide"></aside>
+      <div class="docs-main" id="docsMain"><p class="hint">Pick a file.</p></div>
+    </div>
+  </main>
+  <script src="assets/files-bundle.js"></script>
+  <script src="assets/circa-view.js"></script>
+  <script src="assets/circa-nav.js"></script>
+  <script>
+    const GROUPS = [
+      ["Book", ["pick_selection/week1/ACTUAL_BOOK.md", "pick_selection/PROCESS.md", "pick_selection/week1/HEDGE_MONEY.md", "pick_selection/week1/hedge_econ_tables.md"]],
+      ["Field", ["all_picks_2026/FINDINGS.md", "all_picks_2026/parsed/winner_matches.csv", "all_picks_2026/parsed/week1_pick_share.csv"]],
+      ["Rankings Sep 9", ["Power_Rankings/9-9-2026/SOURCES.md", "Power_Rankings/9-9-2026/consensus_power_rankings.csv", "Power_Rankings/9-9-2026/source_ranks.csv", "Power_Rankings/9-9-2026/game_implied_odds.csv", "Power_Rankings/9-9-2026/team_weekly_implied_odds.csv"]],
+      ["Rankings Sep 15", ["Power_Rankings/9-15-2026/SOURCES.md", "Power_Rankings/9-15-2026/consensus_power_rankings.csv", "Power_Rankings/9-15-2026/source_ranks.csv", "Power_Rankings/9-15-2026/game_implied_odds.csv", "Power_Rankings/9-15-2026/team_weekly_implied_odds.csv"]],
+      ["Model", ["model_crafting/data/2026/HOW_THE_MODEL_WORKS.md", "model_crafting/data/2026/pick_projections_2026.csv", "model_crafting/data/2026/raw/nfl_week2_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_week1_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_win_totals_2026.csv", "model_crafting/data/2026/portfolio_rationale.md", "model_crafting/data/2026/portfolio_10_entries.csv"]]
+    ];
+    const files = CircaView.files();
+    const extra = Object.keys(files).filter((p) => !GROUPS.some((g) => g[1].includes(p)));
+    if (extra.length) GROUPS.push(["Source lists", extra.sort()]);
+
+    const side = document.getElementById("docsSide");
+    const main = document.getElementById("docsMain");
+    let current = "";
+
+    function openFile(path) {
+      current = path;
+      main.innerHTML = CircaView.renderFile(path);
+      side.querySelectorAll("button[data-file]").forEach((b) => {
+        b.classList.toggle("on", b.dataset.file === path);
+      });
+      const url = new URL(location.href);
+      url.searchParams.set("f", path);
+      history.replaceState({ f: path }, "", url);
+    }
+
+    GROUPS.forEach(([title, paths]) => {
+      const g = document.createElement("div");
+      g.className = "g";
+      g.textContent = title;
+      side.appendChild(g);
+      paths.forEach((path) => {
+        if (!files[path]) return;
+        const b = document.createElement("button");
+        b.type = "button";
+        b.dataset.file = path;
+        b.textContent = path.split("/").pop();
+        b.addEventListener("click", () => openFile(path));
+        side.appendChild(b);
+      });
+    });
+
+    CircaView.show = function (path) {
+      if (files[path] || path) openFile(path);
+    };
+
+    const start = new URLSearchParams(location.search).get("f")
+      || (document.body.getAttribute("data-week") === "1"
+        ? "Power_Rankings/9-9-2026/SOURCES.md"
+        : "Power_Rankings/9-15-2026/SOURCES.md");
+    if (files[start]) openFile(start);
+    else {
+      const first = side.querySelector("button[data-file]");
+      if (first) openFile(first.dataset.file);
+    }
+
+    window.CircaNavHooks = window.CircaNavHooks || [];
+    window.CircaNavHooks.push(function (week) {
+      if (new URLSearchParams(location.search).get("f")) return;
+      openFile(week === "1" ? "Power_Rankings/9-9-2026/SOURCES.md" : "Power_Rankings/9-15-2026/SOURCES.md");
+    });
+  </script>
+</body>
+</html>

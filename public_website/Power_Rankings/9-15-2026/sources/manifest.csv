@@ -1,0 +1,7 @@
+id,label,outlet,date,url,has_sb_odds,note
+espn_fpi,ESPN_FPI,ESPN FPI,2026-09-15,https://www.espn.com/nfl/fpi,no,"Live 2026 FPI table fetched Sep 15 (lastUpdated 2026-09-15T06:00Z). SEA 27th is the model after a low-scoring Lock start, not a writer list."
+espn_panel,ESPN_panel,ESPN power panel,2026-09-15,https://www.espn.com/nfl/story/_/id/49881711/power-rankings-week-2-all-teams-top-newcomers-debuts,no,Week 2 power panel; TSN syndication of the ESPN 1-32
+cbs_prisco,CBS_Prisco,CBS Sports (Pete Prisco),2026-09-15,https://www.cbssports.com/nfl/news/priscos-nfl-week-2-power-rankings/,no,Week 2 Prisco table after MNF
+fox_vacchiano,FOX_Vacchiano,FOX Sports (Ralph Vacchiano),2026-09-15,https://www.foxsports.com/stories/nfl/2026-nfl-power-rankings-week-2-which-teams-suffered-worst-opening-losses,no,Week 2 after MNF; Super Bowl odds quoted on page but not mixed into the rank average
+pft_florio,PFT_Florio,Pro Football Talk (Mike Florio),2026-09-15,https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-2-2026-nfl-power-rankings,no,PFT Week 2 1-32 after MNF
+sporting_news,Sporting_News,Sporting News (Vinnie Iyer),2026-09-15,https://www.sportingnews.com/us/nfl/news/nfl-power-rankings-bills-49ers-steelers-rams-chargers-week-2/c66ef9551cbc48cdb0a11d75,no,Week 2 in-season 1-32

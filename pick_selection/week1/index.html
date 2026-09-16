@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 1 opponent-parlay hedge</title>
+  <style>
+    :root {
+      --bg: #0c0d0b;
+      --panel: #141610;
+      --panel2: #1b1d16;
+      --ink: #e8e4d4;
+      --muted: #8b8878;
+      --line: #2c2f24;
+      --gold: #d4b562;
+      --plus: #8fce9a;
+      --minus: #e07a5f;
+      --pick: #24301c;
+      --leg: #2a2418;
+      --wipe: #3a1614;
+      --three: #332e14;
+      --live: #1c2e22;
+      --nav-h: 58px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: calc(var(--nav-h) + 12px); }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body {
+      font: 14px/1.4 "Segoe UI", system-ui, sans-serif;
+    }
+    code, .mono, input, button, table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 22px 24px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    header a { color: var(--gold); }
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+      align-items: end;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    label.field { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .field input[type="number"], .field input[type="text"] {
+      width: 110px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 6px 8px;
+      font-size: 14px;
+    }
+    .checks { display: flex; gap: 12px; align-items: center; padding-top: 18px; }
+    .checks label { color: var(--ink); font-size: 13px; text-transform: none; letter-spacing: 0; display: flex; gap: 6px; align-items: center; }
+    button {
+      background: var(--gold);
+      color: #16140c;
+      border: 0;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    button.ghost {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .warn {
+      margin: 0 24px;
+      padding: 8px 10px;
+      background: #3a2a10;
+      color: #f0d78c;
+      font-size: 13px;
+    }
+    .note {
+      margin: 0 24px;
+      padding: 8px 10px;
+      background: var(--leg);
+      color: #e6d7a2;
+      font-size: 13px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(340px, 1fr) minmax(420px, 1.15fr);
+      gap: 0;
+      align-items: start;
+    }
+    @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+    section h2 {
+      margin: 0;
+      padding: 12px 16px 8px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--line);
+    }
+    .board { border-right: 1px solid var(--line); min-height: 100%; }
+    .game {
+      padding: 8px 16px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .when { color: var(--muted); font-size: 11px; margin-bottom: 6px; }
+    .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .team {
+      display: grid;
+      grid-template-columns: 28px 36px 1fr 72px;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 8px;
+      background: var(--panel2);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .team:hover { border-color: var(--gold); }
+    .team.pick { background: var(--pick); border-color: #4a6a32; }
+    .team.leg { background: var(--leg); border-color: #6a5a28; }
+    .logo { width: 28px; height: 28px; object-fit: contain; display: block; }
+    .abbr { font-weight: 700; width: 36px; }
+    .namecol { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+    .fullname { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fd { color: var(--muted); font-size: 10px; letter-spacing: 0.04em; }
+    .odds-status { color: var(--muted); font-size: 12px; padding-top: 18px; max-width: 420px; }
+    .ml {
+      width: 72px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 4px 6px;
+      text-align: right;
+    }
+    .ml.plus { color: var(--plus); }
+    .ml.minus { color: var(--minus); }
+    .badge {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      padding: 1px 5px;
+      border: 1px solid currentColor;
+    }
+    .pick .badge { color: var(--plus); }
+    .leg .badge { color: var(--gold); }
+    .right { padding-bottom: 24px; }
+    .picks { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .pickrow {
+      display: grid;
+      grid-template-columns: 28px 52px 1fr 72px 88px;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+    }
+    .pickrow input { width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--line); padding: 5px 6px; }
+    .cover { padding: 10px 16px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .cover .row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .tickets { padding: 8px 16px 16px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { text-align: left; color: var(--muted); font-weight: 550; padding: 6px 6px; border-bottom: 1px solid var(--line); }
+    td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tr.wipe td { background: var(--wipe); }
+    tr.three td { background: var(--three); }
+    tr.alive td { background: var(--live); }
+    tr.off { opacity: 0.4; }
+    .sandbox-games { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .sand {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .tog { display: flex; gap: 4px; }
+    .tog button { min-width: 36px; }
+    .tog button.on-w { background: #3d6b45; color: #fff; }
+    .tog button.on-l { background: #8a3a32; color: #fff; }
+    .tog button.ghost { padding: 6px 8px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 0 16px 12px;
+    }
+    .stat { background: var(--panel2); padding: 8px 10px; border-radius: 8px; }
+    .stat b { display: block; font-size: 16px; }
+    .stat span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .pos { color: var(--plus); }
+    .neg { color: var(--minus); }
+    .full { grid-column: 1 / -1; border-top: 1px solid var(--line); }
+    .hint { color: var(--muted); font-size: 12px; padding: 0 16px 12px; }
+    #rrChart { position: relative; padding: 12px 20px 20px; margin: 0 16px 20px; background: #141610; border: 1px solid #2c2f24; }
+    #rrChart svg { width: 100%; height: clamp(340px, 40vw, 520px); display: block; }
+    #rrChart text { fill: #c4c0b0; font-size: 15px; font-family: "Segoe UI", system-ui, sans-serif; }
+    #rrChart .tick { fill: #e8e4d4; font-size: 14px; font-family: "Cascadia Mono", Consolas, monospace; }
+    #rrChart .axis { stroke: #4a4d40; stroke-width: 1.5; }
+    #rrChart .grid { stroke: #2c2f24; stroke-width: 1; }
+    #rrChart .zero { stroke: #8b8878; stroke-dasharray: 6 6; stroke-width: 1.5; }
+    #rrChart .mean { stroke: #d4b562; stroke-width: 3.5; fill: none; }
+    #rrChart .bare { stroke: #8b8878; stroke-width: 2; fill: none; stroke-dasharray: 8 6; }
+    #rrChart .meta { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+    #rrChart .hit { cursor: pointer; }
+    #rrTip {
+      position: absolute;
+      z-index: 3;
+      display: none;
+      min-width: 240px;
+      max-width: 340px;
+      padding: 10px 12px;
+      background: #1b1d16;
+      border: 1px solid #d4b562;
+      color: #e8e4d4;
+      font-size: 13px;
+      line-height: 1.45;
+      pointer-events: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    #rrTip b { display: block; margin-bottom: 8px; color: #d4b562; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+    #rrTip .trow { display: flex; justify-content: space-between; gap: 16px; padding: 2px 0; }
+    #rrTip .tlab { color: #8b8878; }
+    #rrTip .thit { margin-top: 8px; color: #8b8878; font-size: 12px; }
+    #rrTip .thit div { color: #e8e4d4; margin-top: 2px; }
+    .picks-actions { padding: 0 16px 10px; display: flex; gap: 8px; align-items: center; }
+    .optbox {
+      margin: 0 16px 14px;
+      padding: 10px 12px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .optbox ul { margin: 8px 0; padding: 0; list-style: none; }
+    .optbox li {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 8px;
+      padding: 3px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .optbox .meta { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .crowd-game { padding: 8px 16px 10px; border-bottom: 1px solid var(--line); }
+    .crowd-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .crowd-side {
+      display: grid;
+      grid-template-columns: 28px 44px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: var(--panel2);
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .crowd-side:hover { border-color: var(--gold); }
+    .crowd-side.win { background: var(--live); border-color: #4a6a32; }
+    .crowd-side.ours { outline: 1px solid #6a5a28; }
+    .crowd-meta { color: var(--muted); }
+    tr.khead td { background: var(--panel); padding: 8px 6px; }
+    .kfill { display: flex; gap: 8px; align-items: center; }
+    .kfill input { width: 90px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); padding: 5px 6px; }
+  </style>
+  <link rel="stylesheet" href="../../assets/circa.css" />
+</head>
+<body data-page="hedge" data-root="pick_selection/week1/" data-default-week="1" data-week="1">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+    <div class="brand">
+      <b>Circa Survivor 2026</b>
+      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge · picks unset">Week 1 hedge</span>
+    </div>
+    <div class="week-toggle" role="tablist" aria-label="Contest week">
+      <button type="button" data-set-week="1" class="on">Week 1</button>
+      <button type="button" data-set-week="2">Week 2</button>
+    </div>
+    <div class="links">
+      <a data-carry-week data-href="../../index.html">Hub</a>
+      <a class="here" href="index.html">Hedge</a>
+      <a data-carry-week data-href="../../all_picks_2026/index.html">Field</a>
+      <a data-carry-week data-href="../../entries.html">Entries</a>
+      <a data-carry-week data-href="../../view.html">Docs</a>
+      <a href="../PROCESS.md">Playbook</a>
+    </div>
+    </div>
+  </nav>
+
+  <main class="page">
+  <header>
+    <div>
+      <h1>Opponent parlay hedge</h1>
+      <p id="hedgeLead">Circa prices size hedges. FanDuel is live win probability. Click a team to pick it; click the other side to sub. Legs are the opponents.</p>
+    </div>
+    <p><a href="../PROCESS.md">Playbook</a></p>
+  </header>
+  <p class="note" id="weekNote" hidden></p>
+
+  <div class="bar">
+    <label class="field">Entries N
+      <input id="nEntries" type="number" min="1" step="1" value="10" />
+    </label>
+    <label class="field">Entry fee $
+      <input id="fee" type="number" min="0" step="1" value="1000" />
+    </label>
+    <div class="checks" id="sizeChecks"></div>
+    <label class="field">$ / ticket
+      <input id="fillEach" type="number" min="0" step="1" value="10" />
+    </label>
+    <button type="button" id="btnFill">Fill each</button>
+    <label class="field">Bankroll $
+      <input id="bankroll" type="number" min="0" step="1" value="100" />
+    </label>
+    <button type="button" id="btnSplit">Split enabled</button>
+    <button type="button" class="ghost" id="btnFd">Refresh FanDuel</button>
+    <span class="odds-status" id="fdStatus">FanDuel: not loaded</span>
+  </div>
+  <div id="countWarn" class="warn" hidden></div>
+  <div id="corrNote" class="note" hidden></div>
+
+  <div class="layout">
+    <section class="board">
+      <h2 id="boardTitle">Week 1 Circa board — click to pick / sub</h2>
+      <p class="hint">Editable Circa ML on the right. FanDuel line under the name after Refresh. Leverage uses vig-free FanDuel when both sides are loaded.</p>
+      <div id="board"></div>
+    </section>
+    <section class="right">
+      <h2>Picks and entry counts</h2>
+      <div class="picks" id="picks"></div>
+      <div class="picks-actions">
+        <button type="button" id="btnOpt">Optimize counts</button>
+      </div>
+      <div id="optOut" class="optbox" hidden></div>
+      <p class="hint">Counts must sum to N. Dead-entry dollars follow these counts. Optimize uses the stakes currently in the ticket list (enabled tickets only) and searches every split of N for the best worst-case week P&amp;L.</p>
+
+      <h2>Cover helper</h2>
+      <div class="cover" id="cover"></div>
+
+      <h2>Round-robin tickets</h2>
+      <div class="tickets" id="tickets"></div>
+
+      <h2>Outcome sandbox</h2>
+      <div class="sandbox-games" id="sandbox"></div>
+      <div class="summary" id="sandSummary"></div>
+    </section>
+  </div>
+
+  <section class="full">
+    <h2>Round-robin week P&amp;L</h2>
+    <p class="hint">Gold line is E[week P&amp;L | k teams lose] with the current round-robin (enabled tickets × stakes): hedge payout minus every ticket’s stake, minus dead entries × fee. Dashed line is the same rows with hedges off (dead fees only). Dots: green = all win, blue = one survivor, red = wipeout. X is pick teams lost. Weighted by Circa implied probabilities.</p>
+    <div id="rrChart"></div>
+    <h2>Every pick win/loss combination</h2>
+    <p class="hint">Red = wipeout (all picks lose). Gold = exactly one pick survives. Green = all picks win. Week P&amp;L = (payout − stake) − dead entries × fee.</p>
+    <div class="tickets" id="scenarios"></div>
+  </section>
+
+  <section class="full">
+    <h2 id="crowdTitle">Crowd split — week 1 chip equity</h2>
+    <p class="hint">Copied from the already-run 2026 projection (not resimulated). Treat those % as the true 20,000-entry field. Click a team to make it win; default is the Circa favorite. Chip EV for a live ticket = $20M / field still alive. Leverage uses vig-free FanDuel when both sides of a game are loaded, otherwise Circa. This is a week-1 chip snapshot, not the full-season Monte Carlo equity engine.</p>
+    <p class="hint" id="crowdRead"></p>
+    <div class="summary" id="crowdStrip"></div>
+    <div id="crowdBoard"></div>
+    <h2>Our ten entries</h2>
+    <div class="tickets" id="crowdEntries"></div>
+  </section>
+  </main>
+
+  <script>
+    const NAMES = {
+      ARI: "Arizona Cardinals", ATL: "Atlanta Falcons", BAL: "Baltimore Ravens",
+      BUF: "Buffalo Bills", CAR: "Carolina Panthers", CHI: "Chicago Bears",
+      CIN: "Cincinnati Bengals", CLE: "Cleveland Browns", DAL: "Dallas Cowboys",
+      DEN: "Denver Broncos", DET: "Detroit Lions", GB: "Green Bay Packers",
+      HOU: "Houston Texans", IND: "Indianapolis Colts", JAC: "Jacksonville Jaguars",
+      KC: "Kansas City Chiefs", LAC: "Los Angeles Chargers", LAR: "Los Angeles Rams",
+      LV: "Las Vegas Raiders", MIA: "Miami Dolphins", MIN: "Minnesota Vikings",
+      NE: "New England Patriots", NO: "New Orleans Saints", NYG: "New York Giants",
+      NYJ: "New York Jets", PHI: "Philadelphia Eagles", PIT: "Pittsburgh Steelers",
+      SEA: "Seattle Seahawks", SF: "San Francisco 49ers", TB: "Tampa Bay Buccaneers",
+      TEN: "Tennessee Titans", WAS: "Washington Commanders"
+    };
+
+    let GAMES = [];
+    let CROWD_PCT = {};
+    let SAVE_KEY = "circa-week1-hedge-2026-09-11";
+    let ACTIVE_WEEK = "";
+
+    const WEEK_DATA = {
+      "1": {
+        saveKey: "circa-week1-hedge-2026-09-11",
+        N: 10,
+        picks: ["LAR", "DAL", "KC"],
+        counts: { LAR: 6, DAL: 2, KC: 2 },
+        boardTitle: "Week 1 Circa board — click to pick / sub",
+        crowdTitle: "Crowd split — week 1 chip equity",
+        lead: "Circa prices size hedges. FanDuel is live win probability. Click a team to pick it; click the other side to sub. Legs are the opponents.",
+        note: "Shown book is the unused Sep 9 portfolio (LAR 6 / DAL 2 / KC 2). Actual Circa entries were JAC 4 / PIT 2 / TEN 2 / LV 2.",
+        games: [
+          { id: "ne-sea", away: "NE", home: "SEA", awayMl: 109, homeMl: -143, when: "Sep 9, 7:20pm CT" },
+          { id: "sf-lar", away: "SF", home: "LAR", awayMl: 164, homeMl: -198, when: "Sep 10, 7:35pm CT" },
+          { id: "buf-hou", away: "BUF", home: "HOU", awayMl: -118, homeMl: -102, when: "Sep 13, 12:00pm CT" },
+          { id: "chi-car", away: "CHI", home: "CAR", awayMl: -166, homeMl: 140, when: "Sep 13, 12:01pm CT" },
+          { id: "cle-jac", away: "CLE", home: "JAC", awayMl: 350, homeMl: -455, when: "Sep 13, 12:01pm CT" },
+          { id: "atl-pit", away: "ATL", home: "PIT", awayMl: 215, homeMl: -265, when: "Sep 13, 12:01pm CT" },
+          { id: "nyj-ten", away: "NYJ", home: "TEN", awayMl: 102, homeMl: -122, when: "Sep 13, 12:01pm CT" },
+          { id: "no-det", away: "NO", home: "DET", awayMl: 260, homeMl: -325, when: "Sep 13, 12:01pm CT" },
+          { id: "tb-cin", away: "TB", home: "CIN", awayMl: 164, homeMl: -198, when: "Sep 13, 12:01pm CT" },
+          { id: "bal-ind", away: "BAL", home: "IND", awayMl: -175, homeMl: 145, when: "Sep 13, 12:01pm CT" },
+          { id: "was-phi", away: "WAS", home: "PHI", awayMl: 205, homeMl: -250, when: "Sep 13, 3:25pm CT" },
+          { id: "gb-min", away: "GB", home: "MIN", awayMl: 105, homeMl: -125, when: "Sep 13, 3:25pm CT" },
+          { id: "mia-lv", away: "MIA", home: "LV", awayMl: 142, homeMl: -170, when: "Sep 13, 3:26pm CT" },
+          { id: "ari-lac", away: "ARI", home: "LAC", awayMl: 380, homeMl: -500, when: "Sep 13, 3:26pm CT" },
+          { id: "dal-nyg", away: "DAL", home: "NYG", awayMl: -162, homeMl: 136, when: "Sep 13, 7:20pm CT" },
+          { id: "den-kc", away: "DEN", home: "KC", awayMl: 124, homeMl: -148, when: "Sep 14, 7:15pm CT" }
+        ],
+        crowd: {
+          ARI: 0.0, ATL: 0.0, BAL: 1.6, BUF: 0.3, CAR: 0.0, CHI: 1.3, CIN: 1.9, CLE: 0.0,
+          DAL: 0.8, DEN: 0.0, DET: 14.2, GB: 0.0, HOU: 0.0, IND: 0.0, JAC: 35.4, KC: 0.8,
+          LAC: 30.7, LAR: 1.0, LV: 3.0, MIA: 0.0, MIN: 0.2, NE: 0.0, NO: 0.0, NYG: 0.0,
+          NYJ: 0.0, PHI: 5.4, PIT: 2.4, SEA: 0.3, SF: 0.0, TB: 0.0, TEN: 0.6, WAS: 0.0
+        }
+      },
+      "2": {
+        saveKey: "circa-week2-hedge-2026-09-15",
+        N: 8,
+        picks: [],
+        counts: {},
+        boardTitle: "Week 2 board — picks not set, click when you have them",
+        crowdTitle: "Crowd split — week 2 model (Circa PDF not public)",
+        lead: "8 live tickets. Week 2 picks are not chosen yet. Click teams only when you know the book. Legs are still the opponents.",
+        note: "N=8 remaining (2 Titans already dead). Week 2 picks unset. JAC is burned on 4 tickets, PIT on 2, LV on 2 — those tickets cannot reuse that team. Do not treat JAC @ DEN / PIT @ NE / LV @ LAC as our Week 2 picks.",
+        games: [
+          { id: "det-buf", away: "DET", home: "BUF", awayMl: 180, homeMl: -218, when: "Sep 17, 7:15pm CT" },
+          { id: "car-atl", away: "CAR", home: "ATL", awayMl: -155, homeMl: 130, when: "Sep 20, 12:00pm CT" },
+          { id: "no-bal", away: "NO", home: "BAL", awayMl: 320, homeMl: -410, when: "Sep 20, 12:00pm CT" },
+          { id: "min-chi", away: "MIN", home: "CHI", awayMl: 190, homeMl: -230, when: "Sep 20, 12:00pm CT" },
+          { id: "cin-hou", away: "CIN", home: "HOU", awayMl: 120, homeMl: -142, when: "Sep 20, 12:00pm CT" },
+          { id: "cle-tb", away: "CLE", home: "TB", awayMl: 320, homeMl: -410, when: "Sep 20, 12:00pm CT" },
+          { id: "gb-nyj", away: "GB", home: "NYJ", awayMl: -205, homeMl: 170, when: "Sep 20, 12:00pm CT" },
+          { id: "pit-ne", away: "PIT", home: "NE", awayMl: 195, homeMl: -238, when: "Sep 20, 12:00pm CT" },
+          { id: "phi-ten", away: "PHI", home: "TEN", awayMl: -305, homeMl: 245, when: "Sep 20, 12:00pm CT" },
+          { id: "jac-den", away: "JAC", home: "DEN", awayMl: 120, homeMl: -142, when: "Sep 20, 3:05pm CT" },
+          { id: "lv-lac", away: "LV", home: "LAC", awayMl: 250, homeMl: -310, when: "Sep 20, 3:05pm CT" },
+          { id: "sea-ari", away: "SEA", home: "ARI", awayMl: -225, homeMl: 185, when: "Sep 20, 3:25pm CT" },
+          { id: "was-dal", away: "WAS", home: "DAL", awayMl: 180, homeMl: -218, when: "Sep 20, 3:25pm CT" },
+          { id: "mia-sf", away: "MIA", home: "SF", awayMl: 625, homeMl: -950, when: "Sep 20, 3:25pm CT" },
+          { id: "ind-kc", away: "IND", home: "KC", awayMl: 245, homeMl: -305, when: "Sep 20, 7:20pm CT" },
+          { id: "nyg-lar", away: "NYG", home: "LAR", awayMl: 280, homeMl: -355, when: "Sep 21, 7:15pm CT" }
+        ],
+        crowd: {
+          ARI: 0.0, ATL: 0.0, BAL: 12.4, BUF: 1.8, CAR: 0.8, CHI: 3.3, CIN: 0.0, CLE: 0.0,
+          DAL: 1.5, DEN: 0.4, DET: 0.0, GB: 1.7, HOU: 0.6, IND: 0.0, JAC: 0.0, KC: 5.6,
+          LAC: 4.5, LAR: 6.2, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 3.4, NO: 0.0, NYG: 0.0,
+          NYJ: 0.0, PHI: 5.5, PIT: 0.0, SEA: 1.2, SF: 26.0, TB: 24.9, TEN: 0.0, WAS: 0.0
+        }
+      }
+    };
+
+    const FIELD_START = 20000;
+    const POT = 20000000;
+    const LAMBDA = 0.7;
+    const CROWD_FLOOR = 0.01;
+    const ESPN_LOGO = { JAC: "jax", WAS: "wsh" };
+    const ODDS_KEY = "circa-odds-api-key";
+    const NAME_TO_ABBR = Object.fromEntries(Object.entries(NAMES).map(([k, v]) => [v, k]));
+
+    function logoUrl(abbr) {
+      const key = (ESPN_LOGO[abbr] || abbr).toLowerCase();
+      return "https://a.espncdn.com/i/teamlogos/nfl/500/" + key + ".png";
+    }
+    function logoImg(abbr) {
+      return '<img class="logo" src="' + logoUrl(abbr) + '" alt="" width="28" height="28" />';
+    }
+    function fdLabel(team) {
+      const n = state.fdMl[team];
+      if (!Number.isFinite(n) || n === 0) return "FD —";
+      return "FD " + fmtMl(n);
+    }
+
+    const state = {
+      ml: {},
+      fdMl: {},
+      fdUpdated: null,
+      fdQuota: null,
+      picks: ["LAR", "DAL", "KC"],
+      counts: { LAR: 6, DAL: 2, KC: 2 },
+      N: 10,
+      fee: 1000,
+      sizes: { 2: false, 3: true, 4: true, 5: false },
+      stake: {},
+      enabled: {},
+      sandbox: {},
+      fillEach: 10,
+      bankroll: 100,
+      crowdWin: {},
+      fillK: { 2: 0, 3: 0, 4: 0, 5: 0 }
+    };
+
+    function persistState() {
+      localStorage.setItem(SAVE_KEY, JSON.stringify({
+        picks: state.picks,
+        counts: state.counts,
+        N: state.N,
+        fee: state.fee,
+        sizes: state.sizes,
+        stake: state.stake,
+        enabled: state.enabled,
+        fillEach: state.fillEach,
+        bankroll: state.bankroll,
+        fillK: state.fillK,
+        ml: state.ml,
+        fdMl: state.fdMl,
+        fdUpdated: state.fdUpdated,
+        fdQuota: state.fdQuota,
+        sandbox: state.sandbox,
+        crowdWin: state.crowdWin
+      }));
+    }
+
+    function loadState() {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (Array.isArray(s.picks)) state.picks = s.picks.filter((t) => NAMES[t]);
+      if (s.counts) state.counts = s.counts;
+      if (s.N != null) state.N = Number(s.N);
+      if (s.fee != null) state.fee = Number(s.fee);
+      if (s.sizes) {
+        [2, 3, 4, 5].forEach((k) => {
+          if (s.sizes[k] != null) state.sizes[k] = Boolean(s.sizes[k]);
+        });
+      }
+      if (s.stake) state.stake = s.stake;
+      if (s.enabled) state.enabled = s.enabled;
+      if (s.fillEach != null) state.fillEach = Number(s.fillEach);
+      if (s.bankroll != null) state.bankroll = Number(s.bankroll);
+      if (s.fillK) state.fillK = s.fillK;
+      if (s.ml) Object.keys(s.ml).forEach((t) => {
+        if (NAMES[t] && Number.isFinite(Number(s.ml[t])) && Number(s.ml[t]) !== 0) state.ml[t] = Number(s.ml[t]);
+      });
+      if (s.fdMl) Object.keys(s.fdMl).forEach((t) => {
+        if (NAMES[t] && Number.isFinite(Number(s.fdMl[t])) && Number(s.fdMl[t]) !== 0) state.fdMl[t] = Number(s.fdMl[t]);
+      });
+      if (s.fdUpdated) state.fdUpdated = s.fdUpdated;
+      if (s.fdQuota != null) state.fdQuota = s.fdQuota;
+      if (s.sandbox) Object.keys(s.sandbox).forEach((t) => {
+        if (NAMES[t] && (s.sandbox[t] === "W" || s.sandbox[t] === "L")) state.sandbox[t] = s.sandbox[t];
+      });
+      if (s.crowdWin) GAMES.forEach((g) => {
+        const t = s.crowdWin[g.id];
+        if (t === g.away || t === g.home) state.crowdWin[g.id] = t;
+      });
+    }
+
+    function applyWeekConfig(week) {
+      const w = week === "2" ? "2" : "1";
+      if (ACTIVE_WEEK === w && GAMES.length) return;
+      const cfg = WEEK_DATA[w];
+      ACTIVE_WEEK = w;
+      GAMES = cfg.games;
+      CROWD_PCT = cfg.crowd;
+      SAVE_KEY = cfg.saveKey;
+      state.ml = {};
+      state.fdMl = {};
+      state.fdUpdated = null;
+      state.picks = cfg.picks.slice();
+      state.counts = Object.assign({}, cfg.counts);
+      state.N = cfg.N;
+      state.fee = 1000;
+      state.sizes = { 2: false, 3: true, 4: true, 5: false };
+      state.stake = {};
+      state.enabled = {};
+      state.sandbox = {};
+      state.crowdWin = {};
+      state.fillEach = 10;
+      state.bankroll = 100;
+      state.fillK = { 2: 0, 3: 0, 4: 0, 5: 0 };
+      GAMES.forEach((g) => {
+        state.ml[g.away] = g.awayMl;
+        state.ml[g.home] = g.homeMl;
+      });
+      try { loadState(); } catch (e) {}
+      initCrowdWins();
+      const lead = document.getElementById("hedgeLead");
+      if (lead) lead.textContent = cfg.lead;
+      const note = document.getElementById("weekNote");
+      if (note) {
+        note.textContent = cfg.note;
+        note.hidden = !cfg.note;
+      }
+      const board = document.getElementById("boardTitle");
+      if (board) board.textContent = cfg.boardTitle;
+      const crowd = document.getElementById("crowdTitle");
+      if (crowd) crowd.textContent = cfg.crowdTitle;
+      const nEl = document.getElementById("nEntries");
+      if (nEl) nEl.value = state.N;
+      const feeEl = document.getElementById("fee");
+      if (feeEl) feeEl.value = state.fee;
+      loadFdJson().then(function () { fmtFdStatus(); render(); }).catch(function () { render(); });
+    }
+
+    function favoriteOf(g) {
+      return state.ml[g.away] < state.ml[g.home] ? g.away : g.home;
+    }
+
+    function initCrowdWins() {
+      GAMES.forEach((g) => {
+        if (!state.crowdWin[g.id]) state.crowdWin[g.id] = favoriteOf(g);
+      });
+    }
+    initCrowdWins();
+
+    function gameOf(team) {
+      return GAMES.find((g) => g.away === team || g.home === team);
+    }
+    function opponentOf(team) {
+      const g = gameOf(team);
+      return g.away === team ? g.home : g.away;
+    }
+    function toDec(ml) {
+      if (ml > 0) return 1 + ml / 100;
+      return 1 + 100 / Math.abs(ml);
+    }
+    function toAmerican(dec) {
+      if (dec >= 2) return Math.round((dec - 1) * 100);
+      if (dec > 1) return Math.round(-100 / (dec - 1));
+      return 0;
+    }
+    function fmtMl(n) {
+      const r = Math.round(n);
+      return r > 0 ? "+" + r : String(r);
+    }
+    function fmtMoney(n) {
+      const sign = n < 0 ? "-" : "";
+      return sign + "$" + Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function parseMl(raw) {
+      return Number(String(raw).trim().replace(/^\+/, ""));
+    }
+    function combinations(arr, k) {
+      const out = [];
+      const rec = (start, acc) => {
+        if (acc.length === k) {
+          out.push(acc.slice());
+          return;
+        }
+        for (let i = start; i < arr.length; i++) {
+          acc.push(arr[i]);
+          rec(i + 1, acc);
+          acc.pop();
+        }
+      };
+      rec(0, []);
+      return out;
+    }
+    function ticketId(opps) {
+      return opps.slice().sort().join("|");
+    }
+    function parlayDecimal(opps) {
+      return opps.reduce((p, t) => p * toDec(state.ml[t]), 1);
+    }
+    function countOf(team, countMap) {
+      if (countMap) return Number(countMap[team] || 0);
+      return Number(state.counts[team] || 0);
+    }
+    function allocated() {
+      return state.picks.reduce((s, t) => s + countOf(t), 0);
+    }
+
+    function sizeTickets() {
+      const n = state.picks.length;
+      const list = [];
+      [2, 3, 4, 5].forEach((k) => {
+        if (!state.sizes[k] || k > n) return;
+        combinations(state.picks, k).forEach((picks) => {
+          const opps = picks.map(opponentOf);
+          const dec = parlayDecimal(opps);
+          list.push({
+            id: ticketId(opps),
+            k,
+            picks,
+            opps,
+            dec,
+            american: toAmerican(dec),
+            enabled: true,
+            stake: 0
+          });
+        });
+      });
+      return list;
+    }
+
+    function currentTickets() {
+      return sizeTickets().map((tk) => ({
+        ...tk,
+        enabled: state.enabled[tk.id] !== false,
+        stake: Number(state.stake[tk.id] || 0)
+      }));
+    }
+
+    function evaluate(pickWins, tickets, countMap) {
+      const alive = {};
+      let live = 0;
+      let dead = 0;
+      state.picks.forEach((t) => {
+        const c = countOf(t, countMap);
+        if (pickWins[t]) {
+          alive[t] = c;
+          live += c;
+        } else {
+          dead += c;
+        }
+      });
+      let payout = 0;
+      let stake = 0;
+      let profit = 0;
+      const hits = [];
+      tickets.forEach((tk) => {
+        if (!tk.enabled) return;
+        stake += tk.stake;
+        const hit = tk.picks.every((p) => pickWins[p] === false);
+        if (hit) {
+          payout += tk.stake * tk.dec;
+          profit += tk.stake * (tk.dec - 1);
+          hits.push(tk);
+        }
+      });
+      const betNet = payout - stake;
+      const deadCost = dead * state.fee;
+      return { live, dead, alive, payout, stake, profit, betNet, deadCost, week: betNet - deadCost, hits };
+    }
+
+    function togglePick(team) {
+      const other = opponentOf(team);
+      const i = state.picks.indexOf(team);
+      if (i >= 0) {
+        state.picks.splice(i, 1);
+        delete state.counts[team];
+        delete state.sandbox[team];
+        render();
+        return;
+      }
+      const j = state.picks.indexOf(other);
+      if (j >= 0) {
+        const count = countOf(other);
+        const sand = state.sandbox[other];
+        state.picks[j] = team;
+        state.counts[team] = count;
+        delete state.counts[other];
+        if (sand === "W") state.sandbox[team] = "L";
+        else if (sand === "L") state.sandbox[team] = "W";
+        delete state.sandbox[other];
+        render();
+        return;
+      }
+      state.picks.push(team);
+      state.counts[team] = 0;
+      render();
+    }
+
+    function renderBoard() {
+      const pickSet = new Set(state.picks);
+      const legSet = new Set(state.picks.map(opponentOf));
+      const root = document.getElementById("board");
+      root.innerHTML = GAMES.map((g) => {
+        const cell = (team) => {
+          const isPick = pickSet.has(team);
+          const isLeg = legSet.has(team);
+          const ml = state.ml[team];
+          const cls = "team" + (isPick ? " pick" : isLeg ? " leg" : "");
+          const badge = isPick ? '<span class="badge">PICK</span>' : isLeg ? '<span class="badge">LEG</span>' : "";
+          const mlCls = ml > 0 ? "plus" : "minus";
+          return `<div class="${cls}" data-team="${team}">
+            ${logoImg(team)}
+            <span class="abbr">${team}</span>
+            <span class="namecol">
+              <span class="fullname">${NAMES[team]} ${badge}</span>
+              <span class="fd">${fdLabel(team)}</span>
+            </span>
+            <input class="ml ${mlCls}" data-ml="${team}" value="${fmtMl(ml)}" />
+          </div>`;
+        };
+        return `<div class="game">
+          <div class="when">${g.when} · ${g.away} @ ${g.home}</div>
+          <div class="sides">${cell(g.away)}${cell(g.home)}</div>
+        </div>`;
+      }).join("");
+    }
+
+    function renderSizeChecks() {
+      const n = state.picks.length;
+      document.getElementById("sizeChecks").innerHTML = [2, 3, 4, 5].map((k) => {
+        const disabled = k > n ? "disabled" : "";
+        const checked = state.sizes[k] && k <= n ? "checked" : "";
+        return `<label><input type="checkbox" data-size="${k}" ${checked} ${disabled} /> ${k}s <span style="color:var(--muted)">(C(${n},${k}))</span></label>`;
+      }).join("");
+    }
+
+    function renderPicks() {
+      const root = document.getElementById("picks");
+      if (!state.picks.length) {
+        root.innerHTML = "<p class='hint'>Click teams on the board.</p>";
+        return;
+      }
+      root.innerHTML = state.picks.map((t) => {
+        const o = opponentOf(t);
+        return `<div class="pickrow">
+          ${logoImg(t)}
+          <strong>${t}</strong>
+          <span>${fmtMl(state.ml[t])} · ${fdLabel(t)} · opponent <strong>${o}</strong> ${fmtMl(state.ml[o])}</span>
+          <span style="color:var(--muted)">entries</span>
+          <input type="number" min="0" step="1" data-count="${t}" value="${countOf(t)}" />
+        </div>`;
+      }).join("");
+    }
+
+    function renderWarn() {
+      const sum = allocated();
+      const el = document.getElementById("countWarn");
+      if (sum !== state.N) {
+        el.hidden = false;
+        el.textContent = "Entry counts sum to " + sum + ", not N=" + state.N + ". Allocate the remainder on the pick list.";
+      } else {
+        el.hidden = true;
+      }
+      const n = state.picks.length;
+      const corr = document.getElementById("corrNote");
+      const kOn = [2, 3, 4, 5].filter((k) => state.sizes[k] && k <= n);
+      if (kOn.length >= 2 && kOn[kOn.length - 1] === n && kOn.includes(n - 1)) {
+        corr.hidden = false;
+        corr.textContent = "Wipeout correlation: if every opponent wins, every " +
+          kOn.filter((k) => k < n).join("s, ") + "s ticket AND the " + n +
+          "-leg all hit. Do not apply both cover sizes unless you want to be long wipeout.";
+      } else {
+        corr.hidden = true;
+      }
+    }
+
+    function renderCover() {
+      const root = document.getElementById("cover");
+      const n = state.picks.length;
+      if (n < 2) {
+        root.innerHTML = "<p class='hint'>Pick at least two teams.</p>";
+        return;
+      }
+      const blocks = [];
+      const allOpps = state.picks.map(opponentOf);
+      const wipeDec = parlayDecimal(allOpps);
+      const wipeStake = wipeDec > 1 ? (state.N * state.fee) / (wipeDec - 1) : 0;
+      blocks.push(`<div class="row">
+        <div><strong>Wipeout ${n}-leg</strong> ${allOpps.join(" + ")} · ${fmtMl(toAmerican(wipeDec))} · profit covers N × fee (${fmtMoney(state.N * state.fee)})</div>
+        <span>${fmtMoney(wipeStake)}</span>
+        <button type="button" id="btnWipe">Apply wipeout stake</button>
+      </div>`);
+      if (n >= 3) {
+        combinations(state.picks, 3).forEach((picks) => {
+          const opps = picks.map(opponentOf);
+          const dec = parlayDecimal(opps);
+          const dead = picks.reduce((s, t) => s + countOf(t), 0);
+          const stake = dec > 1 ? (dead * state.fee) / (dec - 1) : 0;
+          const leftover = state.picks.filter((t) => !picks.includes(t));
+          blocks.push(`<div class="row">
+            <div>3-leg ${opps.join(" + ")} · ${fmtMl(toAmerican(dec))} · covers ${dead} dead if ${leftover.join("/")} win</div>
+            <span data-sug3="${ticketId(opps)}" data-amt="${stake.toFixed(2)}">${fmtMoney(stake)}</span>
+            <span></span>
+          </div>`);
+        });
+        blocks.push(`<div class="row"><div>Set every 3-leg to its cover stake (dead entries on those three teams × fee).</div><span></span>
+          <button type="button" id="btnThree">Apply 3-leg covers</button></div>`);
+      }
+      root.innerHTML = blocks.join("");
+    }
+
+    function renderTickets() {
+      const list = currentTickets();
+      const root = document.getElementById("tickets");
+      if (!list.length) {
+        root.innerHTML = "<p class='hint'>Check a round-robin size.</p>";
+        return;
+      }
+      const byK = {};
+      list.forEach((tk) => {
+        if (!byK[tk.k]) byK[tk.k] = [];
+        byK[tk.k].push(tk);
+      });
+      const chunks = Object.keys(byK).map(Number).sort((a, b) => a - b).map((k) => {
+        const rows = byK[k].map((tk) => {
+          const profit = tk.stake * (tk.dec - 1);
+          return `<tr class="${tk.enabled ? "" : "off"}">
+            <td><input type="checkbox" data-en="${tk.id}" ${tk.enabled ? "checked" : ""} /></td>
+            <td>${tk.k}</td>
+            <td>${tk.opps.join(" + ")}</td>
+            <td>${fmtMl(tk.american)}</td>
+            <td>${tk.dec.toFixed(3)}</td>
+            <td><input type="number" min="0" step="0.01" data-stake="${tk.id}" value="${tk.stake}" style="width:90px" /></td>
+            <td>${fmtMoney(profit)}</td>
+          </tr>`;
+        }).join("");
+        const amt = state.fillK[k] || 0;
+        return `<tr class="khead"><td colspan="7"><div class="kfill">
+          <strong>${k}s</strong>
+          <span style="color:var(--muted)">${byK[k].length} tickets</span>
+          <input type="number" min="0" step="1" data-kfill="${k}" value="${amt}" />
+          <button type="button" data-apply-k="${k}">Apply to all ${k}s</button>
+        </div></td></tr>${rows}`;
+      }).join("");
+      root.innerHTML = `<table>
+        <thead><tr><th></th><th>k</th><th>Legs (opponents)</th><th>ML</th><th>Dec</th><th>Stake</th><th>Profit if hit</th></tr></thead>
+        <tbody>${chunks}</tbody>
+      </table>`;
+    }
+
+    function applyStakeToK(k) {
+      const inp = document.querySelector("[data-kfill=\"" + k + "\"]");
+      if (inp) state.fillK[k] = Number(inp.value || 0);
+      const amt = Number(state.fillK[k] || 0);
+      currentTickets().forEach((tk) => {
+        if (tk.k === k) state.stake[tk.id] = amt;
+      });
+      renderTickets();
+      renderSandbox();
+      renderScenarios();
+    }
+
+    function winProb(team) {
+      return 1 / toDec(state.ml[team]);
+    }
+
+    function maskProb(pickWins) {
+      let p = 1;
+      state.picks.forEach((t) => {
+        const wp = winProb(t);
+        p *= pickWins[t] ? wp : 1 - wp;
+      });
+      return p;
+    }
+
+    function scoreAllocation(counts, tickets) {
+      const n = state.picks.length;
+      const total = 1 << n;
+      let worst = Infinity;
+      let worstWinners = "";
+      let ev = 0;
+      for (let mask = 0; mask < total; mask++) {
+        const pickWins = {};
+        state.picks.forEach((t, i) => {
+          pickWins[t] = Boolean(mask & (1 << i));
+        });
+        const r = evaluate(pickWins, tickets, counts);
+        ev += maskProb(pickWins) * r.week;
+        if (r.week < worst) {
+          worst = r.week;
+          worstWinners = state.picks.filter((t) => pickWins[t]).join(" ") || "wipeout";
+        }
+      }
+      return { worst, worstWinners, ev };
+    }
+
+    function enumerateCounts(nTeams, N) {
+      const out = [];
+      const acc = Array(nTeams).fill(0);
+      const rec = (i, left) => {
+        if (i === nTeams - 1) {
+          acc[i] = left;
+          out.push(acc.slice());
+          return;
+        }
+        for (let v = 0; v <= left; v++) {
+          acc[i] = v;
+          rec(i + 1, left - v);
+        }
+      };
+      rec(0, N);
+      return out;
+    }
+
+    function optimizeCounts() {
+      const box = document.getElementById("optOut");
+      const teams = state.picks;
+      if (!teams.length) {
+        box.hidden = false;
+        box.innerHTML = "Pick at least one team.";
+        return;
+      }
+      const tickets = currentTickets().filter((tk) => tk.enabled);
+      if (!tickets.length) {
+        box.hidden = false;
+        box.innerHTML = "Enable at least one ticket in the stake list.";
+        return;
+      }
+      const N = Math.max(0, Math.round(state.N));
+      let best = null;
+      enumerateCounts(teams.length, N).forEach((alloc) => {
+        const counts = {};
+        teams.forEach((t, i) => { counts[t] = alloc[i]; });
+        const scored = scoreAllocation(counts, tickets);
+        const even = alloc.reduce((s, v) => s + v * v, 0);
+        const cand = { counts, even, ...scored };
+        if (
+          !best ||
+          cand.worst > best.worst + 1e-9 ||
+          (Math.abs(cand.worst - best.worst) < 1e-9 && cand.ev > best.ev + 1e-9) ||
+          (Math.abs(cand.worst - best.worst) < 1e-9 && Math.abs(cand.ev - best.ev) < 1e-9 && cand.even < best.even)
+        ) {
+          best = cand;
+        }
+      });
+      const risked = tickets.reduce((s, tk) => s + tk.stake, 0);
+      box.hidden = false;
+      box.innerHTML = `<div><strong>Optimal entries</strong></div>
+        <ul>${teams.map((t) => `<li><strong>${t}</strong><span>${best.counts[t]}</span></li>`).join("")}</ul>
+        <div class="meta">${tickets.length} enabled tickets, ${fmtMoney(risked)} risked
+          · worst week P&amp;L <span class="${best.worst >= 0 ? "pos" : "neg"}">${fmtMoney(best.worst)}</span>
+          when ${best.worstWinners} win
+          · E[week P&amp;L] ${fmtMoney(best.ev)}</div>
+        <div class="picks-actions" style="padding:10px 0 0"><button type="button" id="btnOptApply">Apply these counts</button></div>`;
+      box.dataset.counts = JSON.stringify(best.counts);
+    }
+
+    function applyOptCounts() {
+      const box = document.getElementById("optOut");
+      if (!box.dataset.counts) return;
+      const counts = JSON.parse(box.dataset.counts);
+      const html = box.innerHTML;
+      const raw = box.dataset.counts;
+      state.picks.forEach((t) => { state.counts[t] = Number(counts[t] || 0); });
+      render();
+      const out = document.getElementById("optOut");
+      out.hidden = false;
+      out.innerHTML = html;
+      out.dataset.counts = raw;
+    }
+
+    function renderSandbox() {
+      const root = document.getElementById("sandbox");
+      if (!state.picks.length) {
+        root.innerHTML = "";
+        document.getElementById("sandSummary").innerHTML = "";
+        persistState();
+        return;
+      }
+      root.innerHTML = state.picks.map((t) => {
+        const v = state.sandbox[t] || "";
+        const o = opponentOf(t);
+        return `<div class="sand">
+          <div><strong>${t}</strong> vs ${o}</div>
+          <div class="tog">
+            <button type="button" class="ghost ${v === "W" ? "on-w" : ""}" data-sand="${t}" data-val="W">W</button>
+            <button type="button" class="ghost ${v === "L" ? "on-l" : ""}" data-sand="${t}" data-val="L">L</button>
+            <button type="button" class="ghost" data-sand="${t}" data-val="">—</button>
+          </div>
+        </div>`;
+      }).join("");
+
+      const known = state.picks.every((t) => state.sandbox[t] === "W" || state.sandbox[t] === "L");
+      const box = document.getElementById("sandSummary");
+      if (!known) {
+        box.innerHTML = `<div class="stat"><span>Sandbox</span><b>Mark every pick W or L</b></div>`;
+        persistState();
+        return;
+      }
+      const pickWins = {};
+      state.picks.forEach((t) => { pickWins[t] = state.sandbox[t] === "W"; });
+      const r = evaluate(pickWins, currentTickets());
+      const liveTeams = state.picks.filter((t) => pickWins[t]).join(" ") || "all dead";
+      const hitLegs = r.hits.length
+        ? r.hits.map((h) => h.opps.join("+")).join(" · ")
+        : "no tickets hit";
+      box.innerHTML = `
+        <div class="stat"><span>Entries alive</span><b>${r.live}</b><div>${liveTeams}</div></div>
+        <div class="stat"><span>Dead entry $</span><b class="neg">${fmtMoney(r.deadCost)}</b></div>
+        <div class="stat"><span>Hedge profit</span><b class="${r.profit > 0 ? "pos" : "neg"}">${fmtMoney(r.profit)}</b><div>tickets hit: ${hitLegs}</div></div>
+        <div class="stat"><span>Week P&amp;L</span><b class="${r.week >= 0 ? "pos" : "neg"}">${fmtMoney(r.week)}</b></div>`;
+      persistState();
+    }
+
+    function crowdShare(team) {
+      return (CROWD_PCT[team] || 0) / 100;
+    }
+
+    function vigFreeWinProb(team) {
+      const g = gameOf(team);
+      const a = state.fdMl[g.away];
+      const h = state.fdMl[g.home];
+      if (Number.isFinite(a) && Number.isFinite(h) && a !== 0 && h !== 0) {
+        const pa = 1 / toDec(a);
+        const ph = 1 / toDec(h);
+        const pTeam = team === g.away ? pa : ph;
+        return pTeam / (pa + ph);
+      }
+      return 1 / toDec(state.ml[team]);
+    }
+
+    function leverageOf(team) {
+      const p = vigFreeWinProb(team);
+      const s = Math.max(crowdShare(team), CROWD_FLOOR);
+      return Math.log(p) - LAMBDA * Math.log(s);
+    }
+
+    function winningTeams() {
+      return new Set(GAMES.map((g) => state.crowdWin[g.id] || favoriteOf(g)));
+    }
+
+    function chipSnapshot() {
+      const winners = winningTeams();
+      let share = 0;
+      winners.forEach((t) => { share += crowdShare(t); });
+      const fieldAlive = FIELD_START * share;
+      const fieldDead = FIELD_START - fieldAlive;
+      const chip = fieldAlive > 0 ? POT / fieldAlive : 0;
+      const rows = [];
+      state.picks.forEach((t) => {
+        const n = Math.max(0, Math.round(countOf(t)));
+        for (let i = 1; i <= n; i++) {
+          const live = winners.has(t);
+          rows.push({
+            id: t + "-" + i,
+            team: t,
+            live,
+            crowd: CROWD_PCT[t] || 0,
+            ev: live ? chip : 0
+          });
+        }
+      });
+      const oursAlive = rows.filter((r) => r.live).length;
+      const oursDead = rows.length - oursAlive;
+      return {
+        winners,
+        fieldAlive,
+        fieldDead,
+        chip,
+        rows,
+        oursAlive,
+        oursDead,
+        portfolio: oursAlive * chip
+      };
+    }
+
+    function renderCrowd() {
+      initCrowdWins();
+      const snap = chipSnapshot();
+      const chalk = ["LAC", "JAC", "DET"];
+      const chalkDead = chalk.filter((t) => !snap.winners.has(t));
+      const read = document.getElementById("crowdRead");
+      if (chalkDead.length) {
+        read.textContent = "Chalk down: " + chalkDead.join(", ") +
+          " — field shrinks and live tickets gain chip EV. That is when fading the model’s people-split pays.";
+      } else {
+        read.textContent = "If favorites hold, LAC/JAC/DET stay alive and almost the whole field survives — chip EV sits near the $1,000 fee. Flip a chalk loss to see fading pay.";
+      }
+
+      const strip = document.getElementById("crowdStrip");
+      strip.innerHTML = `
+        <div class="stat"><span>Field alive</span><b>${snap.fieldAlive.toLocaleString("en-US", { maximumFractionDigits: 0 })}</b></div>
+        <div class="stat"><span>Field dead</span><b class="neg">${snap.fieldDead.toLocaleString("en-US", { maximumFractionDigits: 0 })}</b></div>
+        <div class="stat"><span>Our alive / dead</span><b>${snap.oursAlive} / ${snap.oursDead}</b></div>
+        <div class="stat"><span>Chip EV / live ticket</span><b class="pos">${fmtMoney(snap.chip)}</b></div>
+        <div class="stat"><span>Portfolio chip EV</span><b class="pos">${fmtMoney(snap.portfolio)}</b></div>`;
+
+      const board = document.getElementById("crowdBoard");
+      board.innerHTML = GAMES.map((g) => {
+        const win = state.crowdWin[g.id] || favoriteOf(g);
+        const cell = (team) => {
+          const isWin = team === win;
+          const ours = countOf(team);
+          const pct = CROWD_PCT[team] || 0;
+          const field = FIELD_START * pct / 100;
+          const lev = leverageOf(team);
+          const cls = "crowd-side" + (isWin ? " win" : "") + (ours > 0 ? " ours" : "");
+          return `<div class="${cls}" data-crowd-win="${g.id}" data-crowd-team="${team}">
+            ${logoImg(team)}
+            <strong>${team}</strong>
+            <span class="crowd-meta">${pct.toFixed(1)}% · ${field.toFixed(0)} field · ours ${ours} · lev ${lev.toFixed(2)} · ${fdLabel(team)}</span>
+            <span class="badge">${isWin ? "WIN" : favoriteOf(g) === team ? "FAV" : "DOG"}</span>
+          </div>`;
+        };
+        return `<div class="crowd-game">
+          <div class="when">${g.when} · ${g.away} @ ${g.home} · click a side to flip</div>
+          <div class="crowd-sides">${cell(g.away)}${cell(g.home)}</div>
+        </div>`;
+      }).join("");
+
+      const ent = document.getElementById("crowdEntries");
+      if (!snap.rows.length) {
+        ent.innerHTML = "<p class='hint'>Assign entry counts on the pick list.</p>";
+        persistState();
+        return;
+      }
+      ent.innerHTML = `<table>
+        <thead><tr><th>Entry</th><th>Pick</th><th>Crowd %</th><th>Status</th><th>Chip EV</th></tr></thead>
+        <tbody>${snap.rows.map((r) => `<tr class="${r.live ? "alive" : "wipe"}">
+          <td>${r.id}</td>
+          <td>${r.team}</td>
+          <td>${r.crowd.toFixed(1)}</td>
+          <td>${r.live ? "live" : "dead"}</td>
+          <td class="${r.live ? "pos" : "neg"}">${fmtMoney(r.ev)}</td>
+        </tr>`).join("")}</tbody>
+      </table>`;
+      persistState();
+    }
+
+    function fmtAxis(n) {
+      const a = Math.abs(n);
+      const s = n < 0 ? "-" : "";
+      if (a >= 1000) return s + "$" + (a / 1000).toFixed(1) + "k";
+      return s + "$" + Math.round(a);
+    }
+
+    function renderChart() {
+      const el = document.getElementById("rrChart");
+      const n = state.picks.length;
+      if (!el) return;
+      if (!n) {
+        el.innerHTML = "";
+        return;
+      }
+      const tickets = currentTickets();
+      const liveTk = tickets.filter((tk) => tk.enabled);
+      const risked = liveTk.reduce((s, tk) => s + tk.stake, 0);
+      const kCounts = {};
+      liveTk.forEach((tk) => { kCounts[tk.k] = (kCounts[tk.k] || 0) + 1; });
+      const mix = [2, 3, 4, 5].filter((k) => kCounts[k]).map((k) => kCounts[k] + "× " + k + "-leg").join(" + ") || "no sizes enabled";
+      const meta = mix + " · " + fmtMoney(risked) + " on the round-robin"
+        + (risked === 0 ? " — gold and dashed overlap until you stake tickets (Fill / Split / Apply cover / type a stake)" : " · gold = with hedges, dashed = dead fees only");
+      const buckets = Array.from({ length: n + 1 }, () => []);
+      const total = 1 << n;
+      for (let mask = 0; mask < total; mask++) {
+        const pickWins = {};
+        let wins = 0;
+        state.picks.forEach((t, i) => {
+          pickWins[t] = Boolean(mask & (1 << i));
+          if (pickWins[t]) wins += 1;
+        });
+        const r = evaluate(pickWins, tickets);
+        const winners = state.picks.filter((t) => pickWins[t]).join(" ") || "wipeout";
+        const hit = r.hits.map((h) => h.k + ":" + h.opps.join("+")).join(", ") || "none";
+        buckets[n - wins].push({
+          week: r.week,
+          deadCost: r.deadCost,
+          betNet: r.betNet,
+          live: r.live,
+          dead: r.dead,
+          winners,
+          hit,
+          wins,
+          p: maskProb(pickWins)
+        });
+      }
+      let ymin = 0;
+      let ymax = 0;
+      buckets.forEach((b) => b.forEach((p) => {
+        ymin = Math.min(ymin, p.week, -p.deadCost);
+        ymax = Math.max(ymax, p.week, -p.deadCost);
+      }));
+      if (ymin === ymax) {
+        ymin -= 1;
+        ymax += 1;
+      }
+      const pad = (ymax - ymin) * 0.1;
+      ymin -= pad;
+      ymax += pad;
+      const W = 1600;
+      const H = 500;
+      const L = 120;
+      const R = 36;
+      const T = 28;
+      const B = 88;
+      const iw = W - L - R;
+      const ih = H - T - B;
+      const xBase = (k) => L + (k / n) * iw;
+      const yOf = (v) => T + (1 - (v - ymin) / (ymax - ymin)) * ih;
+      const yTicks = [];
+      for (let i = 0; i <= 4; i++) yTicks.push(ymin + (i / 4) * (ymax - ymin));
+      const meanPts = [];
+      const barePts = [];
+      const meanMarks = [];
+      const dots = [];
+      const tips = [];
+      buckets.forEach((b, k) => {
+        if (!b.length) return;
+        const pK = b.reduce((s, p) => s + p.p, 0);
+        const mean = b.reduce((s, p) => s + p.p * p.week, 0) / pK;
+        const bare = b.reduce((s, p) => s + p.p * (-p.deadCost), 0) / pK;
+        const mx = xBase(k);
+        meanPts.push([mx, yOf(mean)]);
+        barePts.push([mx, yOf(bare)]);
+        const kLabel = k === 0 ? "All picks win" : k === n ? "Wipeout" : k + (k === 1 ? " pick loses" : " picks lose");
+        const meanId = tips.length;
+        tips.push(`<b>${kLabel} — mean</b>
+          <div class="trow"><span class="tlab">E[week P&amp;L]</span><span class="${mean >= 0 ? "pos" : "neg"}">${fmtMoney(mean)}</span></div>
+          <div class="trow"><span class="tlab">E[dead fees only]</span><span>${fmtMoney(bare)}</span></div>
+          <div class="trow"><span class="tlab">P(this many losses)</span><span>${(pK * 100).toFixed(2)}%</span></div>`);
+        meanMarks.push(`<circle class="hit" data-tip="${meanId}" cx="${mx.toFixed(1)}" cy="${yOf(mean).toFixed(1)}" r="8" fill="#d4b562" stroke="#0c0d0b" stroke-width="2"></circle>`);
+        const spread = Math.min(36, iw / n / 2.2);
+        b.forEach((p, i) => {
+          const x = xBase(k) + (b.length > 1 ? (i - (b.length - 1) / 2) / Math.max(1, b.length - 1) * spread : 0);
+          let fill = "#e8e4d4";
+          if (p.wins === n) fill = "#8fce9a";
+          else if (p.wins === 1 && n >= 2) fill = "#6ea8d8";
+          else if (p.wins === 0) fill = "#e07a5f";
+          const id = tips.length;
+          tips.push(`<b>${kLabel}</b>
+            <div class="trow"><span class="tlab">Picks that win</span><span>${p.winners}</span></div>
+            <div class="trow"><span class="tlab">Entries alive</span><span>${p.live}</span></div>
+            <div class="trow"><span class="tlab">Dead entry $</span><span class="neg">${fmtMoney(p.deadCost)}</span></div>
+            <div class="trow"><span class="tlab">Hedge net</span><span class="${p.betNet >= 0 ? "pos" : "neg"}">${fmtMoney(p.betNet)}</span></div>
+            <div class="trow"><span class="tlab">Week P&amp;L</span><span class="${p.week >= 0 ? "pos" : "neg"}">${fmtMoney(p.week)}</span></div>
+            <div class="trow"><span class="tlab">P(this row)</span><span>${(p.p * 100).toFixed(2)}%</span></div>
+            <div class="thit">Round-robin tickets that hit<div>${p.hit}</div></div>`);
+          dots.push(`<circle class="hit" data-tip="${id}" cx="${x.toFixed(1)}" cy="${yOf(p.week).toFixed(1)}" r="11" fill="${fill}" stroke="#0c0d0b" stroke-width="2"></circle>`);
+        });
+      });
+      const grid = yTicks.map((v) => {
+        const y = yOf(v);
+        return `<line class="grid" x1="${L}" x2="${W - R}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" />`;
+      }).join("");
+      const zero = (ymin < 0 && ymax > 0)
+        ? `<line class="zero" x1="${L}" x2="${W - R}" y1="${yOf(0).toFixed(1)}" y2="${yOf(0).toFixed(1)}" />`
+        : "";
+      const yLabels = yTicks.map((v) => {
+        const y = yOf(v);
+        return `<text class="tick" x="${L - 12}" y="${(y + 5).toFixed(1)}" text-anchor="end">${fmtAxis(v)}</text>`;
+      }).join("");
+      const xLabels = [];
+      for (let k = 0; k <= n; k++) {
+        const x = xBase(k);
+        let lab = String(k) + " lose";
+        if (k === 0) lab = "All win";
+        if (k === n) lab = "Wipeout";
+        xLabels.push(`<line class="axis" x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${T + ih}" y2="${T + ih + 8}" /><text class="tick" x="${x.toFixed(1)}" y="${T + ih + 32}" text-anchor="middle">${lab}</text>`);
+      }
+      el.innerHTML = `<p class="meta">${meta}</p>
+        <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">
+        ${grid}
+        <line class="axis" x1="${L}" y1="${T}" x2="${L}" y2="${T + ih}" />
+        <line class="axis" x1="${L}" y1="${T + ih}" x2="${W - R}" y2="${T + ih}" />
+        ${zero}${yLabels}${xLabels}
+        <polyline class="bare" points="${barePts.map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}" />
+        <polyline class="mean" points="${meanPts.map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}" />
+        ${dots.join("")}
+        ${meanMarks.join("")}
+        <text x="22" y="${T + ih / 2}" text-anchor="middle" transform="rotate(-90 22 ${T + ih / 2})">Week P&amp;L</text>
+        <text x="${L + iw / 2}" y="${H - 14}" text-anchor="middle">How many pick teams lose →</text>
+      </svg>
+      <div id="rrTip"></div>`;
+      const tip = document.getElementById("rrTip");
+      const place = (e, html) => {
+        tip.style.display = "block";
+        tip.innerHTML = html;
+        const box = el.getBoundingClientRect();
+        let x = e.clientX - box.left + 16;
+        let y = e.clientY - box.top + 16;
+        if (x + tip.offsetWidth > box.width - 8) x = e.clientX - box.left - tip.offsetWidth - 16;
+        if (y + tip.offsetHeight > box.height - 8) y = e.clientY - box.top - tip.offsetHeight - 16;
+        if (x < 8) x = 8;
+        if (y < 8) y = 8;
+        tip.style.left = x + "px";
+        tip.style.top = y + "px";
+      };
+      el.querySelectorAll("[data-tip]").forEach((node) => {
+        const html = tips[Number(node.dataset.tip)];
+        node.addEventListener("pointerenter", (e) => place(e, html));
+        node.addEventListener("pointermove", (e) => place(e, html));
+        node.addEventListener("pointerleave", () => { tip.style.display = "none"; });
+      });
+    }
+
+    function renderScenarios() {
+      const root = document.getElementById("scenarios");
+      const n = state.picks.length;
+      if (!n) {
+        root.innerHTML = "";
+        renderChart();
+        persistState();
+        return;
+      }
+      const tickets = currentTickets();
+      const rows = [];
+      const total = 1 << n;
+      for (let mask = 0; mask < total; mask++) {
+        const pickWins = {};
+        let wins = 0;
+        state.picks.forEach((t, i) => {
+          pickWins[t] = Boolean(mask & (1 << i));
+          if (pickWins[t]) wins += 1;
+        });
+        const r = evaluate(pickWins, tickets);
+        const winners = state.picks.filter((t) => pickWins[t]).join(" ") || "—";
+        const hit = r.hits.map((h) => h.k + ":" + h.opps.join("+")).join(", ") || "—";
+        let cls = "";
+        if (wins === 0) cls = "wipe";
+        else if (wins === 1 && n >= 2) cls = "three";
+        else if (wins === n) cls = "alive";
+        rows.push(`<tr class="${cls}">
+          <td>${winners}</td>
+          <td>${r.live}</td>
+          <td>${hit}</td>
+          <td>${fmtMoney(r.profit)}</td>
+          <td>${fmtMoney(r.deadCost)}</td>
+          <td class="${r.week >= 0 ? "pos" : "neg"}">${fmtMoney(r.week)}</td>
+        </tr>`);
+      }
+      root.innerHTML = `<table>
+        <thead><tr><th>Picks that win</th><th>Alive</th><th>Tickets hit</th><th>Hedge profit</th><th>Dead entry $</th><th>Week P&amp;L</th></tr></thead>
+        <tbody>${rows.join("")}</tbody>
+      </table>`;
+      renderChart();
+      persistState();
+    }
+
+    function setFdStatus(msg) {
+      const el = document.getElementById("fdStatus");
+      if (el) el.textContent = msg;
+    }
+
+    function fmtFdStatus() {
+      const n = Object.keys(state.fdMl).length;
+      if (!n) {
+        setFdStatus("FanDuel: not loaded");
+        return;
+      }
+      const when = state.fdUpdated ? " · " + state.fdUpdated.replace("T", " ").replace("Z", " UTC") : "";
+      const q = state.fdQuota != null ? " · " + state.fdQuota + " credits left" : "";
+      setFdStatus("FanDuel: " + n + " teams" + when + q);
+    }
+
+    function applyFdOdds(events, remaining) {
+      const next = {};
+      let last = null;
+      (events || []).forEach((ev) => {
+        const home = NAME_TO_ABBR[ev.home_team];
+        const away = NAME_TO_ABBR[ev.away_team];
+        if (!home || !away) return;
+        const g = GAMES.find((x) => x.home === home && x.away === away);
+        if (!g) return;
+        const books = ev.bookmakers || [];
+        const book = books.find((b) => b.key === "fanduel") || books[0];
+        if (!book) return;
+        const mkt = (book.markets || []).find((m) => m.key === "h2h");
+        if (!mkt) return;
+        (mkt.outcomes || []).forEach((o) => {
+          const t = NAME_TO_ABBR[o.name];
+          if (t && Number.isFinite(o.price) && o.price !== 0) next[t] = o.price;
+        });
+        if (book.last_update) last = book.last_update;
+      });
+      if (!Object.keys(next).length) throw new Error("no FanDuel moneylines matching this week's board");
+      state.fdMl = next;
+      state.fdUpdated = last;
+      state.fdQuota = remaining == null || remaining === "" ? null : remaining;
+      fmtFdStatus();
+    }
+
+    async function loadFdJson() {
+      const res = await fetch("fanduel_odds.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("fanduel_odds.json HTTP " + res.status);
+      const body = await res.json();
+      const events = Array.isArray(body) ? body : body.events;
+      const remaining = Array.isArray(body) ? null : body.remaining;
+      applyFdOdds(events, remaining);
+    }
+
+    async function loadFdApi(key) {
+      const url = "https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds"
+        + "?regions=us&markets=h2h&oddsFormat=american&bookmakers=fanduel&apiKey="
+        + encodeURIComponent(key);
+      const res = await fetch(url);
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error("Odds API HTTP " + res.status + " " + text.slice(0, 180));
+      }
+      const events = await res.json();
+      applyFdOdds(events, res.headers.get("x-requests-remaining"));
+    }
+
+    function storedOddsKey() {
+      return (localStorage.getItem(ODDS_KEY) || "").trim();
+    }
+
+    async function refreshFanDuel() {
+      setFdStatus("FanDuel: loading…");
+      const key = storedOddsKey();
+      let err = "";
+      if (key) {
+        try {
+          await loadFdApi(key);
+          render();
+          return;
+        } catch (e) {
+          err = e.message || String(e);
+        }
+      }
+      try {
+        await loadFdJson();
+        render();
+        return;
+      } catch (e2) {
+        const jsonErr = e2.message || String(e2);
+        setFdStatus("FanDuel failed. Run python fetch_fd_odds.py in week1/ (.env holds the key), then Refresh. "
+          + (err ? "API: " + err + " · " : "") + "JSON: " + jsonErr);
+      }
+    }
+
+    function render() {
+      renderBoard();
+      renderSizeChecks();
+      renderPicks();
+      renderWarn();
+      renderCover();
+      renderTickets();
+      renderSandbox();
+      renderScenarios();
+      renderCrowd();
+      persistState();
+    }
+
+    function applyWipeout() {
+      const n = state.picks.length;
+      if (n < 2) return;
+      if (n <= 5) state.sizes[n] = true;
+      const opps = state.picks.map(opponentOf);
+      const id = ticketId(opps);
+      const dec = parlayDecimal(opps);
+      state.stake[id] = dec > 1 ? (state.N * state.fee) / (dec - 1) : 0;
+      state.enabled[id] = true;
+      render();
+    }
+
+    function applyThrees() {
+      const n = state.picks.length;
+      if (n < 3) return;
+      state.sizes[3] = true;
+      combinations(state.picks, 3).forEach((picks) => {
+        const opps = picks.map(opponentOf);
+        const id = ticketId(opps);
+        const dec = parlayDecimal(opps);
+        const dead = picks.reduce((s, t) => s + countOf(t), 0);
+        state.stake[id] = dec > 1 ? (dead * state.fee) / (dec - 1) : 0;
+        state.enabled[id] = true;
+      });
+      render();
+    }
+
+    function fillEach() {
+      currentTickets().forEach((tk) => {
+        if (tk.enabled) state.stake[tk.id] = state.fillEach;
+      });
+      render();
+    }
+
+    function splitBankroll() {
+      const live = currentTickets().filter((tk) => tk.enabled);
+      if (!live.length) return;
+      const each = state.bankroll / live.length;
+      live.forEach((tk) => { state.stake[tk.id] = each; });
+      render();
+    }
+
+    document.getElementById("nEntries").addEventListener("input", (e) => {
+      state.N = Number(e.target.value || 0);
+      renderWarn();
+      renderCover();
+      renderSandbox();
+      renderScenarios();
+      renderCrowd();
+    });
+    document.getElementById("fee").addEventListener("input", (e) => {
+      state.fee = Number(e.target.value || 0);
+      renderCover();
+      renderSandbox();
+      renderScenarios();
+    });
+    document.getElementById("fillEach").addEventListener("input", (e) => {
+      state.fillEach = Number(e.target.value || 0);
+      persistState();
+    });
+    document.getElementById("bankroll").addEventListener("input", (e) => {
+      state.bankroll = Number(e.target.value || 0);
+      persistState();
+    });
+    document.getElementById("btnFill").addEventListener("click", fillEach);
+    document.getElementById("btnSplit").addEventListener("click", splitBankroll);
+    document.getElementById("btnFd").addEventListener("click", () => { refreshFanDuel(); });
+
+    document.body.addEventListener("click", (e) => {
+      const teamEl = e.target.closest(".team");
+      if (teamEl && !e.target.matches("input")) {
+        togglePick(teamEl.dataset.team);
+        return;
+      }
+      if (e.target.id === "btnWipe") applyWipeout();
+      if (e.target.id === "btnThree") applyThrees();
+      if (e.target.id === "btnOpt") optimizeCounts();
+      if (e.target.id === "btnOptApply") applyOptCounts();
+      const applyK = e.target.dataset.applyK;
+      if (applyK) applyStakeToK(Number(applyK));
+      const crowdEl = e.target.closest("[data-crowd-win]");
+      if (crowdEl) {
+        state.crowdWin[crowdEl.dataset.crowdWin] = crowdEl.dataset.crowdTeam;
+        renderCrowd();
+        return;
+      }
+      const sand = e.target.dataset.sand;
+      if (sand) {
+        const val = e.target.dataset.val;
+        if (val) state.sandbox[sand] = val;
+        else delete state.sandbox[sand];
+        renderSandbox();
+      }
+    });
+
+    document.body.addEventListener("change", (e) => {
+      const size = e.target.dataset.size;
+      if (size) {
+        state.sizes[Number(size)] = e.target.checked;
+        renderWarn();
+        renderTickets();
+        renderSandbox();
+        renderScenarios();
+      }
+      const en = e.target.dataset.en;
+      if (en) {
+        state.enabled[en] = e.target.checked;
+        renderTickets();
+        renderSandbox();
+        renderScenarios();
+      }
+    });
+
+    document.body.addEventListener("input", (e) => {
+      const mlTeam = e.target.dataset.ml;
+      if (mlTeam) {
+        const v = parseMl(e.target.value);
+        if (Number.isFinite(v) && v !== 0) {
+          state.ml[mlTeam] = v;
+          e.target.classList.toggle("plus", v > 0);
+          e.target.classList.toggle("minus", v < 0);
+          renderPicks();
+          renderCover();
+          renderTickets();
+          renderSandbox();
+          renderScenarios();
+          renderCrowd();
+        }
+      }
+      const ct = e.target.dataset.count;
+      if (ct) {
+        state.counts[ct] = Number(e.target.value || 0);
+        renderWarn();
+        renderCover();
+        renderSandbox();
+        renderScenarios();
+        renderCrowd();
+      }
+      const kfill = e.target.dataset.kfill;
+      if (kfill) {
+        state.fillK[Number(kfill)] = Number(e.target.value || 0);
+        persistState();
+      }
+      const st = e.target.dataset.stake;
+      if (st) {
+        state.stake[st] = Number(e.target.value || 0);
+        const row = e.target.closest("tr");
+        const tk = currentTickets().find((t) => t.id === st);
+        if (row && tk) row.lastElementChild.textContent = fmtMoney(tk.stake * (tk.dec - 1));
+        renderSandbox();
+        renderScenarios();
+      }
+    });
+
+    document.getElementById("nEntries").value = state.N;
+    document.getElementById("fee").value = state.fee;
+    document.getElementById("fillEach").value = state.fillEach;
+    document.getElementById("bankroll").value = state.bankroll;
+    fmtFdStatus();
+    window.CircaNavHooks = window.CircaNavHooks || [];
+    window.CircaNavHooks.push(applyWeekConfig);
+    applyWeekConfig(new URLSearchParams(location.search).get("week") === "2" ? "2" : "1");
+  </script>
+  <script src="../../assets/files-bundle.js"></script>
+  <script src="../../assets/circa-view.js"></script>
+  <script src="../../assets/circa-nav.js"></script>
+</body>
+</html>

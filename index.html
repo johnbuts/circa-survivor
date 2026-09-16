@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026</title>
+  <style>
+    :root {
+      --bg: #0c0d0b;
+      --panel: #141610;
+      --panel2: #1b1d16;
+      --ink: #e8e4d4;
+      --muted: #8b8878;
+      --line: #2c2f24;
+      --gold: #d4b562;
+      --plus: #8fce9a;
+      --minus: #e07a5f;
+      --live: #1c2e22;
+      --wipe: #3a1614;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    code, .mono, table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    header a { color: var(--gold); }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+      gap: 10px;
+      padding: 16px 28px 4px;
+    }
+    .stat {
+      background: var(--panel2);
+      padding: 12px 16px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .stat b { font-size: 20px; font-weight: 650; }
+    .stat b.pos { color: var(--plus); }
+    .stat b.neg { color: var(--minus); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 16px 28px 32px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    section.card {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px 18px;
+    }
+    section.card h2 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+    tr:last-child td { border-bottom: 0; }
+    td.r, th.r { text-align: right; }
+    td.n, th.n { width: 3.2rem; text-align: right; padding-right: 18px; }
+    td.rk, th.rk { width: 2.2rem; text-align: right; padding-right: 14px; }
+    .win { color: var(--plus); }
+    .lose { color: var(--minus); }
+    .ours { outline: 1px solid #6a5a28; outline-offset: -1px; }
+    a { color: var(--gold); }
+    .links-row { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 8px; font-size: 12px; }
+    .game {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .game:last-child { border-bottom: 0; }
+    .abbr { color: var(--gold); letter-spacing: 0.06em; }
+    .barline {
+      height: 8px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+    }
+    .barline > span { display: block; height: 100%; background: var(--gold); }
+  </style>
+  <link rel="stylesheet" href="assets/circa.css" />
+</head>
+<body data-page="hub" data-root="" data-default-week="2" data-week="2">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+    <div class="brand">
+      <b>Circa Survivor 2026</b>
+      <span data-week-label data-label-1="Week 1 board" data-label-2="Week 2 live">Week 2 live</span>
+    </div>
+    <div class="week-toggle" role="tablist" aria-label="Contest week">
+      <button type="button" data-set-week="1">Week 1</button>
+      <button type="button" data-set-week="2" class="on">Week 2</button>
+    </div>
+    <div class="links">
+      <a class="here" href="index.html" data-carry-week data-href="index.html">Hub</a>
+      <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
+      <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
+      <a data-carry-week data-href="entries.html">Entries</a>
+      <a class="week1-only" href="Power_Rankings/9-9-2026/SOURCES.md">Rankings</a>
+      <a class="week2-only" href="Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+      <a href="view.html">Docs</a>
+    </div>
+    </div>
+  </nav>
+
+  <main class="page">
+  <div class="week1-only">
+    <header>
+      <div>
+        <h1>Week 1 — what actually happened</h1>
+        <p>Circa field is the 09/12/26 selections PDF. Book is what we entered, not the Sep 9 model portfolio.</p>
+      </div>
+      <p><a href="pick_selection/week1/ACTUAL_BOOK.md">Actual book</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Entries</span><b>10</b></div>
+      <div class="stat"><span>Live after W1</span><b class="pos">8</b></div>
+      <div class="stat"><span>Dead</span><b class="neg">2 TEN</b></div>
+      <div class="stat"><span>Field</span><b>24,999</b></div>
+      <div class="stat"><span>JAC share</span><b>32.51%</b></div>
+      <div class="stat"><span>LAC share</span><b>30.34%</b></div>
+      <div class="stat"><span>PIT share</span><b>16.05%</b></div>
+      <div class="stat"><span>Pool @ $1k</span><b>$24.999M</b></div>
+    </div>
+    <div class="grid">
+      <section class="card">
+        <h2>Our book</h2>
+        <p class="hint">4 JAC / 2 PIT / 2 TEN / 2 LV. Sep 9 model portfolio (LAR 6 / DAL 2 / KC 2) was not entered.</p>
+        <table>
+          <thead><tr><th>Team</th><th class="n">n</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Jaguars</td><td class="n">4</td><td class="win">W vs CLE</td></tr>
+            <tr><td>Steelers</td><td class="n">2</td><td class="win">W vs ATL</td></tr>
+            <tr><td>Titans</td><td class="n">2</td><td class="lose">L vs NYJ — dead</td></tr>
+            <tr><td>Raiders</td><td class="n">2</td><td class="win">W vs MIA</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="pick_selection/week1/index.html?week=1">Hedge calc</a>
+          <a href="entries.html?week=1">Ten entries</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Circa field vs model</h2>
+        <p class="hint">Live PDF vs clogit crowd. JAC + LAC + PIT = 78.9% of tickets. Model had LAC 30.7 / JAC 35.4 / DET 14.2; Detroit landed at 7.08%.</p>
+        <table>
+          <thead><tr><th>Team</th><th class="r">Field %</th><th class="r">Model %</th></tr></thead>
+          <tbody>
+            <tr><td>JAC</td><td class="r">32.51</td><td class="r">35.4</td></tr>
+            <tr><td>LAC</td><td class="r">30.34</td><td class="r">30.7</td></tr>
+            <tr><td>PIT</td><td class="r">16.05</td><td class="r">2.4</td></tr>
+            <tr><td>DET</td><td class="r">7.08</td><td class="r">14.2</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="all_picks_2026/index.html?week=1">Field / winners</a>
+          <a href="all_picks_2026/FINDINGS.md">FINDINGS.md</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Consensus ranks · Sep 9</h2>
+        <p class="hint">Media average 1–32, pre-Week 1.</p>
+        <table>
+          <thead><tr><th class="rk">#</th><th>Team</th><th class="r">Avg</th></tr></thead>
+          <tbody>
+            <tr><td class="rk">1</td><td>LAR</td><td class="r">1.10</td></tr>
+            <tr><td class="rk">2</td><td>SEA</td><td class="r">2.40</td></tr>
+            <tr><td class="rk">3</td><td>BUF</td><td class="r">3.90</td></tr>
+            <tr><td class="rk">4</td><td>BAL</td><td class="r">5.80</td></tr>
+            <tr><td class="rk">5</td><td>DEN</td><td class="r">6.00</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="Power_Rankings/9-9-2026/SOURCES.md">SOURCES.md</a>
+          <a href="Power_Rankings/9-9-2026/consensus_power_rankings.csv">consensus csv</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Prior winners</h2>
+        <p class="hint">Official Circa Survivor pot-splitters only, 2020–2025.</p>
+        <table>
+          <thead><tr><th></th><th class="r"></th></tr></thead>
+          <tbody>
+            <tr><td>Handles back</td><td class="r">27 / 57</td></tr>
+            <tr><td>Their tickets</td><td class="r">227</td></tr>
+            <tr><td>Owners in field</td><td class="r">6,114</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="all_picks_2026/index.html?week=1#winners">Winner table</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="week2-only">
+    <header>
+      <div>
+        <h1>Week 2 — live book + chip sandbox</h1>
+        <p>Click winners on the slate. Chip is Week2_v2 crowd on the official 16,978 live field, pot $25,017,000.</p>
+      </div>
+      <p><a href="Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Live tickets</span><b class="pos">8</b></div>
+      <div class="stat"><span>JAC</span><b>4</b></div>
+      <div class="stat"><span>PIT</span><b>2</b></div>
+      <div class="stat"><span>LV</span><b>2</b></div>
+      <div class="stat"><span>Burned</span><b>JAC PIT LV</b></div>
+      <div class="stat"><span>Model chalk</span><b>SF 30.5%</b></div>
+      <div class="stat"><span>TB</span><b>29.2%</b></div>
+      <div class="stat"><span>BAL</span><b>10.6%</b></div>
+    </div>
+    <div class="grid">
+      <section class="card chip-box" id="week2Chip">
+        <div class="chip-toolbar">
+          <h2>Slate · chip after the games</h2>
+          <button type="button" id="chipFavs">All favorites</button>
+        </div>
+        <p class="hint">Week2_v2 field-conditioned shares. Click a side to win. Chip = $25,017,000 / remaining field. Assign the 8 live tickets (they cannot reuse JAC / PIT / LV) to price them if they survive.</p>
+        <p class="hint" id="chipRead"></p>
+        <div class="summary" id="chipStrip"></div>
+        <div class="chip-book" id="chipBook"></div>
+        <div id="chipBoard"></div>
+      </section>
+      <section class="card">
+        <h2>Live tickets · leftover W1 teams</h2>
+        <p class="hint">Week 2 picks are not set. These are only the Week 1 teams still alive, and the games those teams play this week — not our book.</p>
+        <div class="game ours">
+          <span class="abbr">JAC</span>
+          <span>@ DEN · 4 tickets</span>
+          <span class="mono">45.45 / 58.68</span>
+        </div>
+        <div class="game ours">
+          <span class="abbr">PIT</span>
+          <span>@ NE · 2 tickets</span>
+          <span class="mono">33.90 / 70.41</span>
+        </div>
+        <div class="game ours">
+          <span class="abbr">LV</span>
+          <span>@ LAC · 2 tickets</span>
+          <span class="mono">28.57 / 75.61</span>
+        </div>
+        <div class="links-row">
+          <a href="entries.html?week=2">Ten entries</a>
+          <a href="pick_selection/week1/index.html?week=2">Week 2 hedge</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Model crowd · week 2</h2>
+        <p class="hint">Week2_v2 field-conditioned crowd. SF + TB soak ~60%.</p>
+        <table>
+          <thead><tr><th>Team</th><th></th><th class="r">%</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>SF</td>
+              <td><div class="barline"><span style="width:100%"></span></div></td>
+              <td class="r">30.5</td>
+            </tr>
+            <tr>
+              <td>TB</td>
+              <td><div class="barline"><span style="width:96%"></span></div></td>
+              <td class="r">29.2</td>
+            </tr>
+            <tr>
+              <td>BAL</td>
+              <td><div class="barline"><span style="width:35%"></span></div></td>
+              <td class="r">10.6</td>
+            </tr>
+            <tr>
+              <td>LAC</td>
+              <td><div class="barline"><span style="width:30%"></span></div></td>
+              <td class="r">9.1</td>
+            </tr>
+            <tr>
+              <td>PHI</td>
+              <td><div class="barline"><span style="width:15%"></span></div></td>
+              <td class="r">4.5</td>
+            </tr>
+            <tr>
+              <td>JAC / PIT / LV</td>
+              <td><div class="barline"><span style="width:0"></span></div></td>
+              <td class="r">0.0</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="Weekly_models/Week2_v2/actual_odds.md">actual_odds.md</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Consensus ranks · Sep 15</h2>
+        <p class="hint">Post-Week 1 media average. SEA std 9.30 from FPI 27. CHI jumped 13 spots vs Sep 9.</p>
+        <table>
+          <thead><tr><th class="rk">#</th><th>Team</th><th class="r">Avg</th><th class="r">vs 9/9</th></tr></thead>
+          <tbody>
+            <tr><td class="rk">1</td><td>BUF</td><td class="r">2.17</td><td class="r win">+2</td></tr>
+            <tr><td class="rk">2</td><td>BAL</td><td class="r">3.67</td><td class="r win">+2</td></tr>
+            <tr><td class="rk">3</td><td>CHI</td><td class="r">5.00</td><td class="r win">+13</td></tr>
+            <tr><td class="rk">4</td><td>SF</td><td class="r">5.33</td><td class="r win">+10</td></tr>
+            <tr><td class="rk">5</td><td>SEA</td><td class="r">6.33</td><td class="r lose">−3</td></tr>
+            <tr><td class="rk">6</td><td>LAR</td><td class="r">6.83</td><td class="r lose">−5</td></tr>
+            <tr><td class="rk">7</td><td>JAC</td><td class="r">7.33</td><td class="r win">+5</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="Power_Rankings/9-15-2026/SOURCES.md">SOURCES.md</a>
+          <a href="Power_Rankings/9-15-2026/consensus_power_rankings.csv">consensus csv</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Still waiting</h2>
+        <p class="hint">Circa Week 2 PDF is not public. Our Week 2 picks are not chosen.</p>
+        <table>
+          <thead><tr><th>Page</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Field / winners</td><td>PDF not public</td></tr>
+            <tr><td>Week 2 hedge</td><td>Board live, picks unset</td></tr>
+            <tr><td>Win totals</td><td>Still Sep 9 FOX/DK</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="all_picks_2026/index.html?week=2">Field</a>
+          <a href="pick_selection/week1/index.html?week=2">Hedge</a>
+        </div>
+      </section>
+    </div>
+  </div>
+  </main>
+  <script src="assets/week2-chip.js"></script>
+  <script src="assets/files-bundle.js"></script>
+  <script src="assets/circa-view.js"></script>
+  <script src="assets/circa-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+---
+description: Log every write in that directory's CHANGES.md
+alwaysApply: true
+---
+
+# Per-directory change log
+
+When you create or edit any file, also update `CHANGES.md` in **that same directory**.
+
+## When
+
+- Only for directories you actually wrote to in this turn.
+- Do not pre-create `CHANGES.md` across the repo.
+- If `CHANGES.md` is missing in a directory you just wrote to, create it, then add the first entry.
+- One file per directory you touched. A write to `pick_selection/week1/` updates `pick_selection/week1/CHANGES.md` only — not the parent, unless you also wrote there.
+
+## What to write
+
+Newest entry at the top, under `# Changes`. One short bullet: date, what changed, why.
+
+```markdown
+# Changes
+
+- 2026-09-13 — Updated `index.html` hedge stakes so the 3-leg wipeout covers $10k in fees.
+```
+
+Keep it to one or two sentences. Describe the point of the change, not a file dump.
+
+## Do not
+
+- Do not log the `CHANGES.md` edit itself.
+- Do not put this log in `.venv/`, `node_modules/`, `.git/`, `__pycache__/`, or other vendor/generated dirs.
+- Do not overwrite existing docs (`PROCESS.md`, `CLAUDE.md`, `SOURCES.md`, reports). Those stay as-is. `CHANGES.md` is the running log.

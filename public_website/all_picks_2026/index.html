@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026 — prior winners</title>
+  <style>
+    :root {
+      --bg: #0c0d0b;
+      --panel: #141610;
+      --panel2: #1b1d16;
+      --ink: #e8e4d4;
+      --muted: #8b8878;
+      --line: #2c2f24;
+      --gold: #d4b562;
+      --plus: #8fce9a;
+      --minus: #e07a5f;
+      --pick: #24301c;
+      --leg: #2a2418;
+      --wipe: #3a1614;
+      --live: #1c2e22;
+      --nav-h: 56px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    code, .mono, input, button, table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+
+    nav.top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      min-height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 22px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    nav.top .brand {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    nav.top .brand b {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    nav.top .brand span { color: var(--muted); font-size: 11px; }
+    nav.top .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 2px;
+      justify-content: flex-end;
+    }
+    nav.top a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 8px;
+    }
+    nav.top a:hover, nav.top a:focus-visible { color: var(--gold); }
+    nav.top a.out, nav.top a.here { color: var(--gold); }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 22px 24px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    header a { color: var(--gold); }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 16px 24px 12px;
+    }
+    @media (max-width: 900px) { .summary { grid-template-columns: repeat(2, 1fr); } }
+    .stat { background: var(--panel2); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); }
+    .stat b { display: block; font-size: 16px; }
+    .stat span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .pos { color: var(--plus); }
+    .neg { color: var(--minus); }
+
+    section h2 {
+      margin: 0;
+      padding: 16px 24px 8px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--line);
+    }
+    .hint { color: var(--muted); font-size: 12px; padding: 10px 24px 12px; }
+    .note {
+      margin: 0 24px 14px;
+      padding: 8px 10px;
+      background: var(--leg);
+      color: #e6d7a2;
+      font-size: 13px;
+    }
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: end;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    label.field { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .field input[type="text"] {
+      width: 220px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 6px 8px;
+      font-size: 14px;
+    }
+    .tog { display: flex; flex-wrap: wrap; gap: 4px; }
+    button {
+      background: var(--gold);
+      color: #16140c;
+      border: 0;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    button.ghost {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    button.on { background: var(--gold); color: #16140c; border-color: var(--gold); }
+
+    .wrap { padding: 8px 24px 20px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { text-align: left; color: var(--muted); font-weight: 550; padding: 6px; border-bottom: 1px solid var(--line); }
+    td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tr.yes td { background: var(--live); }
+    tr.no td { background: var(--wipe); }
+    .badge {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      padding: 1px 5px;
+      border: 1px solid currentColor;
+    }
+    .badge.yes { color: var(--plus); }
+    .badge.no { color: var(--minus); }
+
+    .bars { padding: 8px 24px 20px; display: flex; flex-direction: column; gap: 6px; }
+    .brow {
+      display: grid;
+      grid-template-columns: 88px 1fr 72px 64px;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .track { height: 10px; background: var(--panel2); border: 1px solid var(--line); }
+    .fill { height: 100%; background: var(--gold); }
+    .fill.win { background: #6a8f4a; }
+    .pair {
+      display: grid;
+      grid-template-columns: 88px 1fr 1fr 56px 56px;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .pair .track { height: 8px; }
+    .pair .fill.field { background: #6a5a28; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 0 24px 20px;
+    }
+    @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+    .card { background: var(--bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); }
+    .card b { display: block; color: var(--gold); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .card p { margin: 0; color: var(--ink); font-size: 13px; }
+    .card .meta { color: var(--muted); margin-top: 6px; font-size: 12px; }
+
+    .optbox {
+      margin: 0 24px 14px;
+      padding: 10px 12px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .optbox ul { margin: 8px 0 0; padding: 0; list-style: none; }
+    .optbox li {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .optbox .k { color: var(--muted); }
+    footer {
+      padding: 16px 24px 28px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--gold); }
+  </style>
+  <link rel="stylesheet" href="../assets/circa.css" />
+</head>
+<body data-page="field" data-root="all_picks_2026/" data-default-week="1" data-week="1">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+    <div class="brand">
+      <b>Circa Survivor 2026</b>
+      <span data-week-label data-label-1="Week 1 field · prior winners" data-label-2="Week 2 field · PDF not public">Week 1 field · prior winners</span>
+    </div>
+    <div class="week-toggle" role="tablist" aria-label="Contest week">
+      <button type="button" data-set-week="1" class="on">Week 1</button>
+      <button type="button" data-set-week="2">Week 2</button>
+    </div>
+    <div class="links">
+      <a data-carry-week data-href="../index.html">Hub</a>
+      <a data-carry-week data-href="../pick_selection/week1/index.html">Hedge</a>
+      <a class="here" href="index.html">Field</a>
+      <a data-carry-week data-href="../entries.html">Entries</a>
+      <a class="week1-only" href="#overview">Overview</a>
+      <a class="week1-only" href="#winners">Winners</a>
+      <a class="week1-only" href="#field">Field</a>
+      <a class="week1-only" href="#crowd">Vs crowd</a>
+      <a class="week1-only" href="#missing">Missing</a>
+      <a class="week1-only" href="#audit">Audit</a>
+      <a class="week1-only" href="FINDINGS.md">Notes</a>
+      <a href="../view.html">Docs</a>
+    </div>
+    </div>
+  </nav>
+
+  <main class="page">
+  <div class="week2-only">
+    <section class="empty-week">
+      <h1>Week 2 field is not public yet</h1>
+      <p>Circa has not posted the Week 2 selections PDF, so there is no live pick-share or returning-winner table for this week.</p>
+      <p class="book">Crowd model (not the Circa board): <b>SF 26%</b> · <b>TB 24.9%</b> · <b>BAL 12.4%</b>. Live tickets JAC / PIT / LV are 0.0%.</p>
+      <p><a href="../index.html?week=2">Week 2 hub</a> · <a href="../Power_Rankings/9-15-2026/SOURCES.md">Sep 15 rankings</a></p>
+    </section>
+  </div>
+
+  <div class="week1-only">
+  <header id="overview">
+    <div>
+      <h1>Prior winners in the Week 1 board</h1>
+      <p>Official Circa Survivor pot-splitters only, 2020–2025, matched against the 09/12/26 selections PDF. Compact name match (<span class="mono">On Top 247</span> = <span class="mono">ONTOP247</span>).</p>
+    </div>
+    <p><a href="parsed/winner_matches.csv">winner_matches.csv</a></p>
+  </header>
+
+  <div class="summary">
+    <div class="stat"><span>Winning handles back</span><b class="pos">27 / 57</b></div>
+    <div class="stat"><span>Their 2026 tickets</span><b>227</b></div>
+    <div class="stat"><span>Field entries</span><b>24,999</b></div>
+    <div class="stat"><span>Unique owners</span><b>6,114</b></div>
+    <div class="stat"><span>Chalk (JAC)</span><b>32.51%</b></div>
+    <div class="stat"><span>Chargers</span><b>30.34%</b></div>
+    <div class="stat"><span>Steelers</span><b>16.05%</b></div>
+    <div class="stat"><span>Entry pool @ $1k</span><b>$24.999M</b></div>
+  </div>
+  <p class="hint">Recent champs mostly reran. Four of five 2021 millionaire handles are gone; Chippas is back as ONTOP247 with two tickets. 2020’s 35-way chop is mostly gone (9 of 33).</p>
+
+  <section id="winners">
+    <h2>Official handles · back or missing</h2>
+    <div class="bar">
+      <div>
+        <label class="field">Year</label>
+        <div class="tog" id="yearTog"></div>
+      </div>
+      <div>
+        <label class="field">Status</label>
+        <div class="tog">
+          <button type="button" class="ghost on" data-status="all" id="stAll">All</button>
+          <button type="button" class="ghost" data-status="YES" id="stYes">Back</button>
+          <button type="button" class="ghost" data-status="NO" id="stNo">Missing</button>
+        </div>
+      </div>
+      <label class="field">Search
+        <input id="q" type="text" placeholder="handle or 2026 name" />
+      </label>
+    </div>
+    <p class="hint" id="winMeta"></p>
+    <div class="wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Official handle</th>
+            <th></th>
+            <th>2026 name</th>
+            <th>n</th>
+            <th>Week 1 book</th>
+          </tr>
+        </thead>
+        <tbody id="winBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="field">
+    <h2>Week 1 pick share · live field</h2>
+    <p class="hint">JAC + LAC + PIT = 78.9% of 24,999 tickets. Model had LAC 40.7% / JAC ~20% / DET 16.2%. Detroit landed at 7.08%.</p>
+    <div class="bars" id="fieldBars"></div>
+  </section>
+
+  <section id="crowd">
+    <h2>Returning winners vs the crowd</h2>
+    <p class="hint">227 tickets from the 27 handles. Left bar is winner share, right bar is field share. They are overweight Pittsburgh and underweight Jacksonville. Love My Baxter (10 Eagles) and JUICY KEWCHI (Bengals / Bears / Vikings) faded the three chalk teams.</p>
+    <div class="bars" id="vsBars"></div>
+    <div class="cards">
+      <div class="card">
+        <b>All-in chalk</b>
+        <p>DYLAN W 10× Jaguars. REAL BRO 10× Chargers. One Week 1 loss wipes the stack.</p>
+      </div>
+      <div class="card">
+        <b>All-in Steelers</b>
+        <p>JED 10 and C3 Picks 10 on PIT (16% of the field). WHATEVERYALLWANT 7-of-10, GARYA 6-of-10.</p>
+      </div>
+      <div class="card">
+        <b>Fade book</b>
+        <p>JUICY KEWCHI: Bengals 4, Bears 3, Vikings 2, Raiders 1. Love My Baxter: Eagles 10.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="missing">
+    <h2>Missing champs · near misses</h2>
+    <div class="note">Handle match cannot see a champ who came back under a new string. PARTZ1 (19–1 two years running) is absent. TY1823 and KICK YOUR KNEES UP are the only post-2021 official champs not on the board.</div>
+    <div class="optbox">
+      <b>Notable non-splitters</b>
+      <ul>
+        <li><span class="k">THE ENEMY WITHIN</span><span>2022 finalist, 19–1. Back with 10 — Jaguars 6, Steelers 2, Chargers 2.</span></li>
+        <li><span class="k">PAYDATMANHISMONEY</span><span>2024 deep run, not a splitter. 7 tickets — Jaguars 5, Raiders 1, Steelers 1.</span></li>
+        <li><span class="k">PARTZ1</span><span>Pete Tarsiewicz. Last body out in 2025 (Bengals). Not in the PDF.</span></li>
+        <li><span class="k">STAY IN ALIVE</span><span>One letter off 2020’s Staying Alive. 10 tickets. Not counted in the 27.</span></li>
+      </ul>
+    </div>
+    <div class="optbox">
+      <b>Rejected lookalikes</b>
+      <ul>
+        <li><span class="k">COLT 45'S</span><span>Not COLTS45.</span></li>
+        <li><span class="k">HAWKEYE PICKS</span><span>Not SYRACUSE HAWKEYES (they played 2025, skipped 2026).</span></li>
+        <li><span class="k">STINGRAY</span><span>Not Sting. SLICK RICKS PICKS is not Slick Rick11.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="audit">
+    <h2>Parser audit</h2>
+    <p class="hint">Ghostscript txtwrite + pair regex. 24,999 unique aliases. 25,000 raw PK tokens — the extra is the owner name WEST TEXAS PK. No leftover line text, no entry-number holes. First-pass matcher missed spacing variants; compact A–Z0–9 match is what the table uses now.</p>
+    <div class="optbox">
+      <ul>
+        <li><span class="k">Source</span><span>raw__pdf/Circa-Survivor-2026-Week-1-Selections.pdf · 09/12/26 · 113 pages</span></li>
+        <li><span class="k">Rebuild</span><span class="mono">python3 parse_week1.py</span></li>
+        <li><span class="k">Tables</span><span>parsed/week1_entries.csv · winner_matches.csv · week1_pick_share.csv</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Circa Survivor last-person-standing, not Circa Million.
+    Writeup: <a href="FINDINGS.md">FINDINGS.md</a>.
+    Hedge book: <a href="../pick_selection/week1/index.html">week1/index.html</a>.
+  </footer>
+  </div>
+  </main>
+
+  <script>
+    const WINNERS = [
+      {y:2020,h:"* THE NUT SQUIRRELS",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"7- Out",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Artie Blanco",ok:true,n:4,as:"ARTIEBLANCO",book:"JAGUARS 2, CHARGERS 1, STEELERS 1"},
+      {y:2020,h:"BALD RAZORS",ok:true,n:10,as:"Bald Razors",book:"JAGUARS 4, CHARGERS 4, STEELERS 1, RAIDERS 1"},
+      {y:2020,h:"BOBBYT",ok:true,n:10,as:"BOBBY T",book:"JAGUARS 6, CHARGERS 2, LIONS 2"},
+      {y:2020,h:"BOYCOTT 8 PCT",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"CLARKGRIZWOLD",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"COLTS45",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"DaliBones",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"EX-FINANCE",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Golfing in Hell",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"JakestroJans",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Joncon16",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"LoveMyBaxter",ok:true,n:10,as:"Love My Baxter",book:"EAGLES 10"},
+      {y:2020,h:"MK INVEST",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Mucked Nuts.",ok:true,n:10,as:"MUCKED NUTS",book:"JAGUARS 4, CHARGERS 3, STEELERS 3"},
+      {y:2020,h:"PICKSWCLARS24",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"PLAYIN N STAYIN",ok:true,n:6,as:"PLAYIN N STAYING",book:"CHARGERS 2, STEELERS 2, JAGUARS 2"},
+      {y:2020,h:"PRESENCE",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Pauline Park",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Practice Squad QB",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"ROBERTRUTTER",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Rip Wheeler",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"SHAMWOW.",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Slick Rick11",ok:true,n:3,as:"SLICK RICK 11",book:"JAGUARS 3"},
+      {y:2020,h:"Staying Alive",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"Sting",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"THAWK",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"TIM'S SUNSCREEN",ok:true,n:10,as:"Tim's Sunscreen",book:"CHARGERS 5, JAGUARS 5"},
+      {y:2020,h:"Texas Bound.",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"WHAT IS FOOTBALL?",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"WHERE'S LUNCH",ok:false,n:0,as:"",book:""},
+      {y:2020,h:"pointsonthepackage",ok:true,n:5,as:"POINTSONTHEPACKAGE",book:"STEELERS 2, CHARGERS 2, JAGUARS 1"},
+      {y:2021,h:"CHRIS PIPER",ok:false,n:0,as:"",book:""},
+      {y:2021,h:"MYCOOL",ok:false,n:0,as:"",book:""},
+      {y:2021,h:"On Top 247",ok:true,n:2,as:"ONTOP247",book:"JAGUARS 1, CHARGERS 1"},
+      {y:2021,h:"RETURN OF SURVIVOR",ok:false,n:0,as:"",book:""},
+      {y:2021,h:"SYRACUSE HAWKEYES",ok:false,n:0,as:"",book:""},
+      {y:2022,h:"BROWNA",ok:true,n:10,as:"browna",book:"STEELERS 3, JAGUARS 2, CHARGERS 2, DOLPHINS 1, LIONS 1, BEARS 1"},
+      {y:2022,h:"JED",ok:true,n:10,as:"JED",book:"STEELERS 10"},
+      {y:2023,h:"CIRCUS MASTER",ok:true,n:4,as:"CIRCUS MASTER",book:"STEELERS 2, VIKINGS 1, JETS 1"},
+      {y:2023,h:"IndianaJet",ok:true,n:7,as:"INDIANAJET",book:"EAGLES 3, STEELERS 3, JAGUARS 1"},
+      {y:2023,h:"JAX JAGS",ok:true,n:10,as:"JAX JAGS",book:"JAGUARS 4, CHARGERS 4, STEELERS 2"},
+      {y:2023,h:"LAJONESER",ok:true,n:10,as:"LAJONESER",book:"CHARGERS 8, RAIDERS 1, JAGUARS 1"},
+      {y:2024,h:"C3 Picks",ok:true,n:10,as:"C3 Picks",book:"STEELERS 10"},
+      {y:2024,h:"DREAM STAKES",ok:true,n:10,as:"DREAM STAKES",book:"STEELERS 4, JAGUARS 4, RAIDERS 2"},
+      {y:2024,h:"MEATBALL BROTHERS",ok:true,n:10,as:"MEATBALL BROTHERS",book:"CHARGERS 4, JAGUARS 4, RAIDERS 2"},
+      {y:2024,h:"PUMBAPACK9",ok:true,n:10,as:"PUMBAPACK9",book:"STEELERS 4, EAGLES 2, TITANS 1, JAGUARS 1, CHARGERS 1, RAIDERS 1"},
+      {y:2024,h:"TY1823",ok:false,n:0,as:"",book:""},
+      {y:2024,h:"VODKA JOHNNY",ok:true,n:10,as:"VODKA JOHNNY",book:"CHARGERS 4, JAGUARS 3, RAIDERS 1, LIONS 1, STEELERS 1"},
+      {y:2024,h:"WHATEVERYALLWANT",ok:true,n:10,as:"WhateverYallWant",book:"STEELERS 7, JAGUARS 2, RAIDERS 1"},
+      {y:2024,h:"Whiskey Business",ok:true,n:6,as:"WHISKEY BUSINESS",book:"JAGUARS 3, CHARGERS 2, STEELERS 1"},
+      {y:2025,h:"DYLAN W",ok:true,n:10,as:"DYLAN W",book:"JAGUARS 10"},
+      {y:2025,h:"GaryA",ok:true,n:10,as:"GARYA",book:"STEELERS 6, CHARGERS 4"},
+      {y:2025,h:"JUICY KEWCHI",ok:true,n:10,as:"JUICY KEwchi",book:"BENGALS 4, BEARS 3, VIKINGS 2, RAIDERS 1"},
+      {y:2025,h:"KICK YOUR KNEES UP",ok:false,n:0,as:"",book:""},
+      {y:2025,h:"REAL BRO",ok:true,n:10,as:"REAL BRO",book:"CHARGERS 10"},
+    ];
+
+    const SHARES = [
+      ["JAGUARS",8127,32.51],["CHARGERS",7585,30.34],["STEELERS",4013,16.05],
+      ["LIONS",1771,7.08],["RAIDERS",1308,5.23],["EAGLES",784,3.14],
+      ["BENGALS",351,1.40],["TITANS",213,0.85],["SEAHAWKS",174,0.70],
+      ["BEARS",128,0.51],["RAVENS",111,0.44],["JETS",89,0.36],
+      ["COWBOYS",81,0.32],["VIKINGS",75,0.30],["RAMS",49,0.20],
+      ["DOLPHINS",27,0.11],["PATRIOTS",25,0.10],["CHIEFS",23,0.09],
+      ["TEXANS",10,0.04],["GIANTS",10,0.04],["49ERS",10,0.04],
+      ["COLTS",7,0.03],["BRONCOS",7,0.03],["BUCS",5,0.02],
+      ["BROWNS",4,0.02],["PANTHERS",4,0.02],["CARDINALS",2,0.01],
+      ["PACKERS",2,0.01],["BILLS",2,0.01],["FALCONS",1,0.00],["SAINTS",1,0.00],
+    ];
+
+    const VS = [
+      ["JAGUARS",27.8,32.51],["STEELERS",27.3,16.05],["CHARGERS",26.0,30.34],
+      ["EAGLES",6.6,3.14],["RAIDERS",4.4,5.23],["LIONS",1.8,7.08],
+      ["BEARS",1.8,0.51],["BENGALS",1.8,1.40],
+    ];
+
+    const state = { year: "all", status: "all", q: "" };
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+      }[c]));
+    }
+
+    function renderYears() {
+      const box = document.getElementById("yearTog");
+      const years = ["all", 2020, 2021, 2022, 2023, 2024, 2025];
+      box.innerHTML = years.map((y) => {
+        const on = String(state.year) === String(y) ? " on" : "";
+        const lab = y === "all" ? "All" : y;
+        return `<button type="button" class="ghost${on}" data-year="${y}">${lab}</button>`;
+      }).join("");
+      box.querySelectorAll("button").forEach((b) => {
+        b.addEventListener("click", () => {
+          state.year = b.dataset.year === "all" ? "all" : Number(b.dataset.year);
+          renderYears();
+          renderTable();
+        });
+      });
+    }
+
+    function filtered() {
+      const q = state.q.trim().toLowerCase();
+      return WINNERS.filter((r) => {
+        if (state.year !== "all" && r.y !== state.year) return false;
+        if (state.status === "YES" && !r.ok) return false;
+        if (state.status === "NO" && r.ok) return false;
+        if (!q) return true;
+        return r.h.toLowerCase().includes(q) || r.as.toLowerCase().includes(q) || r.book.toLowerCase().includes(q);
+      });
+    }
+
+    function renderTable() {
+      const rows = filtered();
+      const back = rows.filter((r) => r.ok).length;
+      const tix = rows.reduce((s, r) => s + r.n, 0);
+      document.getElementById("winMeta").textContent =
+        `${rows.length} handles in view · ${back} back · ${tix} tickets`;
+      document.getElementById("winBody").innerHTML = rows.map((r) => `
+        <tr class="${r.ok ? "yes" : "no"}">
+          <td>${r.y}</td>
+          <td>${esc(r.h)}</td>
+          <td><span class="badge ${r.ok ? "yes" : "no"}">${r.ok ? "BACK" : "OUT"}</span></td>
+          <td>${r.ok ? esc(r.as) : "—"}</td>
+          <td>${r.ok ? r.n : "—"}</td>
+          <td>${r.ok ? esc(r.book) : "—"}</td>
+        </tr>`).join("");
+    }
+
+    function renderField() {
+      const max = SHARES[0][2];
+      document.getElementById("fieldBars").innerHTML = SHARES.map(([t, n, p]) => `
+        <div class="brow">
+          <div>${t}</div>
+          <div class="track"><div class="fill" style="width:${(p / max) * 100}%"></div></div>
+          <div class="mono">${n.toLocaleString()}</div>
+          <div class="mono">${p.toFixed(2)}%</div>
+        </div>`).join("");
+    }
+
+    function renderVs() {
+      document.getElementById("vsBars").innerHTML = VS.map(([t, w, f]) => `
+        <div class="pair">
+          <div>${t}</div>
+          <div class="track" title="winners ${w}%"><div class="fill win" style="width:${(w / 35) * 100}%"></div></div>
+          <div class="track" title="field ${f}%"><div class="fill field" style="width:${(f / 35) * 100}%"></div></div>
+          <div class="mono pos">${w.toFixed(1)}</div>
+          <div class="mono">${f.toFixed(1)}</div>
+        </div>`).join("") +
+        `<div class="pair"><div></div><div class="hint" style="padding:0">winners %</div><div class="hint" style="padding:0">field %</div><div></div><div></div></div>`;
+    }
+
+    document.querySelectorAll("[data-status]").forEach((b) => {
+      b.addEventListener("click", () => {
+        state.status = b.dataset.status;
+        document.querySelectorAll("[data-status]").forEach((x) => x.classList.toggle("on", x === b));
+        renderTable();
+      });
+    });
+    document.getElementById("q").addEventListener("input", (e) => {
+      state.q = e.target.value;
+      renderTable();
+    });
+
+    renderYears();
+    renderTable();
+    renderField();
+    renderVs();
+  </script>
+  <script src="../assets/files-bundle.js"></script>
+  <script src="../assets/circa-view.js"></script>
+  <script src="../assets/circa-nav.js"></script>
+</body>
+</html>

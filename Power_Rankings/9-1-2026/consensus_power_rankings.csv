@@ -1,0 +1,33 @@
+Rank,Team,Abbr,Avg,Best,Worst,Std,JuneRank,RankDelta
+1,Los Angeles Rams,LAR,1.00,1,1,0.00,1,0
+2,Seattle Seahawks,SEA,2.67,2,5,0.94,2,0
+3,Buffalo Bills,BUF,4.07,2,7,1.69,3,0
+4,Denver Broncos,DEN,5.20,2,15,3.56,4,0
+5,Baltimore Ravens,BAL,7.87,3,16,3.67,5,0
+6,Philadelphia Eagles,PHI,8.33,4,19,3.68,8,2
+7,Houston Texans,HOU,8.53,3,14,3.67,9,2
+8,New England Patriots,NE,8.67,4,15,3.30,6,-2
+9,Chicago Bears,CHI,10.00,3,17,4.29,10,1
+10,San Francisco 49ers,SF,10.47,4,19,4.01,7,-3
+11,Detroit Lions,DET,10.80,5,18,3.41,13,2
+12,Green Bay Packers,GB,11.13,4,15,3.42,11,-1
+13,Los Angeles Chargers,LAC,12.20,5,19,3.95,14,1
+14,Kansas City Chiefs,KC,13.00,5,19,4.38,12,-2
+15,Jacksonville Jaguars,JAX,13.13,7,17,2.78,15,0
+16,Cincinnati Bengals,CIN,13.47,8,18,2.96,16,0
+17,Dallas Cowboys,DAL,13.53,8,18,3.07,17,0
+18,Tampa Bay Buccaneers,TB,19.07,16,23,2.17,18,0
+19,Minnesota Vikings,MIN,19.87,17,24,1.86,21,2
+20,Pittsburgh Steelers,PIT,20.07,17,22,1.24,19,-1
+21,Indianapolis Colts,IND,21.13,16,29,2.99,22,1
+22,Washington Commanders,WAS,22.27,18,29,3.02,23,1
+23,Carolina Panthers,CAR,22.87,16,27,2.55,20,-3
+24,New Orleans Saints,NO,23.20,20,25,1.72,25,1
+25,New York Giants,NYG,24.53,19,30,2.70,24,-1
+26,Atlanta Falcons,ATL,26.00,23,30,1.93,26,0
+27,Tennessee Titans,TEN,27.40,24,32,1.70,27,0
+28,Las Vegas Raiders,LV,27.47,25,31,1.75,28,0
+29,New York Jets,NYJ,29.00,26,31,1.51,30,1
+30,Cleveland Browns,CLE,29.67,27,32,1.74,29,-1
+31,Arizona Cardinals,ARI,30.13,26,32,1.50,31,0
+32,Miami Dolphins,MIA,31.27,27,32,1.29,32,0

@@ -1,0 +1,33 @@
+Rank,Team,Abbr,Avg,Best,Worst,Std,JuneRank,Sep1Rank,RankDelta
+1,Los Angeles Rams,LAR,1.10,1,2,0.30,1,1,0
+2,Seattle Seahawks,SEA,2.40,1,4,0.80,2,2,0
+3,Buffalo Bills,BUF,3.90,2,7,1.45,3,3,0
+4,Baltimore Ravens,BAL,5.80,3,9,2.09,5,5,1
+5,Denver Broncos,DEN,6.00,2,15,3.69,4,4,-1
+6,Philadelphia Eagles,PHI,8.00,4,13,2.41,8,6,0
+7,New England Patriots,NE,8.60,3,16,4.20,6,8,1
+8,Houston Texans,HOU,9.60,4,13,2.80,9,7,-1
+9,Los Angeles Chargers,LAC,11.50,5,17,4.54,14,13,4
+10,Dallas Cowboys,DAL,11.80,5,17,3.82,17,17,7
+11,Kansas City Chiefs,KC,11.80,8,15,2.27,12,14,3
+12,Jacksonville Jaguars,JAX,11.90,3,16,3.73,15,15,3
+13,Green Bay Packers,GB,11.90,4,18,4.39,11,12,-1
+14,San Francisco 49ers,SF,11.90,5,17,3.33,7,10,-4
+15,Cincinnati Bengals,CIN,12.20,7,18,3.84,16,16,1
+16,Chicago Bears,CHI,12.40,5,17,4.27,10,9,-7
+17,Detroit Lions,DET,13.10,8,19,3.67,13,11,-6
+18,Minnesota Vikings,MIN,18.40,15,21,1.56,21,19,1
+19,Tampa Bay Buccaneers,TB,19.10,14,24,2.62,18,18,-1
+20,Indianapolis Colts,IND,20.10,19,21,0.83,22,21,1
+21,Pittsburgh Steelers,PIT,20.10,19,21,0.70,19,20,-1
+22,New York Giants,NYG,23.30,19,26,1.79,24,25,3
+23,Carolina Panthers,CAR,23.40,21,26,1.62,20,23,0
+24,New Orleans Saints,NO,24.00,22,26,1.41,25,24,0
+25,Washington Commanders,WAS,24.70,22,31,3.03,23,22,-3
+26,Atlanta Falcons,ATL,25.90,24,28,1.64,26,26,0
+27,Tennessee Titans,TEN,26.80,24,28,1.08,27,27,0
+28,Las Vegas Raiders,LV,28.00,26,29,1.18,28,28,0
+29,New York Jets,NYJ,28.30,25,30,1.42,30,29,0
+30,Arizona Cardinals,ARI,29.90,25,32,2.07,31,31,1
+31,Cleveland Browns,CLE,30.20,29,31,0.60,29,30,-1
+32,Miami Dolphins,MIA,31.90,31,32,0.30,32,32,0

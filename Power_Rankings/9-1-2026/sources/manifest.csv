@@ -1,0 +1,16 @@
+id,label,outlet,date,url,has_sb_odds,note
+espn_panel,ESPN_panel,ESPN power panel,2026-09-01,https://www.espn.com/nfl/story/_/id/49754534/2026-nfl-power-rankings-preseason-milestones,no,Final cuts / Week 1 panel
+sportsnaut,Sportsnaut,Sportsnaut,2026-08-31,https://sportsnaut.com/nfl/2026-nfl-power-rankings-after-preseason,no,Post-preseason (preseason wrapped Saturday Aug 29)
+nfl_spin_zone,NFL_Spin_Zone,NFL Spin Zone,2026-09-01,https://nflspinzone.com/nfl-power-rankings-updated-league-rankings-after-roster-cuts-01m1cszfw3z0,no,After roster cuts
+si_betting,SI_betting,SI Betting,2026-08-31,https://www.si.com/betting/nfl-power-rankings-based-on-super-bowl-odds-following-preseason-examining-top-contenders-to-win-in-2026,yes,Writer order informed by Super Bowl odds; odds stored on this file
+espn_fpi,ESPN_FPI,ESPN FPI,2026-09-01,https://www.espn.com/nfl/fpi,no,Live 2026 FPI table fetched Sep 1 (0-0-0)
+sporting_news,Sporting_News,Sporting News (Vinnie Iyer),2026-08-17,https://www.sportingnews.com/us/nfl/news/nfl-preseason-power-rankings-bills-bears-rams-seahawks-patriots/2cb00c83ca025c07de32c837,no,Preseason edition; latest SN 1-32
+sharp_football,Sharp_Football,Sharp Football Analysis,2026-08-24,https://www.sharpfootballanalysis.com/analysis/nfl-power-rankings/,yes,Aug 24 update; Super Bowl odds stored on this file
+fansided,FanSided,FanSided,2026-08-22,https://fansided.com/nfl/nfl-power-rankings-after-two-weeks-of-the-preseason-injuries-and-more,no,After two weeks of preseason
+usa_today,USA_Today,USA Today (Nate Davis),2026-08-06,https://www.usatoday.com/story/sports/nfl/columnist/nate-davis/2026/08/06/nfl-power-rankings-preseason-super-bowl/91193311007/,no,Entering preseason
+athletic,Athletic,The Athletic (Josh Kendall),2026-08-08,https://www.nytimes.com/athletic/7464171/2026/07/28/nfl-power-rankings-training-camp-rams-seahawks/,no,"Published Jul 28, updated Aug 8"
+pfn_camp,PFN_camp,Pro Football Network (Jacob Infante),2026-07-29,https://www.profootballnetwork.com/2026-nfl-power-rankings-training-camp/,no,Training camp; latest PFN 1-32
+yahoo_schwab,Yahoo_Schwab,Yahoo Sports (Frank Schwab),2026-08-05,https://sports.yahoo.com/nfl/article/nfl-2026-offseason-power-rankings-countdown-defending-champion-seahawks-arent-no-1-131500536.html,no,Independent camp countdown; not the Sportsnaut reprint
+br_camp,BR_camp,Bleacher Report (training camp),2026-07-10,https://bleacherreport.com/articles/25452865-2026-nfl-power-rankings-where-does-every-team-stack-entering-training-camp,no,Worst-to-first slideshow. Rank 32 Dolphins and 29 Jets are unnumbered sections on the page between numbered neighbors; not interpolated missing teams.
+otl_sports,OTL_Sports,OTL Sports,2026-08-17,https://otlsports.com/nfl-power-rankings-updated-preseason-week-1/,no,Updated preseason Week 1
+nfl_com,NFL_com,NFL.com (Nick Shook),2026-08-11,https://www.nfl.com/news/nfl-power-rankings-rams-enter-preseason-on-top-seahawks-at-no-3-patriots-outside-top-10,no,Enter-preseason full 1-32; latest NFL.com list

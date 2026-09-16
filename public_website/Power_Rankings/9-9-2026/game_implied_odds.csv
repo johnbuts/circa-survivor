@@ -1,0 +1,241 @@
+away,home,away_spread,home_spread,away_ml,home_ml,away_implied_pct,home_implied_pct,implied_sum_pct,away_from,home_from
+New England Patriots,Seattle Seahawks,1.5,-1.5,109,-143,47.85,58.85,106.69,ml,ml
+San Francisco 49ers,Los Angeles Rams,3.5,-3.5,164,-198,37.88,66.44,104.32,ml,ml
+Atlanta Falcons,Pittsburgh Steelers,3.5,-3.5,154,-185,39.37,64.91,104.28,ml,ml
+Baltimore Ravens,Indianapolis Colts,-3.5,3.5,-175,145,63.64,40.82,104.45,ml,ml
+Buffalo Bills,Houston Texans,-1.5,1.5,-118,-102,54.13,50.50,104.62,ml,ml
+Chicago Bears,Carolina Panthers,-3.0,3.0,-162,136,61.83,42.37,104.20,ml,ml
+Tampa Bay Buccaneers,Cincinnati Bengals,3.5,-3.5,164,-198,37.88,66.44,104.32,ml,ml
+Cleveland Browns,Jacksonville Jaguars,8.5,-8.5,360,-470,21.74,82.46,104.20,ml,ml
+New Orleans Saints,Detroit Lions,7.0,-7.0,250,-310,28.57,75.61,104.18,ml,ml
+New York Jets,Tennessee Titans,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Arizona Cardinals,Los Angeles Chargers,9.5,-9.5,380,-500,20.83,83.33,104.17,ml,ml
+Green Bay Packers,Minnesota Vikings,1.5,-1.5,100,-120,50.00,54.55,104.55,ml,ml
+Miami Dolphins,Las Vegas Raiders,3.0,-3.0,140,-166,41.67,62.41,104.07,ml,ml
+Washington Commanders,Philadelphia Eagles,5.5,-5.5,180,-218,35.71,68.55,104.27,ml,ml
+Dallas Cowboys,New York Giants,-3.0,3.0,-162,136,61.83,42.37,104.20,ml,ml
+Denver Broncos,Kansas City Chiefs,3.0,-3.0,130,-155,43.48,60.78,104.26,ml,ml
+Detroit Lions,Buffalo Bills,3.0,-3.0,136,-162,42.37,61.83,104.20,ml,ml
+Carolina Panthers,Atlanta Falcons,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+New Orleans Saints,Baltimore Ravens,7.5,-7.5,280,-355,26.32,78.02,104.34,ml,ml
+Minnesota Vikings,Chicago Bears,3.0,-3.0,142,-170,41.32,62.96,104.29,ml,ml
+Cincinnati Bengals,Houston Texans,2.5,-2.5,124,-148,44.64,59.68,104.32,ml,ml
+Cleveland Browns,Tampa Bay Buccaneers,6.5,-6.5,230,-285,30.30,74.03,104.33,ml,ml
+Green Bay Packers,New York Jets,-5.5,5.5,-245,200,71.01,33.33,104.35,ml,ml
+Philadelphia Eagles,Tennessee Titans,-5.5,5.5,-230,190,69.70,34.48,104.18,ml,ml
+Jacksonville Jaguars,Denver Broncos,3.0,-3.0,130,-155,43.48,60.78,104.26,ml,ml
+Las Vegas Raiders,Los Angeles Chargers,9.5,-9.5,310,-395,24.39,79.80,104.19,ml,ml
+Washington Commanders,Dallas Cowboys,4.5,-4.5,170,-205,37.04,67.21,104.25,ml,ml
+Miami Dolphins,San Francisco 49ers,10.5,-10.5,490,-675,16.95,87.10,104.05,ml,ml
+Indianapolis Colts,Kansas City Chiefs,6.5,-6.5,260,-325,27.78,76.47,104.25,ml,ml
+New York Giants,Los Angeles Rams,9.5,-9.5,370,-485,21.28,82.91,104.18,ml,ml
+Atlanta Falcons,Green Bay Packers,7.5,-7.5,295,-375,25.32,78.95,104.26,ml,ml
+Los Angeles Chargers,Buffalo Bills,3.0,-3.0,136,-162,42.37,61.83,104.20,ml,ml
+Carolina Panthers,Cleveland Browns,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Cincinnati Bengals,Pittsburgh Steelers,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+New York Jets,Detroit Lions,9.5,-9.5,320,-410,23.81,80.39,104.20,ml,ml
+Houston Texans,Indianapolis Colts,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Kansas City Chiefs,Miami Dolphins,-7.5,7.5,-440,340,81.48,22.73,104.21,ml,ml
+Tennessee Titans,New York Giants,3.0,-3.0,140,-166,41.67,62.41,104.07,ml,ml
+Arizona Cardinals,San Francisco 49ers,11.5,-11.5,470,-650,17.54,86.67,104.21,ml,ml
+Minnesota Vikings,Tampa Bay Buccaneers,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Baltimore Ravens,Dallas Cowboys,-2.5,2.5,-135,114,57.45,46.73,104.18,ml,ml
+Las Vegas Raiders,New Orleans Saints,3.5,-3.5,154,-185,39.37,64.91,104.28,ml,ml
+Los Angeles Rams,Denver Broncos,-3.0,3.0,-155,130,60.78,43.48,104.26,ml,ml
+Philadelphia Eagles,Chicago Bears,1.5,-1.5,-102,-118,50.50,54.13,104.62,ml,ml
+Pittsburgh Steelers,Cleveland Browns,-2.5,2.5,-135,114,57.45,46.73,104.18,ml,ml
+Indianapolis Colts,Washington Commanders,1.5,-1.5,-102,-118,50.50,54.13,104.62,ml,ml
+Arizona Cardinals,New York Giants,7.0,-7.0,260,-325,27.78,76.47,104.25,ml,ml
+Tennessee Titans,Baltimore Ravens,8.5,-8.5,300,-380,25.00,79.17,104.17,ml,ml
+New York Jets,Chicago Bears,8.5,-8.5,330,-425,23.26,80.95,104.21,ml,ml
+Jacksonville Jaguars,Cincinnati Bengals,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Dallas Cowboys,Houston Texans,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Green Bay Packers,Tampa Bay Buccaneers,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Los Angeles Rams,Philadelphia Eagles,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Miami Dolphins,Minnesota Vikings,7.5,-7.5,310,-395,24.39,79.80,104.19,ml,ml
+Denver Broncos,San Francisco 49ers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Kansas City Chiefs,Las Vegas Raiders,-5.5,5.5,-250,205,71.43,32.79,104.22,ml,ml
+Detroit Lions,Carolina Panthers,-3.0,3.0,-162,136,61.83,42.37,104.20,ml,ml
+Atlanta Falcons,New Orleans Saints,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Tampa Bay Buccaneers,Dallas Cowboys,3.5,-3.5,170,-205,37.04,67.21,104.25,ml,ml
+Philadelphia Eagles,Jacksonville Jaguars,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Cincinnati Bengals,Miami Dolphins,-6.0,6.0,-278,225,73.54,30.77,104.31,ml,ml
+Cleveland Browns,New York Jets,2.5,-2.5,110,-130,47.62,56.52,104.14,ml,ml
+Houston Texans,Tennessee Titans,-3.5,3.5,-185,154,64.91,39.37,104.28,ml,ml
+Indianapolis Colts,Pittsburgh Steelers,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Minnesota Vikings,New Orleans Saints,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+New York Giants,Washington Commanders,2.5,-2.5,110,-130,47.62,56.52,104.14,ml,ml
+Denver Broncos,Los Angeles Chargers,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Detroit Lions,Arizona Cardinals,-8.5,8.5,-395,310,79.80,24.39,104.19,ml,ml
+Chicago Bears,Green Bay Packers,3.0,-3.0,140,-166,41.67,62.41,104.07,ml,ml
+Baltimore Ravens,Atlanta Falcons,-4.5,4.5,-205,170,67.21,37.04,104.25,ml,ml
+Buffalo Bills,Los Angeles Rams,3.0,-3.0,142,-170,41.32,62.96,104.29,ml,ml
+Houston Texans,Jacksonville Jaguars,1.5,-1.5,-108,-112,51.92,52.83,104.75,ml,ml
+Chicago Bears,Atlanta Falcons,-3.0,3.0,-155,130,60.78,43.48,104.26,ml,ml
+Baltimore Ravens,Cleveland Browns,-6.5,6.5,-250,205,71.43,32.79,104.22,ml,ml
+Carolina Panthers,Philadelphia Eagles,6.5,-6.5,225,-278,30.77,73.54,104.31,ml,ml
+Tennessee Titans,Indianapolis Colts,3.5,-3.5,164,-198,37.88,66.44,104.32,ml,ml
+New Orleans Saints,New York Giants,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Pittsburgh Steelers,Tampa Bay Buccaneers,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Arizona Cardinals,Los Angeles Rams,13.5,-13.5,525,-750,16.00,88.24,104.24,ml,ml
+Buffalo Bills,Las Vegas Raiders,-6.5,6.5,-270,220,72.97,31.25,104.22,ml,ml
+Los Angeles Chargers,Kansas City Chiefs,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Dallas Cowboys,Green Bay Packers,3.0,-3.0,140,-166,41.67,62.41,104.07,ml,ml
+Washington Commanders,San Francisco 49ers,5.5,-5.5,205,-250,32.79,71.43,104.22,ml,ml
+Pittsburgh Steelers,New Orleans Saints,-2.5,2.5,-142,120,58.68,45.45,104.13,ml,ml
+San Francisco 49ers,Atlanta Falcons,-4.5,4.5,-225,185,69.23,35.09,104.32,ml,ml
+Cincinnati Bengals,Baltimore Ravens,3.5,-3.5,154,-185,39.37,64.91,104.28,ml,ml
+Tampa Bay Buccaneers,Carolina Panthers,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Cleveland Browns,Tennessee Titans,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+New York Giants,Houston Texans,5.5,-5.5,195,-238,33.90,70.41,104.31,ml,ml
+Indianapolis Colts,Minnesota Vikings,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Miami Dolphins,New York Jets,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Denver Broncos,Arizona Cardinals,-7.5,7.5,-375,295,78.95,25.32,104.26,ml,ml
+Green Bay Packers,Detroit Lions,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Los Angeles Rams,Las Vegas Raiders,-7.5,7.5,-345,275,77.53,26.67,104.19,ml,ml
+Dallas Cowboys,Philadelphia Eagles,3.0,-3.0,136,-162,42.37,61.83,104.20,ml,ml
+Carolina Panthers,Green Bay Packers,7.0,-7.0,280,-355,26.32,78.02,104.34,ml,ml
+Arizona Cardinals,Dallas Cowboys,10.5,-10.5,410,-550,19.61,84.62,104.22,ml,ml
+Atlanta Falcons,Tampa Bay Buccaneers,4.5,-4.5,185,-225,35.09,69.23,104.32,ml,ml
+Baltimore Ravens,Buffalo Bills,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Tennessee Titans,Cincinnati Bengals,6.5,-6.5,235,-290,29.85,74.36,104.21,ml,ml
+Cleveland Browns,Pittsburgh Steelers,6.0,-6.0,210,-258,32.26,72.07,104.33,ml,ml
+Minnesota Vikings,Detroit Lions,4.5,-4.5,185,-225,35.09,69.23,104.32,ml,ml
+Indianapolis Colts,Jacksonville Jaguars,4.5,-4.5,185,-225,35.09,69.23,104.32,ml,ml
+Las Vegas Raiders,New York Jets,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+Los Angeles Chargers,Los Angeles Rams,4.5,-4.5,164,-198,37.88,66.44,104.32,ml,ml
+Kansas City Chiefs,Denver Broncos,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Philadelphia Eagles,Washington Commanders,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Jacksonville Jaguars,Baltimore Ravens,4.5,-4.5,170,-205,37.04,67.21,104.25,ml,ml
+Cincinnati Bengals,Atlanta Falcons,-5.5,5.5,-230,190,69.70,34.48,104.18,ml,ml
+Denver Broncos,Carolina Panthers,-3.0,3.0,-162,136,61.83,42.37,104.20,ml,ml
+Cleveland Browns,New Orleans Saints,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Dallas Cowboys,Indianapolis Colts,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Detroit Lions,Miami Dolphins,-6.5,6.5,-278,225,73.54,30.77,104.31,ml,ml
+New York Jets,Kansas City Chiefs,9.5,-9.5,350,-455,22.22,81.98,104.20,ml,ml
+Los Angeles Rams,Washington Commanders,-5.5,5.5,-225,185,69.23,35.09,104.32,ml,ml
+New York Giants,Philadelphia Eagles,5.5,-5.5,195,-238,33.90,70.41,104.31,ml,ml
+Houston Texans,Los Angeles Chargers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Las Vegas Raiders,San Francisco 49ers,8.5,-8.5,330,-425,23.26,80.95,104.21,ml,ml
+Tampa Bay Buccaneers,Chicago Bears,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Buffalo Bills,Minnesota Vikings,-3.0,3.0,-170,142,62.96,41.32,104.29,ml,ml
+Washington Commanders,New York Giants,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Kansas City Chiefs,Atlanta Falcons,-4.5,4.5,-225,185,69.23,35.09,104.32,ml,ml
+Buffalo Bills,New York Jets,-7.0,7.0,-340,270,77.27,27.03,104.30,ml,ml
+Carolina Panthers,New Orleans Saints,1.5,-1.5,-102,-118,50.50,54.13,104.62,ml,ml
+Houston Texans,Cleveland Browns,-4.5,4.5,-205,170,67.21,37.04,104.25,ml,ml
+Minnesota Vikings,Green Bay Packers,4.5,-4.5,200,-245,33.33,71.01,104.35,ml,ml
+Miami Dolphins,Indianapolis Colts,6.5,-6.5,250,-310,28.57,75.61,104.18,ml,ml
+Jacksonville Jaguars,Tennessee Titans,-2.5,2.5,-135,114,57.45,46.73,104.18,ml,ml
+Los Angeles Rams,Arizona Cardinals,-10.5,10.5,-470,360,82.46,21.74,104.20,ml,ml
+San Francisco 49ers,Dallas Cowboys,1.5,-1.5,100,-120,50.00,54.55,104.55,ml,ml
+Pittsburgh Steelers,Cincinnati Bengals,3.5,-3.5,164,-198,37.88,66.44,104.32,ml,ml
+Los Angeles Chargers,Baltimore Ravens,3.5,-3.5,150,-180,40.00,64.29,104.29,ml,ml
+Indianapolis Colts,Houston Texans,5.5,-5.5,195,-238,33.90,70.41,104.31,ml,ml
+Arizona Cardinals,Kansas City Chiefs,11.5,-11.5,440,-600,18.52,85.71,104.23,ml,ml
+Baltimore Ravens,Carolina Panthers,-4.5,4.5,-218,180,68.55,35.71,104.27,ml,ml
+Miami Dolphins,Buffalo Bills,11.5,-11.5,470,-650,17.54,86.67,104.21,ml,ml
+New Orleans Saints,Chicago Bears,6.5,-6.5,235,-290,29.85,74.36,104.21,ml,ml
+Tennessee Titans,Dallas Cowboys,6.5,-6.5,230,-285,30.30,74.03,104.33,ml,ml
+Tampa Bay Buccaneers,Detroit Lions,4.5,-4.5,180,-218,35.71,68.55,104.27,ml,ml
+Jacksonville Jaguars,New York Giants,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+New York Jets,Los Angeles Chargers,9.5,-9.5,330,-425,23.26,80.95,104.21,ml,ml
+Las Vegas Raiders,Denver Broncos,7.5,-7.5,260,-325,27.78,76.47,104.25,ml,ml
+Pittsburgh Steelers,Philadelphia Eagles,5.5,-5.5,195,-238,33.90,70.41,104.31,ml,ml
+Minnesota Vikings,San Francisco 49ers,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Cincinnati Bengals,Washington Commanders,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Green Bay Packers,Los Angeles Rams,4.5,-4.5,185,-225,35.09,69.23,104.32,ml,ml
+Chicago Bears,Detroit Lions,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Philadelphia Eagles,Dallas Cowboys,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Kansas City Chiefs,Buffalo Bills,2.5,-2.5,124,-148,44.64,59.68,104.32,ml,ml
+Denver Broncos,Pittsburgh Steelers,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Atlanta Falcons,Minnesota Vikings,4.5,-4.5,180,-218,35.71,68.55,104.27,ml,ml
+Baltimore Ravens,Houston Texans,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+New Orleans Saints,Cincinnati Bengals,6.5,-6.5,235,-290,29.85,74.36,104.21,ml,ml
+Las Vegas Raiders,Cleveland Browns,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+New York Giants,Indianapolis Colts,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Tennessee Titans,Jacksonville Jaguars,5.5,-5.5,195,-238,33.90,70.41,104.31,ml,ml
+New York Jets,Miami Dolphins,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Washington Commanders,Arizona Cardinals,-4.5,4.5,-218,180,68.55,35.71,104.27,ml,ml
+Carolina Panthers,Tampa Bay Buccaneers,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Kansas City Chiefs,Los Angeles Rams,3.5,-3.5,170,-205,37.04,67.21,104.25,ml,ml
+Detroit Lions,Atlanta Falcons,-3.5,3.5,-185,154,64.91,39.37,104.28,ml,ml
+Jacksonville Jaguars,Chicago Bears,3.0,-3.0,130,-155,43.48,60.78,104.26,ml,ml
+Cincinnati Bengals,Cleveland Browns,-4.5,4.5,-218,180,68.55,35.71,104.27,ml,ml
+Miami Dolphins,Denver Broncos,9.5,-9.5,350,-455,22.22,81.98,104.20,ml,ml
+Green Bay Packers,New Orleans Saints,-4.5,4.5,-225,185,69.23,35.09,104.32,ml,ml
+Los Angeles Chargers,Tampa Bay Buccaneers,-2.5,2.5,-142,120,58.68,45.45,104.13,ml,ml
+San Francisco 49ers,New York Giants,-3.0,3.0,-166,140,62.41,41.67,104.07,ml,ml
+Washington Commanders,Tennessee Titans,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Philadelphia Eagles,Arizona Cardinals,-8.5,8.5,-395,310,79.80,24.39,104.19,ml,ml
+Carolina Panthers,Minnesota Vikings,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Houston Texans,Pittsburgh Steelers,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Atlanta Falcons,Cleveland Browns,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Tampa Bay Buccaneers,Baltimore Ravens,6.0,-6.0,210,-258,32.26,72.07,104.33,ml,ml
+New Orleans Saints,Carolina Panthers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Chicago Bears,Miami Dolphins,-5.5,5.5,-250,205,71.43,32.79,104.22,ml,ml
+Denver Broncos,New York Jets,-5.5,5.5,-230,190,69.70,34.48,104.18,ml,ml
+Tennessee Titans,Detroit Lions,7.5,-7.5,285,-360,25.97,78.26,104.23,ml,ml
+Houston Texans,Washington Commanders,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Indianapolis Colts,Philadelphia Eagles,5.5,-5.5,200,-245,33.33,71.01,104.35,ml,ml
+Los Angeles Chargers,Las Vegas Raiders,-5.5,5.5,-225,185,69.23,35.09,104.32,ml,ml
+Kansas City Chiefs,Cincinnati Bengals,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Los Angeles Rams,San Francisco 49ers,-1.5,1.5,-130,110,56.52,47.62,104.14,ml,ml
+Buffalo Bills,Green Bay Packers,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Pittsburgh Steelers,Jacksonville Jaguars,3.0,-3.0,136,-162,42.37,61.83,104.20,ml,ml
+San Francisco 49ers,Los Angeles Chargers,2.5,-2.5,120,-142,45.45,58.68,104.13,ml,ml
+Chicago Bears,Buffalo Bills,3.5,-3.5,154,-185,39.37,64.91,104.28,ml,ml
+Atlanta Falcons,Washington Commanders,3.5,-3.5,150,-180,40.00,64.29,104.29,ml,ml
+Baltimore Ravens,Pittsburgh Steelers,-2.5,2.5,-148,124,59.68,44.64,104.32,ml,ml
+Cincinnati Bengals,Carolina Panthers,-2.5,2.5,-148,124,59.68,44.64,104.32,ml,ml
+Cleveland Browns,New York Giants,4.5,-4.5,180,-218,35.71,68.55,104.27,ml,ml
+Miami Dolphins,Green Bay Packers,10.5,-10.5,470,-650,17.54,86.67,104.21,ml,ml
+Jacksonville Jaguars,Houston Texans,3.0,-3.0,130,-155,43.48,60.78,104.26,ml,ml
+Indianapolis Colts,Tennessee Titans,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+New Orleans Saints,Tampa Bay Buccaneers,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+New York Jets,Arizona Cardinals,-1.5,1.5,-110,-110,52.38,52.38,104.76,ml,ml
+Dallas Cowboys,Los Angeles Rams,6.0,-6.0,200,-245,33.33,71.01,104.35,ml,ml
+Denver Broncos,Las Vegas Raiders,-4.5,4.5,-205,170,67.21,37.04,104.25,ml,ml
+Detroit Lions,Minnesota Vikings,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Houston Texans,Philadelphia Eagles,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Green Bay Packers,Chicago Bears,1.5,-1.5,-102,-118,50.50,54.13,104.62,ml,ml
+Buffalo Bills,Denver Broncos,-1.5,1.5,-130,110,56.52,47.62,104.14,ml,ml
+Arizona Cardinals,New Orleans Saints,5.5,-5.5,200,-245,33.33,71.01,104.35,ml,ml
+Tampa Bay Buccaneers,Atlanta Falcons,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Cleveland Browns,Baltimore Ravens,10.0,-10.0,330,-425,23.26,80.95,104.21,ml,ml
+Carolina Panthers,Pittsburgh Steelers,3.5,-3.5,160,-192,38.46,65.75,104.21,ml,ml
+Cincinnati Bengals,Indianapolis Colts,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Tennessee Titans,Las Vegas Raiders,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Los Angeles Chargers,Miami Dolphins,-7.0,7.0,-360,285,78.26,25.97,104.23,ml,ml
+Washington Commanders,Minnesota Vikings,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+San Francisco 49ers,Kansas City Chiefs,3.0,-3.0,130,-155,43.48,60.78,104.26,ml,ml
+Jacksonville Jaguars,Dallas Cowboys,3.0,-3.0,136,-162,42.37,61.83,104.20,ml,ml
+New York Giants,Detroit Lions,4.5,-4.5,170,-205,37.04,67.21,104.25,ml,ml
+Baltimore Ravens,Cincinnati Bengals,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+New Orleans Saints,Atlanta Falcons,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Buffalo Bills,Miami Dolphins,-7.5,7.5,-380,300,79.17,25.00,104.17,ml,ml
+Indianapolis Colts,Cleveland Browns,-2.5,2.5,-135,114,57.45,46.73,104.18,ml,ml
+New York Giants,Dallas Cowboys,4.5,-4.5,180,-218,35.71,68.55,104.27,ml,ml
+Washington Commanders,Jacksonville Jaguars,3.5,-3.5,154,-185,39.37,64.91,104.28,ml,ml
+Los Angeles Rams,Tampa Bay Buccaneers,-4.5,4.5,-205,170,67.21,37.04,104.25,ml,ml
+Minnesota Vikings,New York Jets,-3.5,3.5,-185,154,64.91,39.37,104.28,ml,ml
+Pittsburgh Steelers,Tennessee Titans,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Las Vegas Raiders,Arizona Cardinals,-1.5,1.5,-130,110,56.52,47.62,104.14,ml,ml
+Detroit Lions,Chicago Bears,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+Kansas City Chiefs,Los Angeles Chargers,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Philadelphia Eagles,San Francisco 49ers,1.5,-1.5,105,-125,48.78,55.56,104.34,ml,ml
+Houston Texans,Green Bay Packers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Atlanta Falcons,Carolina Panthers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Pittsburgh Steelers,Baltimore Ravens,5.5,-5.5,190,-230,34.48,69.70,104.18,ml,ml
+New York Jets,Buffalo Bills,10.0,-10.0,370,-485,21.28,82.91,104.18,ml,ml
+Chicago Bears,Minnesota Vikings,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+Cleveland Browns,Cincinnati Bengals,7.5,-7.5,285,-360,25.97,78.26,104.23,ml,ml
+Dallas Cowboys,Washington Commanders,-1.5,1.5,-122,102,54.95,49.50,104.46,ml,ml
+Los Angeles Chargers,Denver Broncos,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+Detroit Lions,Green Bay Packers,2.5,-2.5,114,-135,46.73,57.45,104.18,ml,ml
+Tennessee Titans,Houston Texans,7.0,-7.0,240,-298,29.41,74.87,104.29,ml,ml
+Jacksonville Jaguars,Indianapolis Colts,1.5,-1.5,102,-122,49.50,54.95,104.46,ml,ml
+Las Vegas Raiders,Kansas City Chiefs,8.5,-8.5,310,-395,24.39,79.80,104.19,ml,ml
+Tampa Bay Buccaneers,New Orleans Saints,-1.5,1.5,-125,105,55.56,48.78,104.34,ml,ml
+Philadelphia Eagles,New York Giants,-3.0,3.0,-162,136,61.83,42.37,104.20,ml,ml
+San Francisco 49ers,Arizona Cardinals,-8.5,8.5,-410,320,80.39,23.81,104.20,ml,ml
