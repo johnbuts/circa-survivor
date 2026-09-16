@@ -233,7 +233,7 @@
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 field · prior winners" data-label-2="Week 2 field · PDF not public">Week 1 field · prior winners</span>
+      <span data-week-label data-label-1="Week 1 field · prior winners" data-label-2="Week 2 field · model until Circa PDF">Week 1 field · prior winners</span>
     </div>
     <div class="week-toggle" role="tablist" aria-label="Contest week">
       <button type="button" data-set-week="1" class="on">Week 1</button>
@@ -250,8 +250,8 @@
       <a class="week1-only" href="#crowd">Vs crowd</a>
       <a class="week1-only" href="#missing">Missing</a>
       <a class="week1-only" href="#audit">Audit</a>
-      <a class="week1-only" href="FINDINGS.md">Notes</a>
-      <a href="../view.html">Docs</a>
+      <a class="week1-only" data-carry-week data-href="../view.html?f=all_picks_2026/FINDINGS.md">Notes</a>
+      <a data-carry-week data-href="../view.html">Docs</a>
     </div>
     </div>
   </nav>
@@ -260,9 +260,9 @@
   <div class="week2-only">
     <section class="empty-week">
       <h1>Week 2 field is not public yet</h1>
-      <p>Circa has not posted the Week 2 selections PDF, so there is no live pick-share or returning-winner table for this week.</p>
-      <p class="book">Crowd model (not the Circa board): <b>SF 26%</b> · <b>TB 24.9%</b> · <b>BAL 12.4%</b>. Live tickets JAC / PIT / LV are 0.0%.</p>
-      <p><a href="../index.html?week=2">Week 2 hub</a> · <a href="../Power_Rankings/9-15-2026/SOURCES.md">Sep 15 rankings</a></p>
+      <p>Circa has not posted the Week 2 selections PDF, so there is no live pick-share or returning-winner table for this week. Official live field is <b>16,978</b> tickets, pot <b>$25,017,000</b>.</p>
+      <p class="book">Week2_v2 crowd (not the Circa board): <b>SF 30.5%</b> · <b>TB 29.2%</b> · <b>BAL 10.6%</b>. JAC / PIT / LV leftover tickets are burned inventory, not our Week 2 book.</p>
+      <p><a href="../index.html?week=2">Week 2 hub</a> · <a href="../view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">Sep 15 rankings</a></p>
     </section>
   </div>
 
@@ -272,7 +272,7 @@
       <h1>Prior winners in the Week 1 board</h1>
       <p>Official Circa Survivor pot-splitters only, 2020–2025, matched against the 09/12/26 selections PDF. Compact name match (<span class="mono">On Top 247</span> = <span class="mono">ONTOP247</span>).</p>
     </div>
-    <p><a href="parsed/winner_matches.csv">winner_matches.csv</a></p>
+    <p><a href="../view.html?week=1&amp;f=all_picks_2026/parsed/winner_matches.csv">winner_matches.csv</a></p>
   </header>
 
   <div class="summary">
@@ -326,7 +326,7 @@
 
   <section id="field">
     <h2>Week 1 pick share · live field</h2>
-    <p class="hint">JAC + LAC + PIT = 78.9% of 24,999 tickets. Model had LAC 40.7% / JAC ~20% / DET 16.2%. Detroit landed at 7.08%.</p>
+    <p class="hint">JAC + LAC + PIT = 78.9% of 24,999 tickets. Field-conditioned clogit (iter 6) had JAC 35.5 / LAC 29.0 / PIT 15.5 / DET 10.0. Detroit landed at 7.08%.</p>
     <div class="bars" id="fieldBars"></div>
   </section>
 
@@ -386,7 +386,7 @@
 
   <footer>
     Circa Survivor last-person-standing, not Circa Million.
-    Writeup: <a href="FINDINGS.md">FINDINGS.md</a>.
+    Writeup: <a href="../view.html?week=1&amp;f=all_picks_2026/FINDINGS.md">FINDINGS.md</a>.
     Hedge book: <a href="../pick_selection/week1/index.html">week1/index.html</a>.
   </footer>
   </div>

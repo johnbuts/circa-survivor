@@ -1,6 +1,6 @@
 # Actual Week 1 book
 
-The hedge calculator and Sep 9 model portfolio still show **LAR 6 / DAL 2 / KC 2**. That is not what was entered.
+The hedge calculator now defaults to the actual Circa book below. The unused Sep 9 model portfolio was **LAR 6 / DAL 2 / KC 2**.
 
 ## What we entered
 

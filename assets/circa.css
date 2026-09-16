@@ -299,6 +299,7 @@ body[data-page="entries"] { --page-max: 1080px; }
 }
 .chip-side.win .badge { color: var(--plus); }
 .chip-box .summary { padding: 0 0 12px; }
+.card .barline { background: var(--bg); }
 
 @media (max-width: 640px) {
   :root { --page-gutter: 16px; }

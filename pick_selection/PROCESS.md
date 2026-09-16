@@ -1,6 +1,6 @@
 # Opponent-parlay hedge — playbook
 
-[Open the parlay calculator](file://wsl.localhost/Ubuntu-22.04/home/johnbuts/mobile_app/sports_circa/pick_selection/week1/index.html)
+[Open the parlay calculator](pick_selection/week1/index.html)
 
 Circa Survivor: each entry picks one NFL team per week. If that team loses, the entry is dead. Ten entries picking among a small set of teams is a correlated book. The hedge is not “bet against football.” It is **buy the opponents of the teams you used**, so that when picks die the sportsbook pays you.
 
@@ -8,11 +8,11 @@ The calculator is a single local HTML file. No server. Change picks, counts, and
 
 ## Inputs
 
-1. **Moneylines** — Circa American odds size parlays (editable on the site). FanDuel is live win-prob / leverage only. The Odds API key lives in `pick_selection/week1/.env` (`ODDS_API_KEY=…`, gitignored). Refresh odds with `uv run python fetch_fd_odds.py` in that folder, then **Refresh FanDuel** (or reload) to load `fanduel_odds.json`. Serve the folder over http so the JSON can load from `file://` fallback. Do not put the key in HTML.
-2. **Pick list** — the distinct teams you will actually use this week.
-3. **Entry counts** — how many of the `N` entries sit on each pick. Counts must sum to `N`. Dead-entry dollars follow these counts, not a 50/50 split.
+1. **Moneylines** — Circa American odds size parlays (editable on the site). FanDuel is the checked-in `fanduel_odds.json` snapshot only (Reload on the page). Refresh that file with `uv run python fetch_fd_odds.py` in `pick_selection/week1/` — the Odds API key stays in `.env`, never in the browser. Do not put the key in HTML.
+2. **Pick list** — the distinct teams you will actually use this week. Week 2 picks come from the hub chip board.
+3. **Entry counts** — how many of the `N` entries sit on each pick. Counts must sum to `N`. Dead-entry dollars follow these counts, not a 50/50 split. Week 2 caps burned teams: JAC max 4, PIT max 6, LV max 6.
 
-Default Week 1 book (Sep 9 portfolio): **LAR 6 / DAL 2 / KC 2** across **10** entries, fee **$1,000**. Board moneylines are DraftKings as of Sep 11 (editable on the site as Circa). NE@SEA and SF@LAR are already final; those two cells keep the last posted DK prices.
+Default Week 1 book (what we entered): **JAC 4 / PIT 2 / TEN 2 / LV 2** across **10** entries, fee **$1,000**. The unused Sep 9 model portfolio was LAR 6 / DAL 2 / KC 2 — the 3-leg wipeout example below still uses that book as a worked example. Board moneylines are DraftKings as of Sep 11 (editable on the site as Circa).
 
 ## Mapping picks → parlay legs
 
@@ -97,7 +97,7 @@ Size the wipeout 3-leg so `hedge_profit ≈ N × fee`. On that row, if it is the
 ## Using the calculator
 
 1. Confirm prices on the board (edit a number if the line moved).
-2. Default picks are LAR / DAL / KC (6 / 2 / 2). Click another team to sub.
+2. Default Week 1 picks are JAC / PIT / TEN / LV (4 / 2 / 2 / 2). Click another team to sub. Week 2 starts empty unless the hub chip board has assignments.
 3. Type entry counts so they sum to `N`.
 4. Check round-robin sizes. Use the cover helper as a starting stake, or type your own.
 5. Mark games W/L in the sandbox, or read the full `2^n` table (8 rows when `n = 3`).
@@ -107,17 +107,17 @@ Yellow rows = exactly one pick survived (a 2-loss for `n = 3`). Red row = wipeou
 
 ## Crowd split and week-1 chip equity
 
-The people-split numbers are **copied** from the already-run 2026 projection (`pick_projections_2026.csv` week 1). The calculator does not resimulate. Field start **20,000**, pot **$20M**.
+Week 1 people-split numbers are the **live Circa PDF** (JAC 32.51 / LAC 30.34 / PIT 16.05). Week 2 uses **Week2_v2** (SF 30.5 / TB 29.2 / BAL 10.6). The calculator does not resimulate. Week 1 field **24,999**, pot **$24,999,000**. Week 2 live field **16,978**, pot **$25,017,000**.
 
-This panel is **not** the Monte Carlo equity engine (`model/equity.py`). It is a week-1 chip snapshot:
+This panel is **not** the Monte Carlo equity engine (`model/equity.py`). It is a chip snapshot:
 
 ```
-field_alive = 20000 × sum(crowd_share of teams that won)
-chip EV (live ticket) = 20000000 / field_alive
+field_alive = field_start × sum(crowd_share of teams that won)
+chip EV (live ticket) = pot / field_alive
 dead ticket = $0
 portfolio = n_ours_alive × chip EV
 ```
 
 Leverage on each side uses the Circa ML on the page: `log(P_win) − 0.7 × log(max(crowd, 0.01))`.
 
-If JAC (35.4%), LAC (30.7%), and DET (14.2%) all win, almost the whole field survives and chip EV sits near the $1,000 fee. Flip a chalk loss: the field shrinks and every live ticket’s chip EV jumps. That is the test of fading the model’s crowd.
+If Week 1 chalk (JAC / LAC / PIT) all win, almost the whole field survives and chip EV sits near the $1,000 fee. Flip a chalk loss: the field shrinks and every live ticket’s chip EV jumps.

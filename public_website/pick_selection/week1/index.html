@@ -284,7 +284,7 @@
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge · picks unset">Week 1 hedge</span>
+      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge">Week 1 hedge</span>
     </div>
     <div class="week-toggle" role="tablist" aria-label="Contest week">
       <button type="button" data-set-week="1" class="on">Week 1</button>
@@ -296,7 +296,7 @@
       <a data-carry-week data-href="../../all_picks_2026/index.html">Field</a>
       <a data-carry-week data-href="../../entries.html">Entries</a>
       <a data-carry-week data-href="../../view.html">Docs</a>
-      <a href="../PROCESS.md">Playbook</a>
+      <a data-carry-week data-href="../../view.html?f=pick_selection/PROCESS.md">Playbook</a>
     </div>
     </div>
   </nav>
@@ -307,7 +307,7 @@
       <h1>Opponent parlay hedge</h1>
       <p id="hedgeLead">Circa prices size hedges. FanDuel is live win probability. Click a team to pick it; click the other side to sub. Legs are the opponents.</p>
     </div>
-    <p><a href="../PROCESS.md">Playbook</a></p>
+    <p><a href="../../view.html?f=pick_selection/PROCESS.md">Playbook</a></p>
   </header>
   <p class="note" id="weekNote" hidden></p>
 
@@ -327,7 +327,7 @@
       <input id="bankroll" type="number" min="0" step="1" value="100" />
     </label>
     <button type="button" id="btnSplit">Split enabled</button>
-    <button type="button" class="ghost" id="btnFd">Refresh FanDuel</button>
+    <button type="button" class="ghost" id="btnFd">Reload FanDuel snapshot</button>
     <span class="odds-status" id="fdStatus">FanDuel: not loaded</span>
   </div>
   <div id="countWarn" class="warn" hidden></div>
@@ -371,7 +371,7 @@
 
   <section class="full">
     <h2 id="crowdTitle">Crowd split — week 1 chip equity</h2>
-    <p class="hint">Copied from the already-run 2026 projection (not resimulated). Treat those % as the true 20,000-entry field. Click a team to make it win; default is the Circa favorite. Chip EV for a live ticket = $20M / field still alive. Leverage uses vig-free FanDuel when both sides of a game are loaded, otherwise Circa. This is a week-1 chip snapshot, not the full-season Monte Carlo equity engine.</p>
+    <p class="hint" id="crowdHint">Live Circa Week 1 PDF shares on 24,999 tickets. Chip = $24,999,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call.</p>
     <p class="hint" id="crowdRead"></p>
     <div class="summary" id="crowdStrip"></div>
     <div id="crowdBoard"></div>
@@ -380,6 +380,7 @@
   </section>
   </main>
 
+  <script src="../../assets/week2-crowd.js"></script>
   <script>
     const NAMES = {
       ARI: "Arizona Cardinals", ATL: "Atlanta Falcons", BAL: "Baltimore Ravens",
@@ -404,12 +405,15 @@
       "1": {
         saveKey: "circa-week1-hedge-2026-09-11",
         N: 10,
-        picks: ["LAR", "DAL", "KC"],
-        counts: { LAR: 6, DAL: 2, KC: 2 },
+        picks: ["JAC", "PIT", "TEN", "LV"],
+        counts: { JAC: 4, PIT: 2, TEN: 2, LV: 2 },
+        fieldStart: 24999,
+        pot: 24999000,
+        chalk: ["JAC", "LAC", "PIT"],
         boardTitle: "Week 1 Circa board — click to pick / sub",
-        crowdTitle: "Crowd split — week 1 chip equity",
-        lead: "Circa prices size hedges. FanDuel is live win probability. Click a team to pick it; click the other side to sub. Legs are the opponents.",
-        note: "Shown book is the unused Sep 9 portfolio (LAR 6 / DAL 2 / KC 2). Actual Circa entries were JAC 4 / PIT 2 / TEN 2 / LV 2.",
+        crowdTitle: "Crowd split — live Circa PDF · 24,999 · $24.999M",
+        lead: "Circa prices size hedges. FanDuel is the JSON snapshot. Click a team to pick it; click the other side to sub. Legs are the opponents.",
+        note: "Actual Circa book: JAC 4 / PIT 2 / TEN 2 / LV 2. Crowd % are the live Circa PDF (24,999 tickets, $24.999M pool). The unused Sep 9 portfolio was LAR 6 / DAL 2 / KC 2.",
         games: [
           { id: "ne-sea", away: "NE", home: "SEA", awayMl: 109, homeMl: -143, when: "Sep 9, 7:20pm CT" },
           { id: "sf-lar", away: "SF", home: "LAR", awayMl: 164, homeMl: -198, when: "Sep 10, 7:35pm CT" },
@@ -429,10 +433,12 @@
           { id: "den-kc", away: "DEN", home: "KC", awayMl: 124, homeMl: -148, when: "Sep 14, 7:15pm CT" }
         ],
         crowd: {
-          ARI: 0.0, ATL: 0.0, BAL: 1.6, BUF: 0.3, CAR: 0.0, CHI: 1.3, CIN: 1.9, CLE: 0.0,
-          DAL: 0.8, DEN: 0.0, DET: 14.2, GB: 0.0, HOU: 0.0, IND: 0.0, JAC: 35.4, KC: 0.8,
-          LAC: 30.7, LAR: 1.0, LV: 3.0, MIA: 0.0, MIN: 0.2, NE: 0.0, NO: 0.0, NYG: 0.0,
-          NYJ: 0.0, PHI: 5.4, PIT: 2.4, SEA: 0.3, SF: 0.0, TB: 0.0, TEN: 0.6, WAS: 0.0
+          ARI: 0.01, ATL: 0.0, BAL: 0.44, BUF: 0.01, CAR: 0.02, CHI: 0.51,
+          CIN: 1.40, CLE: 0.02, DAL: 0.32, DEN: 0.03, DET: 7.08, GB: 0.01,
+          HOU: 0.04, IND: 0.03, JAC: 32.51, KC: 0.09, LAC: 30.34, LAR: 0.20,
+          LV: 5.23, MIA: 0.11, MIN: 0.30, NE: 0.10, NO: 0.0, NYG: 0.04,
+          NYJ: 0.36, PHI: 3.14, PIT: 16.05, SEA: 0.70, SF: 0.04, TB: 0.02,
+          TEN: 0.85, WAS: 0.0
         }
       },
       "2": {
@@ -440,10 +446,14 @@
         N: 8,
         picks: [],
         counts: {},
-        boardTitle: "Week 2 board — picks not set, click when you have them",
-        crowdTitle: "Crowd split — week 2 model (Circa PDF not public)",
-        lead: "8 live tickets. Week 2 picks are not chosen yet. Click teams only when you know the book. Legs are still the opponents.",
-        note: "N=8 remaining (2 Titans already dead). Week 2 picks unset. JAC is burned on 4 tickets, PIT on 2, LV on 2 — those tickets cannot reuse that team. Do not treat JAC @ DEN / PIT @ NE / LV @ LAC as our Week 2 picks.",
+        fieldStart: 16978,
+        pot: 25017000,
+        chalk: ["SF", "TB", "BAL", "LAC"],
+        burnedMax: { JAC: 4, PIT: 6, LV: 6 },
+        boardTitle: "Week 2 board — chip board on the hub is the pick UI",
+        crowdTitle: "Crowd split — Week2_v2 · 16,978 live · $25,017,000",
+        lead: "8 live tickets. Week 2 picks come from the hub chip board, or click teams here. Legs are the opponents.",
+        note: "N=8 remaining (2 Titans dead). JAC is burned on 4 tickets (max 4), PIT on 2 (max 6), LV on 2 (max 6). Do not treat JAC @ DEN / PIT @ NE / LV @ LAC as our Week 2 book.",
         games: [
           { id: "det-buf", away: "DET", home: "BUF", awayMl: 180, homeMl: -218, when: "Sep 17, 7:15pm CT" },
           { id: "car-atl", away: "CAR", home: "ATL", awayMl: -155, homeMl: 130, when: "Sep 20, 12:00pm CT" },
@@ -463,20 +473,19 @@
           { id: "nyg-lar", away: "NYG", home: "LAR", awayMl: 280, homeMl: -355, when: "Sep 21, 7:15pm CT" }
         ],
         crowd: {
-          ARI: 0.0, ATL: 0.0, BAL: 12.4, BUF: 1.8, CAR: 0.8, CHI: 3.3, CIN: 0.0, CLE: 0.0,
-          DAL: 1.5, DEN: 0.4, DET: 0.0, GB: 1.7, HOU: 0.6, IND: 0.0, JAC: 0.0, KC: 5.6,
-          LAC: 4.5, LAR: 6.2, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 3.4, NO: 0.0, NYG: 0.0,
-          NYJ: 0.0, PHI: 5.5, PIT: 0.0, SEA: 1.2, SF: 26.0, TB: 24.9, TEN: 0.0, WAS: 0.0
+          ARI: 0.0, ATL: 0.0, BAL: 10.6, BUF: 0.9, CAR: 0.9, CHI: 2.4, CIN: 0.0, CLE: 0.0,
+          DAL: 0.8, DEN: 0.2, DET: 0.0, GB: 0.9, HOU: 0.4, IND: 0.0, JAC: 0.0, KC: 3.5,
+          LAC: 9.1, LAR: 3.6, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 1.9, NO: 0.0, NYG: 0.0,
+          NYJ: 0.0, PHI: 4.5, PIT: 0.0, SEA: 0.6, SF: 30.5, TB: 29.2, TEN: 0.0, WAS: 0.0
         }
       }
     };
 
-    const FIELD_START = 20000;
-    const POT = 20000000;
+    let FIELD_START = 24999;
+    let POT = 24999000;
     const LAMBDA = 0.7;
     const CROWD_FLOOR = 0.01;
     const ESPN_LOGO = { JAC: "jax", WAS: "wsh" };
-    const ODDS_KEY = "circa-odds-api-key";
     const NAME_TO_ABBR = Object.fromEntries(Object.entries(NAMES).map(([k, v]) => [v, k]));
 
     function logoUrl(abbr) {
@@ -484,7 +493,7 @@
       return "https://a.espncdn.com/i/teamlogos/nfl/500/" + key + ".png";
     }
     function logoImg(abbr) {
-      return '<img class="logo" src="' + logoUrl(abbr) + '" alt="" width="28" height="28" />';
+      return '<img class="logo" src="' + logoUrl(abbr) + '" alt="" width="28" height="28" onerror="this.remove()" />';
     }
     function fdLabel(team) {
       const n = state.fdMl[team];
@@ -497,8 +506,8 @@
       fdMl: {},
       fdUpdated: null,
       fdQuota: null,
-      picks: ["LAR", "DAL", "KC"],
-      counts: { LAR: 6, DAL: 2, KC: 2 },
+      picks: ["JAC", "PIT", "TEN", "LV"],
+      counts: { JAC: 4, PIT: 2, TEN: 2, LV: 2 },
       N: 10,
       fee: 1000,
       sizes: { 2: false, 3: true, 4: true, 5: false },
@@ -567,13 +576,78 @@
       });
     }
 
+    function crowdFromShared(week) {
+      if (week === "2" && window.CIRCA_WEEK2 && window.CIRCA_WEEK2.share) {
+        const share = window.CIRCA_WEEK2.share;
+        const out = {};
+        Object.keys(NAMES).forEach((t) => { out[t] = 100 * (share[t] || 0); });
+        return out;
+      }
+      if (week === "1" && window.CIRCA_WEEK1_FIELD && window.CIRCA_WEEK1_FIELD.crowdPct) {
+        return Object.assign({}, window.CIRCA_WEEK1_FIELD.crowdPct);
+      }
+      return Object.assign({}, WEEK_DATA[week].crowd);
+    }
+
+    function fieldFromShared(week) {
+      if (week === "2" && window.CIRCA_WEEK2) {
+        return { start: window.CIRCA_WEEK2.nAlive, pot: window.CIRCA_WEEK2.pot };
+      }
+      if (week === "1" && window.CIRCA_WEEK1_FIELD) {
+        return { start: window.CIRCA_WEEK1_FIELD.n, pot: window.CIRCA_WEEK1_FIELD.pot };
+      }
+      const cfg = WEEK_DATA[week];
+      return { start: cfg.fieldStart, pot: cfg.pot };
+    }
+
+    function picksFromChip() {
+      const W = window.CIRCA_WEEK2;
+      if (!W) return null;
+      try {
+        const raw = localStorage.getItem(W.saveKey);
+        if (!raw) return null;
+        const s = JSON.parse(raw);
+        const slots = [
+          { id: "jac", n: 4, burned: "JAC" },
+          { id: "pit", n: 2, burned: "PIT" },
+          { id: "lv", n: 2, burned: "LV" }
+        ];
+        const counts = {};
+        slots.forEach((b) => {
+          const t = s.pick && s.pick[b.id];
+          if (t && NAMES[t] && t !== b.burned) counts[t] = (counts[t] || 0) + b.n;
+        });
+        const picks = Object.keys(counts);
+        if (!picks.length) return null;
+        return { picks, counts };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function burnedMaxOf(team) {
+      const max = WEEK_DATA[ACTIVE_WEEK] && WEEK_DATA[ACTIVE_WEEK].burnedMax;
+      if (!max || max[team] == null) return Infinity;
+      return max[team];
+    }
+
+    function clampCounts() {
+      state.picks.forEach((t) => {
+        const cap = burnedMaxOf(t);
+        if (countOf(t) > cap) state.counts[t] = cap;
+      });
+    }
+
     function applyWeekConfig(week) {
       const w = week === "2" ? "2" : "1";
       if (ACTIVE_WEEK === w && GAMES.length) return;
       const cfg = WEEK_DATA[w];
       ACTIVE_WEEK = w;
       GAMES = cfg.games;
-      CROWD_PCT = cfg.crowd;
+      CROWD_PCT = crowdFromShared(w);
+      const field = fieldFromShared(w);
+      FIELD_START = field.start;
+      POT = field.pot;
       SAVE_KEY = cfg.saveKey;
       state.ml = {};
       state.fdMl = {};
@@ -595,6 +669,15 @@
         state.ml[g.home] = g.homeMl;
       });
       try { loadState(); } catch (e) {}
+      if (w === "2") {
+        const chip = picksFromChip();
+        if (chip) {
+          state.picks = chip.picks;
+          state.counts = chip.counts;
+          state.N = 8;
+        }
+      }
+      clampCounts();
       initCrowdWins();
       const lead = document.getElementById("hedgeLead");
       if (lead) lead.textContent = cfg.lead;
@@ -607,6 +690,12 @@
       if (board) board.textContent = cfg.boardTitle;
       const crowd = document.getElementById("crowdTitle");
       if (crowd) crowd.textContent = cfg.crowdTitle;
+      const hint = document.getElementById("crowdHint");
+      if (hint) {
+        hint.textContent = w === "2"
+          ? "Week2_v2 field-conditioned shares on the official 16,978 live field. Chip = $25,017,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call."
+          : "Live Circa Week 1 PDF shares on 24,999 tickets. Chip = $24,999,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call.";
+      }
       const nEl = document.getElementById("nEntries");
       if (nEl) nEl.value = state.N;
       const feeEl = document.getElementById("fee");
@@ -755,9 +844,10 @@
         render();
         return;
       }
+      if (burnedMaxOf(team) <= 0) return;
       const j = state.picks.indexOf(other);
       if (j >= 0) {
-        const count = countOf(other);
+        const count = Math.min(countOf(other), burnedMaxOf(team));
         const sand = state.sandbox[other];
         state.picks[j] = team;
         state.counts[team] = count;
@@ -814,7 +904,7 @@
     function renderPicks() {
       const root = document.getElementById("picks");
       if (!state.picks.length) {
-        root.innerHTML = "<p class='hint'>Click teams on the board.</p>";
+        root.innerHTML = "<p class='hint'>Click teams on the board, or assign picks on the hub chip board.</p>";
         return;
       }
       root.innerHTML = state.picks.map((t) => {
@@ -832,9 +922,13 @@
     function renderWarn() {
       const sum = allocated();
       const el = document.getElementById("countWarn");
+      const caps = state.picks.filter((t) => burnedMaxOf(t) < Infinity);
       if (sum !== state.N) {
         el.hidden = false;
         el.textContent = "Entry counts sum to " + sum + ", not N=" + state.N + ". Allocate the remainder on the pick list.";
+      } else if (caps.length) {
+        el.hidden = false;
+        el.textContent = "Burned caps: " + caps.map((t) => t + " max " + burnedMaxOf(t)).join(" · ") + ".";
       } else {
         el.hidden = true;
       }
@@ -1038,7 +1132,7 @@
       const counts = JSON.parse(box.dataset.counts);
       const html = box.innerHTML;
       const raw = box.dataset.counts;
-      state.picks.forEach((t) => { state.counts[t] = Number(counts[t] || 0); });
+      state.picks.forEach((t) => { state.counts[t] = Math.min(Number(counts[t] || 0), burnedMaxOf(t)); });
       render();
       const out = document.getElementById("optOut");
       out.hidden = false;
@@ -1154,14 +1248,16 @@
     function renderCrowd() {
       initCrowdWins();
       const snap = chipSnapshot();
-      const chalk = ["LAC", "JAC", "DET"];
+      const chalk = WEEK_DATA[ACTIVE_WEEK].chalk || ["JAC", "LAC", "PIT"];
       const chalkDead = chalk.filter((t) => !snap.winners.has(t));
       const read = document.getElementById("crowdRead");
       if (chalkDead.length) {
         read.textContent = "Chalk down: " + chalkDead.join(", ") +
-          " — field shrinks and live tickets gain chip EV. That is when fading the model’s people-split pays.";
+          " — field shrinks and live tickets gain chip EV.";
       } else {
-        read.textContent = "If favorites hold, LAC/JAC/DET stay alive and almost the whole field survives — chip EV sits near the $1,000 fee. Flip a chalk loss to see fading pay.";
+        const hold = (WEEK_DATA[ACTIVE_WEEK].chalk || []).join("/");
+        read.textContent = "If favorites hold, " + hold +
+          " stay alive and almost the whole field survives — chip EV sits near the $1,000 fee. Flip a chalk loss to see fading pay.";
       }
 
       const strip = document.getElementById("crowdStrip");
@@ -1435,8 +1531,7 @@
         return;
       }
       const when = state.fdUpdated ? " · " + state.fdUpdated.replace("T", " ").replace("Z", " UTC") : "";
-      const q = state.fdQuota != null ? " · " + state.fdQuota + " credits left" : "";
-      setFdStatus("FanDuel: " + n + " teams" + when + q);
+      setFdStatus("FanDuel snapshot: " + n + " teams" + when);
     }
 
     function applyFdOdds(events, remaining) {
@@ -1475,44 +1570,14 @@
       applyFdOdds(events, remaining);
     }
 
-    async function loadFdApi(key) {
-      const url = "https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds"
-        + "?regions=us&markets=h2h&oddsFormat=american&bookmakers=fanduel&apiKey="
-        + encodeURIComponent(key);
-      const res = await fetch(url);
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error("Odds API HTTP " + res.status + " " + text.slice(0, 180));
-      }
-      const events = await res.json();
-      applyFdOdds(events, res.headers.get("x-requests-remaining"));
-    }
-
-    function storedOddsKey() {
-      return (localStorage.getItem(ODDS_KEY) || "").trim();
-    }
-
     async function refreshFanDuel() {
-      setFdStatus("FanDuel: loading…");
-      const key = storedOddsKey();
-      let err = "";
-      if (key) {
-        try {
-          await loadFdApi(key);
-          render();
-          return;
-        } catch (e) {
-          err = e.message || String(e);
-        }
-      }
+      setFdStatus("FanDuel: loading snapshot…");
       try {
         await loadFdJson();
         render();
-        return;
-      } catch (e2) {
-        const jsonErr = e2.message || String(e2);
-        setFdStatus("FanDuel failed. Run python fetch_fd_odds.py in week1/ (.env holds the key), then Refresh. "
-          + (err ? "API: " + err + " · " : "") + "JSON: " + jsonErr);
+      } catch (e) {
+        setFdStatus("FanDuel snapshot failed. Run python fetch_fd_odds.py in week1/, then reload. "
+          + (e.message || String(e)));
       }
     }
 
@@ -1660,7 +1725,13 @@
       }
       const ct = e.target.dataset.count;
       if (ct) {
-        state.counts[ct] = Number(e.target.value || 0);
+        let n = Number(e.target.value || 0);
+        const cap = burnedMaxOf(ct);
+        if (n > cap) {
+          n = cap;
+          e.target.value = cap;
+        }
+        state.counts[ct] = n;
         renderWarn();
         renderCover();
         renderSandbox();

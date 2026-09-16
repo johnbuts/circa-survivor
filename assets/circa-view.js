@@ -34,9 +34,18 @@
     s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (_, label, url) {
       var path = repoPathFromHref(url);
       if (isDocPath(path) && files()[path]) {
-        return '<a href="#" data-open-doc="' + escapeHtml(path) + '">' + label + "</a>";
+        return '<a href="view.html?f=' + encodeURIComponent(path) + '" data-open-doc="' + escapeHtml(path) + '">' + label + "</a>";
       }
-      return "<span class=\"doc-link\">" + label + " <span class=\"doc-url\">" + escapeHtml(url) + "</span></span>";
+      if (/^(https?:|mailto:)/i.test(url)) {
+        return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + label + "</a>";
+      }
+      var href = url;
+      var root = document.body.getAttribute("data-root") || "";
+      if (root && !/^[./]/.test(url) && url.indexOf(":") < 0) {
+        var ups = root.split("/").filter(Boolean).map(function () { return ".."; }).join("/");
+        href = (ups ? ups + "/" : "") + url;
+      }
+      return '<a href="' + escapeHtml(href) + '">' + label + "</a>";
     });
     return s;
   }

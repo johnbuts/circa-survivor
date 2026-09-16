@@ -104,16 +104,16 @@
     <header>
       <div>
         <h1>Ten entries</h1>
-        <p>Actual Circa book. Week 2 picks are not set.</p>
+        <p>Actual Circa book. Week 2 picks come from the hub chip board.</p>
       </div>
     </header>
     <div class="summary">
       <div class="stat"><span>Entered</span><b>10</b></div>
       <div class="stat"><span>Remaining</span><b class="pos" id="nLive">8</b></div>
       <div class="stat"><span>Dead</span><b class="neg">2 TEN</b></div>
-      <div class="stat"><span>Week 2 picks</span><b>unset</b></div>
+      <div class="stat"><span>Week 2 picks</span><b id="w2PickStat">unset</b></div>
     </div>
-    <p class="hint">A ticket cannot reuse its own Week 1 team. Remaining tickets have JAC, PIT, or LV already burned. Do not treat JAC @ DEN / PIT @ NE / LV @ LAC as our Week 2 book — those are just the leftover tickets’ old teams playing again.</p>
+    <p class="hint">A ticket cannot reuse its own Week 1 team. Remaining tickets have JAC, PIT, or LV already burned. Assign Week 2 teams on the hub chip board — leftover JAC @ DEN / PIT @ NE / LV @ LAC are burned inventory, not our book.</p>
     <div class="bar">
       <button type="button" class="on" data-filter="all">All 10</button>
       <button type="button" data-filter="live">Remaining 8</button>
@@ -121,31 +121,49 @@
     </div>
     <div class="list" id="list"></div>
   </main>
+  <script src="assets/week2-crowd.js"></script>
   <script src="assets/files-bundle.js"></script>
   <script src="assets/circa-view.js"></script>
   <script src="assets/circa-nav.js"></script>
   <script>
     const ENTRIES = [
-      { id: 1, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true },
-      { id: 2, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true },
-      { id: 3, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true },
-      { id: 4, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true },
-      { id: 5, w1: { team: "PIT", opp: "ATL", result: "W" }, burned: ["PIT"], live: true },
-      { id: 6, w1: { team: "PIT", opp: "ATL", result: "W" }, burned: ["PIT"], live: true },
-      { id: 7, w1: { team: "TEN", opp: "NYJ", result: "L" }, burned: ["TEN"], live: false },
-      { id: 8, w1: { team: "TEN", opp: "NYJ", result: "L" }, burned: ["TEN"], live: false },
-      { id: 9, w1: { team: "LV", opp: "MIA", result: "W" }, burned: ["LV"], live: true },
-      { id: 10, w1: { team: "LV", opp: "MIA", result: "W" }, burned: ["LV"], live: true }
+      { id: 1, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true, slot: "jac" },
+      { id: 2, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true, slot: "jac" },
+      { id: 3, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true, slot: "jac" },
+      { id: 4, w1: { team: "JAC", opp: "CLE", result: "W" }, burned: ["JAC"], live: true, slot: "jac" },
+      { id: 5, w1: { team: "PIT", opp: "ATL", result: "W" }, burned: ["PIT"], live: true, slot: "pit" },
+      { id: 6, w1: { team: "PIT", opp: "ATL", result: "W" }, burned: ["PIT"], live: true, slot: "pit" },
+      { id: 7, w1: { team: "TEN", opp: "NYJ", result: "L" }, burned: ["TEN"], live: false, slot: "" },
+      { id: 8, w1: { team: "TEN", opp: "NYJ", result: "L" }, burned: ["TEN"], live: false, slot: "" },
+      { id: 9, w1: { team: "LV", opp: "MIA", result: "W" }, burned: ["LV"], live: true, slot: "lv" },
+      { id: 10, w1: { team: "LV", opp: "MIA", result: "W" }, burned: ["LV"], live: true, slot: "lv" }
     ];
     let filter = "all";
 
+    function chipPicks() {
+      const key = (window.CIRCA_WEEK2 && window.CIRCA_WEEK2.saveKey) || "circa-week2-chip-v2";
+      try {
+        const s = JSON.parse(localStorage.getItem(key) || "");
+        return (s && s.pick) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
     function w2Line(e) {
       if (!e.live) return "Dead — no Week 2 pick";
-      return "Pick not set";
+      const team = chipPicks()[e.slot];
+      if (!team) return "Pick not set — assign on the hub chip board";
+      return team;
     }
 
     function render() {
       const week = document.body.getAttribute("data-week") || "2";
+      const picks = chipPicks();
+      const live = ENTRIES.filter((e) => e.live);
+      const set = live.filter((e) => picks[e.slot]).length;
+      const stat = document.getElementById("w2PickStat");
+      if (stat) stat.textContent = set === 0 ? "unset" : set + " / 8";
       const rows = ENTRIES.filter((e) => filter === "all" || (filter === "live" ? e.live : !e.live));
       document.getElementById("list").innerHTML = rows.map((e) => {
         const cls = e.live ? "live" : "dead";

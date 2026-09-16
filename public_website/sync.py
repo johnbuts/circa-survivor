@@ -20,6 +20,7 @@ PAGES = [
     "index.html",
     "entries.html",
     "view.html",
+    "404.html",
     "pick_selection/week1/index.html",
     "all_picks_2026/index.html",
 ]
@@ -28,6 +29,7 @@ ASSETS = [
     "assets/circa.css",
     "assets/circa-nav.js",
     "assets/circa-view.js",
+    "assets/week2-crowd.js",
     "assets/week2-chip.js",
 ]
 
@@ -120,10 +122,11 @@ def write_bundle(files: list[str]) -> None:
         raise SystemExit("missing: " + ", ".join(missing))
     out = HERE / "assets" / "files-bundle.js"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(
-        "window.CIRCA_FILES = " + json.dumps(bundle, ensure_ascii=False) + ";\n",
-        encoding="utf-8",
-    )
+    payload = "window.CIRCA_FILES = " + json.dumps(bundle, ensure_ascii=False) + ";\n"
+    out.write_text(payload, encoding="utf-8")
+    root_out = ROOT / "assets" / "files-bundle.js"
+    root_out.parent.mkdir(parents=True, exist_ok=True)
+    root_out.write_text(payload, encoding="utf-8")
     print(f"wrote {out.relative_to(HERE)} ({len(bundle)} files, {out.stat().st_size} bytes)")
 
 

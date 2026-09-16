@@ -18,9 +18,12 @@
     document.querySelectorAll("a[data-carry-week]").forEach(function (a) {
       var raw = a.getAttribute("data-href") || a.getAttribute("href");
       var parts = raw.split("#");
-      var path = parts[0].split("?")[0];
+      var q = parts[0].indexOf("?");
+      var path = q < 0 ? parts[0] : parts[0].slice(0, q);
+      var params = new URLSearchParams(q < 0 ? "" : parts[0].slice(q + 1));
+      params.set("week", week);
       var hash = parts[1] ? "#" + parts[1] : "";
-      a.setAttribute("href", path + "?week=" + week + hash);
+      a.setAttribute("href", path + "?" + params.toString() + hash);
     });
     var url = new URL(location.href);
     url.searchParams.set("week", week);

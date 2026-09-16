@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-09-15 — Week 2 stub uses Week2_v2 crowd and the official 16,978 / $25,017,000 field; notes and CSVs open in the in-site viewer.
 - 2026-09-15 — Pointed field CSS/JS at `assets/`.
 - 2026-09-15 — Field notes and CSVs open in the in-site viewer instead of downloading.
 - 2026-09-15 — Inset the field page in the shared centered column so it matches the hub gutters.

@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-09-15 — Hedge defaults to the actual Circa book, Week2_v2 crowd/pot, burned-team caps, chip-board picks, and FanDuel JSON snapshot only.
 - 2026-09-15 — Pointed the hedge CSS/JS at `assets/`.
 - 2026-09-15 — Stood up the Week 2 hedge board (N=8, empty picks). Markdown/CSV links open in the in-site viewer.
 - 2026-09-15 — Inset the hedge calc in the shared centered column so the board has side space on wide screens.

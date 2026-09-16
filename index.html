@@ -118,10 +118,10 @@
     .game:last-child { border-bottom: 0; }
     .abbr { color: var(--gold); letter-spacing: 0.06em; }
     .barline {
-      height: 8px;
-      background: var(--panel2);
-      border: 1px solid var(--line);
-    }
+  height: 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
     .barline > span { display: block; height: 100%; background: var(--gold); }
   </style>
   <link rel="stylesheet" href="assets/circa.css" />
@@ -138,13 +138,13 @@
       <button type="button" data-set-week="2" class="on">Week 2</button>
     </div>
     <div class="links">
-      <a class="here" href="index.html" data-carry-week data-href="index.html">Hub</a>
+      <a class="here" data-carry-week data-href="index.html">Hub</a>
       <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
       <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
       <a data-carry-week data-href="entries.html">Entries</a>
-      <a class="week1-only" href="Power_Rankings/9-9-2026/SOURCES.md">Rankings</a>
-      <a class="week2-only" href="Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
-      <a href="view.html">Docs</a>
+      <a class="week1-only" data-carry-week data-href="view.html?f=Power_Rankings/9-9-2026/SOURCES.md">Rankings</a>
+      <a class="week2-only" data-carry-week data-href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+      <a data-carry-week data-href="view.html">Docs</a>
     </div>
     </div>
   </nav>
@@ -156,7 +156,7 @@
         <h1>Week 1 — what actually happened</h1>
         <p>Circa field is the 09/12/26 selections PDF. Book is what we entered, not the Sep 9 model portfolio.</p>
       </div>
-      <p><a href="pick_selection/week1/ACTUAL_BOOK.md">Actual book</a></p>
+      <p><a href="view.html?week=1&amp;f=pick_selection/week1/ACTUAL_BOOK.md">Actual book</a></p>
     </header>
     <div class="summary">
       <div class="stat"><span>Entries</span><b>10</b></div>
@@ -188,19 +188,19 @@
       </section>
       <section class="card">
         <h2>Circa field vs model</h2>
-        <p class="hint">Live PDF vs clogit crowd. JAC + LAC + PIT = 78.9% of tickets. Model had LAC 30.7 / JAC 35.4 / DET 14.2; Detroit landed at 7.08%.</p>
+        <p class="hint">Live Circa PDF vs field-conditioned clogit (iter 6). JAC + LAC + PIT = 78.9% of tickets. Model JAC 35.5 / LAC 29.0 / PIT 15.5; Detroit 10.0% vs 7.08% actual.</p>
         <table>
           <thead><tr><th>Team</th><th class="r">Field %</th><th class="r">Model %</th></tr></thead>
           <tbody>
-            <tr><td>JAC</td><td class="r">32.51</td><td class="r">35.4</td></tr>
-            <tr><td>LAC</td><td class="r">30.34</td><td class="r">30.7</td></tr>
-            <tr><td>PIT</td><td class="r">16.05</td><td class="r">2.4</td></tr>
-            <tr><td>DET</td><td class="r">7.08</td><td class="r">14.2</td></tr>
+            <tr><td>JAC</td><td class="r">32.51</td><td class="r">35.5</td></tr>
+            <tr><td>LAC</td><td class="r">30.34</td><td class="r">29.0</td></tr>
+            <tr><td>PIT</td><td class="r">16.05</td><td class="r">15.5</td></tr>
+            <tr><td>DET</td><td class="r">7.08</td><td class="r">10.0</td></tr>
           </tbody>
         </table>
         <div class="links-row">
           <a href="all_picks_2026/index.html?week=1">Field / winners</a>
-          <a href="all_picks_2026/FINDINGS.md">FINDINGS.md</a>
+          <a href="view.html?week=1&amp;f=all_picks_2026/FINDINGS.md">FINDINGS.md</a>
         </div>
       </section>
       <section class="card">
@@ -217,8 +217,8 @@
           </tbody>
         </table>
         <div class="links-row">
-          <a href="Power_Rankings/9-9-2026/SOURCES.md">SOURCES.md</a>
-          <a href="Power_Rankings/9-9-2026/consensus_power_rankings.csv">consensus csv</a>
+          <a href="view.html?week=1&amp;f=Power_Rankings/9-9-2026/SOURCES.md">SOURCES.md</a>
+          <a href="view.html?week=1&amp;f=Power_Rankings/9-9-2026/consensus_power_rankings.csv">consensus csv</a>
         </div>
       </section>
       <section class="card">
@@ -245,7 +245,7 @@
         <h1>Week 2 — live book + chip sandbox</h1>
         <p>Click winners on the slate. Chip is Week2_v2 crowd on the official 16,978 live field, pot $25,017,000.</p>
       </div>
-      <p><a href="Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a></p>
+      <p><a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a></p>
     </header>
     <div class="summary">
       <div class="stat"><span>Live tickets</span><b class="pos">8</b></div>
@@ -270,22 +270,22 @@
         <div id="chipBoard"></div>
       </section>
       <section class="card">
-        <h2>Live tickets · leftover W1 teams</h2>
-        <p class="hint">Week 2 picks are not set. These are only the Week 1 teams still alive, and the games those teams play this week — not our book.</p>
+        <h2>Burned Week 1 teams · still playing</h2>
+        <p class="hint">Not the Week 2 book. These tickets already used JAC / PIT / LV. Assign Week 2 picks in the chip board above.</p>
         <div class="game ours">
           <span class="abbr">JAC</span>
-          <span>@ DEN · 4 tickets</span>
-          <span class="mono">45.45 / 58.68</span>
+          <span>@ DEN · 4 tickets burned JAC</span>
+          <span class="mono">JAC 41% win</span>
         </div>
         <div class="game ours">
           <span class="abbr">PIT</span>
-          <span>@ NE · 2 tickets</span>
-          <span class="mono">33.90 / 70.41</span>
+          <span>@ NE · 2 tickets burned PIT</span>
+          <span class="mono">PIT 31% win</span>
         </div>
         <div class="game ours">
           <span class="abbr">LV</span>
-          <span>@ LAC · 2 tickets</span>
-          <span class="mono">28.57 / 75.61</span>
+          <span>@ LAC · 2 tickets burned LV</span>
+          <span class="mono">LV 27% win</span>
         </div>
         <div class="links-row">
           <a href="entries.html?week=2">Ten entries</a>
@@ -331,7 +331,7 @@
           </tbody>
         </table>
         <div class="links-row">
-          <a href="Weekly_models/Week2_v2/actual_odds.md">actual_odds.md</a>
+          <a href="view.html?week=2&amp;f=Weekly_models/Week2_v2/actual_odds.md">actual_odds.md</a>
         </div>
       </section>
       <section class="card">
@@ -350,29 +350,14 @@
           </tbody>
         </table>
         <div class="links-row">
-          <a href="Power_Rankings/9-15-2026/SOURCES.md">SOURCES.md</a>
-          <a href="Power_Rankings/9-15-2026/consensus_power_rankings.csv">consensus csv</a>
-        </div>
-      </section>
-      <section class="card">
-        <h2>Still waiting</h2>
-        <p class="hint">Circa Week 2 PDF is not public. Our Week 2 picks are not chosen.</p>
-        <table>
-          <thead><tr><th>Page</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Field / winners</td><td>PDF not public</td></tr>
-            <tr><td>Week 2 hedge</td><td>Board live, picks unset</td></tr>
-            <tr><td>Win totals</td><td>Still Sep 9 FOX/DK</td></tr>
-          </tbody>
-        </table>
-        <div class="links-row">
-          <a href="all_picks_2026/index.html?week=2">Field</a>
-          <a href="pick_selection/week1/index.html?week=2">Hedge</a>
+          <a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">SOURCES.md</a>
+          <a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/consensus_power_rankings.csv">consensus csv</a>
         </div>
       </section>
     </div>
   </div>
   </main>
+  <script src="assets/week2-crowd.js"></script>
   <script src="assets/week2-chip.js"></script>
   <script src="assets/files-bundle.js"></script>
   <script src="assets/circa-view.js"></script>

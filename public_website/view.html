@@ -50,7 +50,7 @@
         <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
         <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
         <a data-carry-week data-href="entries.html">Entries</a>
-        <a class="here" href="view.html">Docs</a>
+        <a class="here" data-carry-week data-href="view.html">Docs</a>
       </div>
     </div>
   </nav>
@@ -75,7 +75,7 @@
       ["Field", ["all_picks_2026/FINDINGS.md", "all_picks_2026/parsed/winner_matches.csv", "all_picks_2026/parsed/week1_pick_share.csv"]],
       ["Rankings Sep 9", ["Power_Rankings/9-9-2026/SOURCES.md", "Power_Rankings/9-9-2026/consensus_power_rankings.csv", "Power_Rankings/9-9-2026/source_ranks.csv", "Power_Rankings/9-9-2026/game_implied_odds.csv", "Power_Rankings/9-9-2026/team_weekly_implied_odds.csv"]],
       ["Rankings Sep 15", ["Power_Rankings/9-15-2026/SOURCES.md", "Power_Rankings/9-15-2026/consensus_power_rankings.csv", "Power_Rankings/9-15-2026/source_ranks.csv", "Power_Rankings/9-15-2026/game_implied_odds.csv", "Power_Rankings/9-15-2026/team_weekly_implied_odds.csv"]],
-      ["Model", ["model_crafting/data/2026/HOW_THE_MODEL_WORKS.md", "model_crafting/data/2026/pick_projections_2026.csv", "model_crafting/data/2026/raw/nfl_week2_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_week1_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_win_totals_2026.csv", "model_crafting/data/2026/portfolio_rationale.md", "model_crafting/data/2026/portfolio_10_entries.csv"]]
+      ["Model", ["Weekly_models/Week2_v2/actual_odds.md", "model_crafting/data/2026/HOW_THE_MODEL_WORKS.md", "model_crafting/data/2026/pick_projections_2026.csv", "model_crafting/data/2026/raw/nfl_week2_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_week1_spreads_2026.csv", "model_crafting/data/2026/raw/nfl_win_totals_2026.csv", "model_crafting/data/2026/portfolio_rationale.md", "model_crafting/data/2026/portfolio_10_entries.csv"]]
     ];
     const files = CircaView.files();
     const extra = Object.keys(files).filter((p) => !GROUPS.some((g) => g[1].includes(p)));

@@ -12,7 +12,7 @@ The workflow deploys this folder as the site root. URL: `https://<user>.github.i
 
 Free GitHub accounts need a **public** repo for Pages. The live site is public either way. For a private repo, point Cloudflare Pages at `public_website/` instead.
 
-Do not commit `pick_selection/week1/.env`. FanDuel refresh can use the bundled `fanduel_odds.json`, or an Odds API key in the browser’s localStorage.
+Do not commit `pick_selection/week1/.env`. FanDuel on the site is the bundled `fanduel_odds.json` snapshot only. Refresh that file with `fetch_fd_odds.py`; the Odds API key never goes in the browser.
 
 ## Local
 
