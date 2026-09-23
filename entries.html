@@ -80,19 +80,21 @@
   </style>
   <link rel="stylesheet" href="assets/circa.css" />
 </head>
-<body data-page="entries" data-root="" data-default-week="2" data-week="2">
+<body data-page="entries" data-root="" data-default-week="3" data-week="3">
   <nav class="top" aria-label="Site">
     <div class="nav-inner">
       <div class="brand">
         <b>Circa Survivor 2026</b>
-        <span data-week-label data-label-1="10 entries · after Week 1" data-label-2="10 entries · into Week 2">10 entries · into Week 2</span>
+        <span data-week-label data-label-1="10 entries · after Week 1" data-label-2="10 entries · after Week 2" data-label-3="10 entries · into Week 3">10 entries · into Week 3</span>
       </div>
       <div class="week-toggle" role="tablist" aria-label="Contest week">
         <button type="button" data-set-week="1">Week 1</button>
-        <button type="button" data-set-week="2" class="on">Week 2</button>
+        <button type="button" data-set-week="2">Week 2</button>
+        <button type="button" data-set-week="3" class="on">Week 3</button>
       </div>
       <div class="links">
         <a data-carry-week data-href="index.html">Hub</a>
+        <a data-carry-week data-href="models.html">Models</a>
         <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
         <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
         <a class="here" href="entries.html">Entries</a>
@@ -104,7 +106,7 @@
     <header>
       <div>
         <h1>Ten entries</h1>
-        <p>Actual Circa book. Week 2 picks come from the hub chip board.</p>
+        <p>Actual Circa book. Week 2 and Week 3 picks come from the hub chip board.</p>
       </div>
     </header>
     <div class="summary">
@@ -112,8 +114,9 @@
       <div class="stat"><span>Remaining</span><b class="pos" id="nLive">8</b></div>
       <div class="stat"><span>Dead</span><b class="neg">2 TEN</b></div>
       <div class="stat"><span>Week 2 picks</span><b id="w2PickStat">unset</b></div>
+      <div class="stat"><span>Week 3 picks</span><b id="w3PickStat">unset</b></div>
     </div>
-    <p class="hint">A ticket cannot reuse its own Week 1 team. Remaining tickets have JAC, PIT, or LV already burned. Assign Week 2 teams on the hub chip board — leftover JAC @ DEN / PIT @ NE / LV @ LAC are burned inventory, not our book.</p>
+    <p class="hint">A ticket cannot reuse its own burned teams. Week 2 Circa killed TB / LAC / BAL chalk. Assign picks on the hub chip. Field entering Week 3 is 8,464 live / $25,017,000.</p>
     <div class="bar">
       <button type="button" class="on" data-filter="all">All 10</button>
       <button type="button" data-filter="live">Remaining 8</button>
@@ -122,6 +125,7 @@
     <div class="list" id="list"></div>
   </main>
   <script src="assets/week2-crowd.js"></script>
+  <script src="assets/week3-crowd.js"></script>
   <script src="assets/files-bundle.js"></script>
   <script src="assets/circa-view.js"></script>
   <script src="assets/circa-nav.js"></script>
@@ -140,8 +144,12 @@
     ];
     let filter = "all";
 
-    function chipPicks() {
-      const key = (window.CIRCA_WEEK2 && window.CIRCA_WEEK2.saveKey) || "circa-week2-chip-v2";
+    const W2_LOST = { DET:1, ATL:1, HOU:1, TB:1, NYJ:1, JAC:1, LAC:1, MIA:1, CHI:1, BAL:1, TEN:1, PIT:1, ARI:1, WAS:1, IND:1, NYG:1 };
+
+    function chipPicks(week) {
+      const key = week === "3"
+        ? ((window.CIRCA_WEEK3 && window.CIRCA_WEEK3.saveKey) || "circa-week3-chip-v1")
+        : ((window.CIRCA_WEEK2 && window.CIRCA_WEEK2.saveKey) || "circa-week2-chip-v2");
       try {
         const s = JSON.parse(localStorage.getItem(key) || "");
         return (s && s.pick) || {};
@@ -152,28 +160,51 @@
 
     function w2Line(e) {
       if (!e.live) return "Dead — no Week 2 pick";
-      const team = chipPicks()[e.slot];
+      const team = chipPicks("2")[e.slot];
       if (!team) return "Pick not set — assign on the hub chip board";
+      if (W2_LOST[team]) return team + " — lost, ticket dead";
+      return team + " — won";
+    }
+
+    function w3Line(e) {
+      if (!e.live) return "Dead — no Week 3 pick";
+      const w2 = chipPicks("2")[e.slot];
+      if (w2 && W2_LOST[w2]) return "Dead in Week 2 (" + w2 + ")";
+      const team = chipPicks("3")[e.slot];
+      if (!team) return "Pick not set — assign on the Week 3 chip board";
       return team;
     }
 
     function render() {
-      const week = document.body.getAttribute("data-week") || "2";
-      const picks = chipPicks();
+      const week = document.body.getAttribute("data-week") || "3";
       const live = ENTRIES.filter((e) => e.live);
-      const set = live.filter((e) => picks[e.slot]).length;
-      const stat = document.getElementById("w2PickStat");
-      if (stat) stat.textContent = set === 0 ? "unset" : set + " / 8";
+      const w2p = chipPicks("2");
+      const w3p = chipPicks("3");
+      const w2stat = document.getElementById("w2PickStat");
+      const w3stat = document.getElementById("w3PickStat");
+      if (w2stat) {
+        const set = live.filter((e) => w2p[e.slot]).length;
+        w2stat.textContent = set === 0 ? "unset" : set + " / 8";
+      }
+      if (w3stat) {
+        const set = live.filter((e) => w3p[e.slot]).length;
+        w3stat.textContent = set === 0 ? "unset" : set + " / 8";
+      }
       const rows = ENTRIES.filter((e) => filter === "all" || (filter === "live" ? e.live : !e.live));
       document.getElementById("list").innerHTML = rows.map((e) => {
-        const cls = e.live ? "live" : "dead";
-        const status = e.live ? "LIVE" : "DEAD";
+        const w2team = e.live ? chipPicks("2")[e.slot] : "";
+        const deadW2 = Boolean(w2team && W2_LOST[w2team]);
+        const cls = !e.live || deadW2 ? "dead" : "live";
+        const status = !e.live || deadW2 ? "DEAD" : "LIVE";
         const w2 = week === "1" ? "Not played yet" : w2Line(e);
+        const w3 = week === "1" || week === "2" ? "Not played yet" : w3Line(e);
+        const burned = e.burned.concat(w2team && w2team !== e.burned[0] ? [w2team] : []);
         return `<article class="card ${cls}">
           <h2>Entry ${String(e.id).padStart(2, "0")} · ${status}</h2>
           <div class="row"><span class="wk">Week 1</span><span>${e.w1.team} vs ${e.w1.opp}</span><strong class="${e.w1.result === "W" ? "pos" : "neg"}">${e.w1.result}</strong></div>
-          <div class="row"><span class="wk">Week 2</span><span>${w2}</span><span class="wk">${e.live ? "remaining" : ""}</span></div>
-          <div class="row"><span class="wk">Burned</span><span>${e.burned.join(", ")}</span><span></span></div>
+          <div class="row"><span class="wk">Week 2</span><span>${w2}</span><span class="wk">${e.live && !deadW2 ? "remaining" : ""}</span></div>
+          <div class="row"><span class="wk">Week 3</span><span>${w3}</span><span></span></div>
+          <div class="row"><span class="wk">Burned</span><span>${burned.join(", ")}</span><span></span></div>
         </article>`;
       }).join("");
     }

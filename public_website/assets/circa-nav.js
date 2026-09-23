@@ -1,7 +1,7 @@
 (function () {
   function weekFromUrl() {
     var q = new URLSearchParams(location.search).get("week");
-    if (q === "1" || q === "2") return q;
+    if (q === "1" || q === "2" || q === "3") return q;
     return document.body.getAttribute("data-default-week") || "1";
   }
 

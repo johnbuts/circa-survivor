@@ -81,8 +81,15 @@ nav.top .week-toggle button.on,
   color: #16140c;
 }
 
-body[data-week="1"] .week2-only { display: none !important; }
-body[data-week="2"] .week1-only { display: none !important; }
+body[data-week="1"] .week2-only,
+body[data-week="1"] .week3-only,
+body[data-week="1"] .hide-week-1 { display: none !important; }
+body[data-week="2"] .week1-only,
+body[data-week="2"] .week3-only,
+body[data-week="2"] .hide-week-2 { display: none !important; }
+body[data-week="3"] .week1-only,
+body[data-week="3"] .week2-only,
+body[data-week="3"] .hide-week-3 { display: none !important; }
 
 .page {
   width: min(var(--page-max), calc(100% - 2 * var(--page-gutter)));

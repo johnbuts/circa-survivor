@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-09-23 — Week 3 hub (8,464 live / PoolGenius Circa-scaled crowd), Models page, Week 2 Circa recap.
 - 2026-09-15 — One Week2_v2 crowd/pot everywhere, actual JAC/PIT/TEN/LV hedge book, chip picks on Entries, FanDuel JSON-only, docs via `view.html`, and a 404 page.
 - 2026-09-15 — Gitignored `.venv` / `__pycache__` so the public GitHub repo does not ship the local Python env.
 - 2026-09-15 — Week 2 hub now has a Week2_v2 chip sandbox: click game winners and assign the 8 live tickets to see pot / surviving field.

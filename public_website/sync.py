@@ -18,6 +18,7 @@ HEDGE_REL = "pick_selection/week1/index.html"
 
 PAGES = [
     "index.html",
+    "models.html",
     "entries.html",
     "view.html",
     "404.html",
@@ -30,6 +31,7 @@ ASSETS = [
     "assets/circa-nav.js",
     "assets/circa-view.js",
     "assets/week2-crowd.js",
+    "assets/week3-crowd.js",
     "assets/week2-chip.js",
 ]
 
@@ -59,6 +61,8 @@ BUNDLE_FILES = [
     "model_crafting/data/2026/raw/nfl_win_totals_2026.csv",
     "model_crafting/data/2026/portfolio_rationale.md",
     "model_crafting/data/2026/portfolio_10_entries.csv",
+    "Weekly_models/MODELS.md",
+    "Weekly_models/Week3/NOTES.md",
     "Weekly_models/Week2_v2/actual_odds.md",
 ]
 

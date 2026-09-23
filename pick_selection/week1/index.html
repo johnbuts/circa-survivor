@@ -284,14 +284,16 @@
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge">Week 1 hedge</span>
+      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge" data-label-3="Week 3 hedge">Week 1 hedge</span>
     </div>
     <div class="week-toggle" role="tablist" aria-label="Contest week">
       <button type="button" data-set-week="1" class="on">Week 1</button>
       <button type="button" data-set-week="2">Week 2</button>
+      <button type="button" data-set-week="3">Week 3</button>
     </div>
     <div class="links">
       <a data-carry-week data-href="../../index.html">Hub</a>
+      <a data-carry-week data-href="../../models.html">Models</a>
       <a class="here" href="index.html">Hedge</a>
       <a data-carry-week data-href="../../all_picks_2026/index.html">Field</a>
       <a data-carry-week data-href="../../entries.html">Entries</a>
@@ -381,6 +383,7 @@
   </main>
 
   <script src="../../assets/week2-crowd.js"></script>
+  <script src="../../assets/week3-crowd.js"></script>
   <script>
     const NAMES = {
       ARI: "Arizona Cardinals", ATL: "Atlanta Falcons", BAL: "Baltimore Ravens",
@@ -477,6 +480,27 @@
           DAL: 0.8, DEN: 0.2, DET: 0.0, GB: 0.9, HOU: 0.4, IND: 0.0, JAC: 0.0, KC: 3.5,
           LAC: 9.1, LAR: 3.6, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 1.9, NO: 0.0, NYG: 0.0,
           NYJ: 0.0, PHI: 4.5, PIT: 0.0, SEA: 0.6, SF: 30.5, TB: 29.2, TEN: 0.0, WAS: 0.0
+        }
+      },
+      "3": {
+        saveKey: "circa-week3-hedge-2026-09-23",
+        N: 8,
+        picks: [],
+        counts: {},
+        fieldStart: 8464,
+        pot: 25017000,
+        chalk: ["KC", "GB", "DET", "SEA"],
+        burnedMax: { JAC: 4, PIT: 6, LV: 6 },
+        boardTitle: "Week 3 board — chip board on the hub is the pick UI",
+        crowdTitle: "Crowd split — PoolGenius Circa-scaled · 8,464 live · $25,017,000",
+        lead: "8 tickets unless Week 2 died. Week 3 picks come from the hub chip board. Legs are the opponents.",
+        note: "Official live field 8,464. Crowd is PoolGenius public scaled by Circa SF burns, not the Circa PDF. JAC/PIT/LV still capped. TNF is ATL @ GB.",
+        games: [],
+        crowd: {
+          ARI: 0.0, ATL: 0.0, BAL: 1.3, BUF: 7.7, CAR: 1.3, CHI: 0.0, CIN: 1.4, CLE: 0.0,
+          DAL: 0.0, DEN: 0.0, DET: 10.9, GB: 14.2, HOU: 1.3, IND: 0.0, JAC: 1.3, KC: 43.5,
+          LAC: 0.0, LAR: 1.2, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 0.0, NO: 1.4, NYG: 1.4,
+          NYJ: 0.0, PHI: 1.2, PIT: 0.0, SEA: 9.8, SF: 2.0, TB: 0.0, TEN: 0.0, WAS: 0.0
         }
       }
     };
@@ -577,10 +601,10 @@
     }
 
     function crowdFromShared(week) {
-      if (week === "2" && window.CIRCA_WEEK2 && window.CIRCA_WEEK2.share) {
-        const share = window.CIRCA_WEEK2.share;
+      const pack = week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
+      if (pack && pack.share) {
         const out = {};
-        Object.keys(NAMES).forEach((t) => { out[t] = 100 * (share[t] || 0); });
+        Object.keys(NAMES).forEach((t) => { out[t] = 100 * (pack.share[t] || 0); });
         return out;
       }
       if (week === "1" && window.CIRCA_WEEK1_FIELD && window.CIRCA_WEEK1_FIELD.crowdPct) {
@@ -590,9 +614,8 @@
     }
 
     function fieldFromShared(week) {
-      if (week === "2" && window.CIRCA_WEEK2) {
-        return { start: window.CIRCA_WEEK2.nAlive, pot: window.CIRCA_WEEK2.pot };
-      }
+      const pack = week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
+      if (pack) return { start: pack.nAlive, pot: pack.pot };
       if (week === "1" && window.CIRCA_WEEK1_FIELD) {
         return { start: window.CIRCA_WEEK1_FIELD.n, pot: window.CIRCA_WEEK1_FIELD.pot };
       }
@@ -601,7 +624,7 @@
     }
 
     function picksFromChip() {
-      const W = window.CIRCA_WEEK2;
+      const W = ACTIVE_WEEK === "3" ? window.CIRCA_WEEK3 : window.CIRCA_WEEK2;
       if (!W) return null;
       try {
         const raw = localStorage.getItem(W.saveKey);
@@ -639,11 +662,17 @@
     }
 
     function applyWeekConfig(week) {
-      const w = week === "2" ? "2" : "1";
+      const w = week === "3" ? "3" : week === "2" ? "2" : "1";
       if (ACTIVE_WEEK === w && GAMES.length) return;
       const cfg = WEEK_DATA[w];
       ACTIVE_WEEK = w;
-      GAMES = cfg.games;
+      if (w === "3" && window.CIRCA_WEEK3 && window.CIRCA_WEEK3.games) {
+        GAMES = window.CIRCA_WEEK3.games.map((g) => ({
+          id: g.id, away: g.away, home: g.home, awayMl: g.awayMl, homeMl: g.homeMl, when: g.when
+        }));
+      } else {
+        GAMES = cfg.games;
+      }
       CROWD_PCT = crowdFromShared(w);
       const field = fieldFromShared(w);
       FIELD_START = field.start;
@@ -669,7 +698,7 @@
         state.ml[g.home] = g.homeMl;
       });
       try { loadState(); } catch (e) {}
-      if (w === "2") {
+      if (w === "2" || w === "3") {
         const chip = picksFromChip();
         if (chip) {
           state.picks = chip.picks;
@@ -692,7 +721,9 @@
       if (crowd) crowd.textContent = cfg.crowdTitle;
       const hint = document.getElementById("crowdHint");
       if (hint) {
-        hint.textContent = w === "2"
+        hint.textContent = w === "3"
+          ? "PoolGenius public scaled by Circa Week 2 burns on 8,464 live tickets. Chip = $25,017,000 / field still alive. Not the Circa PDF."
+          : w === "2"
           ? "Week2_v2 field-conditioned shares on the official 16,978 live field. Chip = $25,017,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call."
           : "Live Circa Week 1 PDF shares on 24,999 tickets. Chip = $24,999,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call.";
       }
@@ -1761,7 +1792,10 @@
     fmtFdStatus();
     window.CircaNavHooks = window.CircaNavHooks || [];
     window.CircaNavHooks.push(applyWeekConfig);
-    applyWeekConfig(new URLSearchParams(location.search).get("week") === "2" ? "2" : "1");
+    applyWeekConfig((() => {
+      const q = new URLSearchParams(location.search).get("week");
+      return q === "3" || q === "2" ? q : "1";
+    })());
   </script>
   <script src="../../assets/files-bundle.js"></script>
   <script src="../../assets/circa-view.js"></script>

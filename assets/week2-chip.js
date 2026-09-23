@@ -1,5 +1,8 @@
 (function () {
-  const W = window.CIRCA_WEEK2;
+  const root = document.getElementById("week3Chip") || document.getElementById("week2Chip");
+  if (!root) return;
+  const isW3 = root.id === "week3Chip";
+  const W = isW3 ? window.CIRCA_WEEK3 : window.CIRCA_WEEK2;
   if (!W) return;
   const N_ALIVE = W.nAlive;
   const POT = W.pot;
@@ -8,6 +11,11 @@
   const IMPLIED = W.implied;
   const GAMES = W.games;
   const ESPN_LOGO = { JAC: "jax", WAS: "wsh" };
+  const CHALK = isW3 ? ["KC", "GB", "DET", "SEA"] : ["SF", "TB", "BAL", "LAC"];
+  const W2_LOST = {
+    DET: 1, ATL: 1, HOU: 1, TB: 1, NYJ: 1, JAC: 1, LAC: 1, MIA: 1,
+    CHI: 1, BAL: 1, TEN: 1, PIT: 1, ARI: 1, WAS: 1, IND: 1, NYG: 1
+  };
 
   const NAMES = {
     ARI: "Cardinals", ATL: "Falcons", BAL: "Ravens", BUF: "Bills",
@@ -31,6 +39,30 @@
   });
 
   const state = { win: {}, pick: { jac: "", pit: "", lv: "" } };
+
+  function w2Pick(id) {
+    try {
+      var s = JSON.parse(localStorage.getItem("circa-week2-chip-v2") || "");
+      return (s && s.pick && s.pick[id]) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function burnedList(b) {
+    var out = [b.burned];
+    if (isW3) {
+      var extra = w2Pick(b.id);
+      if (extra && extra !== b.burned) out.push(extra);
+    }
+    return out;
+  }
+
+  function ticketDeadFromW2(b) {
+    if (!isW3) return false;
+    var extra = w2Pick(b.id);
+    return Boolean(extra && W2_LOST[extra]);
+  }
 
   function favorite(g) {
     return IMPLIED[g.home] >= IMPLIED[g.away] ? g.home : g.away;
@@ -63,7 +95,8 @@
       });
       BOOK.forEach(function (b) {
         var t = s.pick && s.pick[b.id];
-        if (t && NAMES[t] && t !== b.burned) state.pick[b.id] = t;
+        var banned = burnedList(b);
+        if (t && NAMES[t] && banned.indexOf(t) < 0 && !ticketDeadFromW2(b)) state.pick[b.id] = t;
       });
     } catch (e) {}
   }
@@ -86,9 +119,12 @@
     var oursDead = 0;
     var portfolio = 0;
     var rows = BOOK.map(function (b) {
-      var team = state.pick[b.id] || "";
+      var w2dead = ticketDeadFromW2(b);
+      var team = w2dead ? "" : (state.pick[b.id] || "");
       var live = Boolean(team && winners[team]);
-      if (team) {
+      if (w2dead) {
+        oursDead += b.n;
+      } else if (team) {
         if (live) {
           oursLive += b.n;
           portfolio += b.n * chip;
@@ -96,9 +132,9 @@
           oursDead += b.n;
         }
       }
-      return { book: b, team: team, live: live, ev: team && live ? chip : 0 };
+      return { book: b, team: team, live: live, ev: team && live ? chip : 0, w2dead: w2dead };
     });
-    var chalkDown = ["SF", "TB", "BAL", "LAC"].filter(function (t) { return !winners[t]; });
+    var chalkDown = CHALK.filter(function (t) { return !winners[t]; });
     return {
       winners: winners,
       share: share,
@@ -114,10 +150,10 @@
     };
   }
 
-  function optionList(burned, selected) {
+  function optionList(banned, selected) {
     var html = '<option value="">— pick —</option>';
     TEAMS.forEach(function (t) {
-      if (t === burned) return;
+      if (banned.indexOf(t) >= 0) return;
       html += '<option value="' + t + '"' + (t === selected ? " selected" : "") + ">"
         + t + " · " + pct(t).toFixed(1) + "%</option>";
     });
@@ -138,12 +174,11 @@
   }
 
   function render() {
-    var root = document.getElementById("week2Chip");
-    if (!root) return;
     var snap = snapshot();
+    var hold = N_ALIVE.toLocaleString("en-US");
     var read = snap.chalkDown.length
       ? "Chalk down: " + snap.chalkDown.join(", ") + " — field shrinks, live tickets get a bigger chip."
-      : "Favorites hold. Almost the whole 16,978 field survives, so a live ticket sits near the $1,000 fee.";
+      : "Favorites hold. Almost the whole " + hold + " field survives, so a live ticket sits near the mark-to-market chip.";
 
     root.querySelector("#chipRead").textContent = read;
     document.getElementById("chipStrip").innerHTML =
@@ -154,19 +189,27 @@
       + '<div class="stat"><span>Our 8 tickets</span><b class="pos">' + money(snap.portfolio) + "</b></div>";
 
     document.getElementById("chipBook").innerHTML = snap.rows.map(function (r) {
+      var banned = burnedList(r.book);
+      if (r.w2dead) {
+        return '<div class="chip-ticket">'
+          + "<div><b>" + r.book.label + "</b><span>burned " + banned.join(" ") + "</span></div>"
+          + "<span class=\"neg\">dead in week 2</span>"
+          + "</div>";
+      }
       var status = !r.team ? "unset" : r.live ? "live" : "dead";
       var cls = !r.team ? "" : r.live ? "pos" : "neg";
       return '<div class="chip-ticket">'
-        + "<div><b>" + r.book.label + "</b><span>burned " + r.book.burned + "</span></div>"
-        + '<select data-chip-pick="' + r.book.id + '">' + optionList(r.book.burned, r.team) + "</select>"
+        + "<div><b>" + r.book.label + "</b><span>burned " + banned.join(" ") + "</span></div>"
+        + '<select data-chip-pick="' + r.book.id + '">' + optionList(banned, r.team) + "</select>"
         + '<span class="' + cls + '">' + status + " · " + (r.team ? money(r.ev) + " × " + r.book.n : "—") + "</span>"
         + "</div>";
     }).join("");
 
     document.getElementById("chipBoard").innerHTML = GAMES.map(function (g) {
       var win = state.win[g.id] || favorite(g);
+      var vs = g.id === "bal-dal" ? " vs " : " @ ";
       return '<div class="chip-game">'
-        + '<div class="when">' + g.when + " · " + g.away + " @ " + g.home + " · " + g.line + "</div>"
+        + '<div class="when">' + g.when + " · " + g.away + vs + g.home + " · " + g.line + "</div>"
         + '<div class="chip-sides">' + sideHtml(g, g.away, win) + sideHtml(g, g.home, win) + "</div>"
         + "</div>";
     }).join("");
@@ -174,8 +217,6 @@
   }
 
   function init() {
-    var root = document.getElementById("week2Chip");
-    if (!root) return;
     load();
     root.addEventListener("click", function (e) {
       if (e.target.id === "chipFavs") {

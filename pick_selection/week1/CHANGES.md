@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-09-23 — Week 3 hedge uses 8,464 live and the Circa-scaled PoolGenius crowd; Week 3 button on the nav.
 - 2026-09-15 — Hedge defaults to the actual Circa book, Week2_v2 crowd/pot, burned-team caps, chip-board picks, and FanDuel JSON snapshot only.
 - 2026-09-15 — Pointed the hedge CSS/JS at `assets/`.
 - 2026-09-15 — Stood up the Week 2 hedge board (N=8, empty picks). Markdown/CSV links open in the in-site viewer.

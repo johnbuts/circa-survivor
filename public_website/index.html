@@ -126,24 +126,26 @@
   </style>
   <link rel="stylesheet" href="assets/circa.css" />
 </head>
-<body data-page="hub" data-root="" data-default-week="2" data-week="2">
+<body data-page="hub" data-root="" data-default-week="3" data-week="3">
   <nav class="top" aria-label="Site">
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 board" data-label-2="Week 2 live">Week 2 live</span>
+      <span data-week-label data-label-1="Week 1 board" data-label-2="Week 2 recap" data-label-3="Week 3 live">Week 3 live</span>
     </div>
     <div class="week-toggle" role="tablist" aria-label="Contest week">
       <button type="button" data-set-week="1">Week 1</button>
-      <button type="button" data-set-week="2" class="on">Week 2</button>
+      <button type="button" data-set-week="2">Week 2</button>
+      <button type="button" data-set-week="3" class="on">Week 3</button>
     </div>
     <div class="links">
       <a class="here" data-carry-week data-href="index.html">Hub</a>
+      <a data-carry-week data-href="models.html">Models</a>
       <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
       <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
       <a data-carry-week data-href="entries.html">Entries</a>
       <a class="week1-only" data-carry-week data-href="view.html?f=Power_Rankings/9-9-2026/SOURCES.md">Rankings</a>
-      <a class="week2-only" data-carry-week data-href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+      <a class="hide-week-1" data-carry-week data-href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
       <a data-carry-week data-href="view.html">Docs</a>
     </div>
     </div>
@@ -200,7 +202,7 @@
         </table>
         <div class="links-row">
           <a href="all_picks_2026/index.html?week=1">Field / winners</a>
-          <a href="view.html?week=1&amp;f=all_picks_2026/FINDINGS.md">FINDINGS.md</a>
+          <a href="models.html?week=1">Models</a>
         </div>
       </section>
       <section class="card">
@@ -242,101 +244,69 @@
   <div class="week2-only">
     <header>
       <div>
-        <h1>Week 2 — live book + chip sandbox</h1>
-        <p>Click winners on the slate. Chip is Week2_v2 crowd on the official 16,978 live field, pot $25,017,000.</p>
+        <h1>Week 2 — Circa recap</h1>
+        <p>Official: 16,978 in, <b>8,464</b> out, pot $25,017,000. TB 6,061 and LAC 1,357 died. SF 6,741 survived. Week2_v2 had the chalk pair, not the height.</p>
       </div>
-      <p><a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a></p>
+      <p><a href="view.html?week=2&amp;f=Weekly_models/Week3/NOTES.md">Week 2–3 notes</a></p>
     </header>
     <div class="summary">
-      <div class="stat"><span>Live tickets</span><b class="pos">8</b></div>
-      <div class="stat"><span>JAC</span><b>4</b></div>
-      <div class="stat"><span>PIT</span><b>2</b></div>
-      <div class="stat"><span>LV</span><b>2</b></div>
-      <div class="stat"><span>Burned</span><b>JAC PIT LV</b></div>
-      <div class="stat"><span>Model chalk</span><b>SF 30.5%</b></div>
-      <div class="stat"><span>TB</span><b>29.2%</b></div>
-      <div class="stat"><span>BAL</span><b>10.6%</b></div>
+      <div class="stat"><span>Live in</span><b>16,978</b></div>
+      <div class="stat"><span>Live out</span><b class="pos">8,464</b></div>
+      <div class="stat"><span>Dead</span><b class="neg">8,514</b></div>
+      <div class="stat"><span>SF n</span><b>6,741</b></div>
+      <div class="stat"><span>TB n</span><b class="neg">6,061</b></div>
+      <div class="stat"><span>LAC n</span><b class="neg">1,357</b></div>
+      <div class="stat"><span>BAL n</span><b class="neg">835</b></div>
+      <div class="stat"><span>Chip now</span><b>$2,956</b></div>
     </div>
     <div class="grid">
-      <section class="card chip-box" id="week2Chip">
-        <div class="chip-toolbar">
-          <h2>Slate · chip after the games</h2>
-          <button type="button" id="chipFavs">All favorites</button>
-        </div>
-        <p class="hint">Week2_v2 field-conditioned shares. Click a side to win. Chip = $25,017,000 / remaining field. Assign the 8 live tickets (they cannot reuse JAC / PIT / LV) to price them if they survive.</p>
-        <p class="hint" id="chipRead"></p>
-        <div class="summary" id="chipStrip"></div>
-        <div class="chip-book" id="chipBook"></div>
-        <div id="chipBoard"></div>
-      </section>
       <section class="card">
-        <h2>Burned Week 1 teams · still playing</h2>
-        <p class="hint">Not the Week 2 book. These tickets already used JAC / PIT / LV. Assign Week 2 picks in the chip board above.</p>
-        <div class="game ours">
-          <span class="abbr">JAC</span>
-          <span>@ DEN · 4 tickets burned JAC</span>
-          <span class="mono">JAC 41% win</span>
-        </div>
-        <div class="game ours">
-          <span class="abbr">PIT</span>
-          <span>@ NE · 2 tickets burned PIT</span>
-          <span class="mono">PIT 31% win</span>
-        </div>
-        <div class="game ours">
-          <span class="abbr">LV</span>
-          <span>@ LAC · 2 tickets burned LV</span>
-          <span class="mono">LV 27% win</span>
-        </div>
-        <div class="links-row">
-          <a href="entries.html?week=2">Ten entries</a>
-          <a href="pick_selection/week1/index.html?week=2">Week 2 hedge</a>
-        </div>
-      </section>
-      <section class="card">
-        <h2>Model crowd · week 2</h2>
-        <p class="hint">Week2_v2 field-conditioned crowd. SF + TB soak ~60%.</p>
+        <h2>Circa PDF vs Week2_v2</h2>
+        <p class="hint">Model: field-conditioned clogit freeze. Actual: Circa counts (PHI ~910 is the remainder after published n; Circa said more than 900 Eagles). SF+TB were 75.4% of the live field, not 59.7%.</p>
         <table>
-          <thead><tr><th>Team</th><th></th><th class="r">%</th></tr></thead>
+          <thead><tr><th>Team</th><th class="r">Circa n</th><th class="r">Circa %</th><th class="r">Model %</th></tr></thead>
           <tbody>
-            <tr>
-              <td>SF</td>
-              <td><div class="barline"><span style="width:100%"></span></div></td>
-              <td class="r">30.5</td>
-            </tr>
-            <tr>
-              <td>TB</td>
-              <td><div class="barline"><span style="width:96%"></span></div></td>
-              <td class="r">29.2</td>
-            </tr>
-            <tr>
-              <td>BAL</td>
-              <td><div class="barline"><span style="width:35%"></span></div></td>
-              <td class="r">10.6</td>
-            </tr>
-            <tr>
-              <td>LAC</td>
-              <td><div class="barline"><span style="width:30%"></span></div></td>
-              <td class="r">9.1</td>
-            </tr>
-            <tr>
-              <td>PHI</td>
-              <td><div class="barline"><span style="width:15%"></span></div></td>
-              <td class="r">4.5</td>
-            </tr>
-            <tr>
-              <td>JAC / PIT / LV</td>
-              <td><div class="barline"><span style="width:0"></span></div></td>
-              <td class="r">0.0</td>
-            </tr>
+            <tr><td>SF</td><td class="r">6,741</td><td class="r">39.7</td><td class="r">30.5</td></tr>
+            <tr><td>TB</td><td class="r">6,061</td><td class="r">35.7</td><td class="r">29.2</td></tr>
+            <tr><td>LAC</td><td class="r">1,357</td><td class="r">8.0</td><td class="r">9.1</td></tr>
+            <tr><td>BAL</td><td class="r">835</td><td class="r">4.9</td><td class="r">10.6</td></tr>
+            <tr><td>PHI</td><td class="r">~910</td><td class="r">5.4</td><td class="r">4.5</td></tr>
+            <tr><td>KC</td><td class="r">241</td><td class="r">1.4</td><td class="r">3.5</td></tr>
           </tbody>
         </table>
         <div class="links-row">
-          <a href="view.html?week=2&amp;f=Weekly_models/Week2_v2/actual_odds.md">actual_odds.md</a>
+          <a href="models.html?week=2">Models</a>
+          <a href="view.html?week=2&amp;f=Weekly_models/Week2_v2/actual_odds.md">Week2_v2 freeze</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Who died</h2>
+        <p class="hint">Browns beat TB 23–19. Raiders beat LAC 26–14. Saints beat BAL 17. Bears 50, no-pick 42. Rams 28–6 over Giants, so the 146 Rams tickets in the 8,464 count lived.</p>
+        <table>
+          <thead><tr><th>Result</th><th class="r">Tickets</th></tr></thead>
+          <tbody>
+            <tr><td>TB loss</td><td class="r">6,061</td></tr>
+            <tr><td>LAC loss</td><td class="r">1,357</td></tr>
+            <tr><td>BAL loss</td><td class="r">835</td></tr>
+            <tr><td>CHI loss</td><td class="r">50</td></tr>
+            <tr><td>No pick</td><td class="r">42</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="https://www.covers.com/industry/bucs-chargers-decimate-circa-sports-survivor-field-in-week-2-sept-21-2026" target="_blank" rel="noopener">Covers recap</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Our 8 tickets</h2>
+        <p class="hint">Week 1 burns still JAC×4 / PIT×2 / LV×2. Week 2 picks lived on the chip board (local to your browser). If a ticket took TB, LAC, or BAL it is dead entering Week 3.</p>
+        <div class="links-row">
+          <a href="entries.html?week=2">Entries</a>
+          <a href="index.html?week=3">Week 3 chip</a>
         </div>
       </section>
       <section class="card">
         <h2>Consensus ranks · Sep 15</h2>
-        <p class="hint">Post-Week 1 media average. SEA std 9.30 from FPI 27. CHI jumped 13 spots vs Sep 9.</p>
+        <p class="hint">Post-Week 1 media average. Still the last ranking dump we have.</p>
         <table>
           <thead><tr><th class="rk">#</th><th>Team</th><th class="r">Avg</th><th class="r">vs 9/9</th></tr></thead>
           <tbody>
@@ -345,18 +315,83 @@
             <tr><td class="rk">3</td><td>CHI</td><td class="r">5.00</td><td class="r win">+13</td></tr>
             <tr><td class="rk">4</td><td>SF</td><td class="r">5.33</td><td class="r win">+10</td></tr>
             <tr><td class="rk">5</td><td>SEA</td><td class="r">6.33</td><td class="r lose">−3</td></tr>
-            <tr><td class="rk">6</td><td>LAR</td><td class="r">6.83</td><td class="r lose">−5</td></tr>
-            <tr><td class="rk">7</td><td>JAC</td><td class="r">7.33</td><td class="r win">+5</td></tr>
           </tbody>
         </table>
         <div class="links-row">
           <a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">SOURCES.md</a>
-          <a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/consensus_power_rankings.csv">consensus csv</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="week3-only">
+    <header>
+      <div>
+        <h1>Week 3 — live chip</h1>
+        <p>Official live field <b>8,464</b> / pot $25,017,000. Crowd is PoolGenius public scaled by Circa Week 2 burns (SF already used on ~80% of live tickets). Circa Week 3 PDF is not out.</p>
+      </div>
+      <p><a href="models.html?week=3">Models</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Live field</span><b class="pos">8,464</b></div>
+      <div class="stat"><span>Chip if paid now</span><b>$2,956</b></div>
+      <div class="stat"><span>KC scaled</span><b>43.5%</b></div>
+      <div class="stat"><span>GB</span><b>14.2%</b></div>
+      <div class="stat"><span>DET</span><b>10.9%</b></div>
+      <div class="stat"><span>SEA</span><b>9.8%</b></div>
+      <div class="stat"><span>BUF</span><b>7.7%</b></div>
+      <div class="stat"><span>SF left</span><b>2.0%</b></div>
+    </div>
+    <div class="grid">
+      <section class="card chip-box" id="week3Chip">
+        <div class="chip-toolbar">
+          <h2>Slate · chip after the games</h2>
+          <button type="button" id="chipFavs">All favorites</button>
+        </div>
+        <p class="hint">Click a side to win. Chip = $25,017,000 / remaining field. Tickets cannot reuse JAC / PIT / LV or their Week 2 pick (if you set it on the Week 2 chip). If that Week 2 pick lost, the ticket is already dead.</p>
+        <p class="hint" id="chipRead"></p>
+        <div class="summary" id="chipStrip"></div>
+        <div class="chip-book" id="chipBook"></div>
+        <div id="chipBoard"></div>
+      </section>
+      <section class="card">
+        <h2>Crowd this week</h2>
+        <p class="hint">Labeled model: PoolGenius public 22 Sep, then Circa-eligibility. KC soaks because the 6,741 SF tickets cannot pick SF again.</p>
+        <table>
+          <thead><tr><th>Team</th><th></th><th class="r">%</th></tr></thead>
+          <tbody>
+            <tr><td>KC</td><td><div class="barline"><span style="width:100%"></span></div></td><td class="r">43.5</td></tr>
+            <tr><td>GB</td><td><div class="barline"><span style="width:33%"></span></div></td><td class="r">14.2</td></tr>
+            <tr><td>DET</td><td><div class="barline"><span style="width:25%"></span></div></td><td class="r">10.9</td></tr>
+            <tr><td>SEA</td><td><div class="barline"><span style="width:23%"></span></div></td><td class="r">9.8</td></tr>
+            <tr><td>BUF</td><td><div class="barline"><span style="width:18%"></span></div></td><td class="r">7.7</td></tr>
+            <tr><td>SF</td><td><div class="barline"><span style="width:5%"></span></div></td><td class="r">2.0</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="models.html?week=3">Why these numbers</a>
+          <a href="view.html?week=3&amp;f=Weekly_models/Week3/NOTES.md">NOTES.md</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Our book</h2>
+        <p class="hint">8 tickets unless a Week 2 pick died. Burned from Week 1: JAC / PIT / LV. TNF is ATL @ GB. BAL vs DAL is in Rio.</p>
+        <div class="links-row">
+          <a href="entries.html?week=3">Ten entries</a>
+          <a href="pick_selection/week1/index.html?week=3">Week 3 hedge</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Models</h2>
+        <p class="hint">Crowd, market win %, Circa PDF, and this Week 3 stand-in are separate objects. Open the Models page for the labels.</p>
+        <div class="links-row">
+          <a href="models.html?week=3">Models we use</a>
         </div>
       </section>
     </div>
   </div>
   </main>
+  <script src="assets/week3-crowd.js"></script>
   <script src="assets/week2-crowd.js"></script>
   <script src="assets/week2-chip.js"></script>
   <script src="assets/files-bundle.js"></script>
