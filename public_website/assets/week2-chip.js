@@ -12,10 +12,6 @@
   const GAMES = W.games;
   const ESPN_LOGO = { JAC: "jax", WAS: "wsh" };
   const CHALK = isW3 ? ["KC", "GB", "DET", "SEA"] : ["SF", "TB", "BAL", "LAC"];
-  const W2_LOST = {
-    DET: 1, ATL: 1, HOU: 1, TB: 1, NYJ: 1, JAC: 1, LAC: 1, MIA: 1,
-    CHI: 1, BAL: 1, TEN: 1, PIT: 1, ARI: 1, WAS: 1, IND: 1, NYG: 1
-  };
 
   const NAMES = {
     ARI: "Cardinals", ATL: "Falcons", BAL: "Ravens", BUF: "Bills",
@@ -28,40 +24,22 @@
     SF: "49ers", TB: "Buccaneers", TEN: "Titans", WAS: "Commanders"
   };
 
-  const BOOK = [
-    { id: "jac", n: 4, burned: "JAC", label: "JAC×4" },
-    { id: "pit", n: 2, burned: "PIT", label: "PIT×2" },
-    { id: "lv", n: 2, burned: "LV", label: "LV×2" }
+  const BOOK = (isW3 && window.CIRCA_BOOK && window.CIRCA_BOOK.week3Live) || [
+    { id: "e04", n: 1, burned: ["JAC", "SF"], label: "04 JAC→SF" },
+    { id: "e06", n: 1, burned: ["PIT", "SF"], label: "06 PIT→SF" },
+    { id: "e10", n: 1, burned: ["LV", "SF"], label: "10 LV→SF" }
   ];
+  const LIVE_N = BOOK.reduce(function (s, b) { return s + b.n; }, 0);
 
   const TEAMS = Object.keys(NAMES).sort(function (a, b) {
     return (CROWD[b] || 0) - (CROWD[a] || 0);
   });
 
-  const state = { win: {}, pick: { jac: "", pit: "", lv: "" } };
-
-  function w2Pick(id) {
-    try {
-      var s = JSON.parse(localStorage.getItem("circa-week2-chip-v2") || "");
-      return (s && s.pick && s.pick[id]) || "";
-    } catch (e) {
-      return "";
-    }
-  }
+  const state = { win: {}, pick: {} };
+  BOOK.forEach(function (b) { state.pick[b.id] = ""; });
 
   function burnedList(b) {
-    var out = [b.burned];
-    if (isW3) {
-      var extra = w2Pick(b.id);
-      if (extra && extra !== b.burned) out.push(extra);
-    }
-    return out;
-  }
-
-  function ticketDeadFromW2(b) {
-    if (!isW3) return false;
-    var extra = w2Pick(b.id);
-    return Boolean(extra && W2_LOST[extra]);
+    return (b.burned || []).slice();
   }
 
   function favorite(g) {
@@ -96,7 +74,7 @@
       BOOK.forEach(function (b) {
         var t = s.pick && s.pick[b.id];
         var banned = burnedList(b);
-        if (t && NAMES[t] && banned.indexOf(t) < 0 && !ticketDeadFromW2(b)) state.pick[b.id] = t;
+        if (t && NAMES[t] && banned.indexOf(t) < 0) state.pick[b.id] = t;
       });
     } catch (e) {}
   }
@@ -119,12 +97,9 @@
     var oursDead = 0;
     var portfolio = 0;
     var rows = BOOK.map(function (b) {
-      var w2dead = ticketDeadFromW2(b);
-      var team = w2dead ? "" : (state.pick[b.id] || "");
+      var team = state.pick[b.id] || "";
       var live = Boolean(team && winners[team]);
-      if (w2dead) {
-        oursDead += b.n;
-      } else if (team) {
+      if (team) {
         if (live) {
           oursLive += b.n;
           portfolio += b.n * chip;
@@ -132,7 +107,7 @@
           oursDead += b.n;
         }
       }
-      return { book: b, team: team, live: live, ev: team && live ? chip : 0, w2dead: w2dead };
+      return { book: b, team: team, live: live, ev: team && live ? chip : 0 };
     });
     var chalkDown = CHALK.filter(function (t) { return !winners[t]; });
     return {
@@ -144,7 +119,7 @@
       rows: rows,
       oursLive: oursLive,
       oursDead: oursDead,
-      unset: 8 - oursLive - oursDead,
+      unset: LIVE_N - oursLive - oursDead,
       portfolio: portfolio,
       chalkDown: chalkDown
     };
@@ -186,16 +161,10 @@
       + '<div class="stat"><span>Field dead</span><b class="neg">' + snap.fieldDead.toLocaleString("en-US", { maximumFractionDigits: 0 }) + "</b></div>"
       + '<div class="stat"><span>Chip / live entry</span><b class="pos">' + money(snap.chip) + "</b></div>"
       + '<div class="stat"><span>Our live / dead / unset</span><b>' + snap.oursLive + " / " + snap.oursDead + " / " + snap.unset + "</b></div>"
-      + '<div class="stat"><span>Our 8 tickets</span><b class="pos">' + money(snap.portfolio) + "</b></div>";
+      + '<div class="stat"><span>Our ' + LIVE_N + " tickets</span><b class=\"pos\">" + money(snap.portfolio) + "</b></div>";
 
     document.getElementById("chipBook").innerHTML = snap.rows.map(function (r) {
       var banned = burnedList(r.book);
-      if (r.w2dead) {
-        return '<div class="chip-ticket">'
-          + "<div><b>" + r.book.label + "</b><span>burned " + banned.join(" ") + "</span></div>"
-          + "<span class=\"neg\">dead in week 2</span>"
-          + "</div>";
-      }
       var status = !r.team ? "unset" : r.live ? "live" : "dead";
       var cls = !r.team ? "" : r.live ? "pos" : "neg";
       return '<div class="chip-ticket">'

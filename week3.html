@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026 — Week 3</title>
+  <style>
+    :root {
+      --bg: #0c0d0b; --panel: #141610; --panel2: #1b1d16; --ink: #e8e4d4;
+      --muted: #8b8878; --line: #2c2f24; --gold: #d4b562; --plus: #8fce9a; --minus: #e07a5f;
+      --live: #1c2e22;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+  </style>
+  <link rel="stylesheet" href="assets/circa.css" />
+  <link rel="stylesheet" href="assets/hub.css" />
+</head>
+<body data-page="hub" data-root="" data-week="3">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+      <div class="brand">
+        <b>Circa Survivor 2026</b>
+        <span>Week 3 live</span>
+      </div>
+      <div class="week-toggle" role="navigation" aria-label="Contest week">
+        <a data-week-link="1" href="week1.html">Week 1</a>
+        <a data-week-link="2" href="week2.html">Week 2</a>
+        <a data-week-link="3" class="on" href="week3.html">Week 3</a>
+      </div>
+      <div class="links">
+        <a class="here" data-hub href="week3.html">Hub</a>
+        <a href="models.html">Models</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=3">Hedge</a>
+        <a href="all_picks_2026/index.html">Field</a>
+        <a href="entries.html">Entries</a>
+        <a href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+        <a href="view.html">Docs</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Week 3 — live chip</h1>
+        <p>Official live field <b>8,464</b> / pot $25,017,000. We have <b>3 live tickets</b>, all 49ers survivors. Crowd is PoolGenius public scaled by Circa Week 2 burns. Circa Week 3 PDF is not out.</p>
+      </div>
+      <p><a href="models.html">Models</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Live field</span><b class="pos">8,464</b></div>
+      <div class="stat"><span>Our live</span><b class="pos">3</b></div>
+      <div class="stat"><span>Chip if paid now</span><b>$2,956</b></div>
+      <div class="stat"><span>KC scaled</span><b>43.5%</b></div>
+      <div class="stat"><span>GB</span><b>14.2%</b></div>
+      <div class="stat"><span>DET</span><b>10.9%</b></div>
+      <div class="stat"><span>SEA</span><b>9.8%</b></div>
+      <div class="stat"><span>SF left</span><b>2.0%</b></div>
+    </div>
+    <div class="grid">
+      <section class="card chip-box" id="week3Chip">
+        <div class="chip-toolbar">
+          <h2>Slate · chip after the games</h2>
+          <button type="button" id="chipFavs">All favorites</button>
+        </div>
+        <p class="hint">Click a side to win. Chip = $25,017,000 / remaining field. Three live tickets: 04 JAC→SF, 06 PIT→SF, 10 LV→SF. None of them can reuse SF.</p>
+        <p class="hint" id="chipRead"></p>
+        <div class="summary" id="chipStrip"></div>
+        <div class="chip-book" id="chipBook"></div>
+        <div id="chipBoard"></div>
+      </section>
+      <section class="card">
+        <h2>Crowd this week</h2>
+        <p class="hint">Labeled model: PoolGenius public 22 Sep, then Circa-eligibility. KC soaks because the 6,741 SF tickets cannot pick SF again.</p>
+        <table>
+          <thead><tr><th>Team</th><th></th><th class="r">%</th></tr></thead>
+          <tbody>
+            <tr><td>KC</td><td><div class="barline"><span style="width:100%"></span></div></td><td class="r">43.5</td></tr>
+            <tr><td>GB</td><td><div class="barline"><span style="width:33%"></span></div></td><td class="r">14.2</td></tr>
+            <tr><td>DET</td><td><div class="barline"><span style="width:25%"></span></div></td><td class="r">10.9</td></tr>
+            <tr><td>SEA</td><td><div class="barline"><span style="width:23%"></span></div></td><td class="r">9.8</td></tr>
+            <tr><td>BUF</td><td><div class="barline"><span style="width:18%"></span></div></td><td class="r">7.7</td></tr>
+            <tr><td>SF</td><td><div class="barline"><span style="width:5%"></span></div></td><td class="r">2.0</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="models.html">Why these numbers</a>
+          <a href="view.html?f=Weekly_models/Week3/NOTES.md">NOTES.md</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Our 3 live</h2>
+        <p class="hint">5 TB died in Week 2. 2 TEN died in Week 1. Burned on the three survivors: JAC+SF, PIT+SF, LV+SF. TNF is ATL @ GB. BAL vs DAL is in Rio.</p>
+        <div class="links-row">
+          <a href="entries.html">Ten entries</a>
+          <a href="pick_selection/week1/index.html?week=3">Week 3 hedge</a>
+          <a href="week2.html">Week 2 book</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Models</h2>
+        <p class="hint">Crowd, market win %, Circa PDF, and this Week 3 stand-in are separate objects. Open the Models page for the labels.</p>
+        <div class="links-row">
+          <a href="models.html">Models we use</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="assets/our-book.js"></script>
+  <script src="assets/week3-crowd.js"></script>
+  <script src="assets/week2-chip.js"></script>
+  <script src="assets/files-bundle.js"></script>
+  <script src="assets/circa-view.js"></script>
+  <script src="assets/circa-nav.js"></script>
+</body>
+</html>

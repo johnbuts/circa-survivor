@@ -84,25 +84,25 @@
   </style>
   <link rel="stylesheet" href="assets/circa.css" />
 </head>
-<body data-page="models" data-root="" data-default-week="3" data-week="3">
+<body data-page="models" data-root="">
   <nav class="top" aria-label="Site">
     <div class="nav-inner">
       <div class="brand">
         <b>Circa Survivor 2026</b>
-        <span data-week-label data-label-1="Models · Week 1" data-label-2="Models · Week 2" data-label-3="Models · Week 3">Models · Week 3</span>
+        <span>Models we use</span>
       </div>
-      <div class="week-toggle" role="tablist" aria-label="Contest week">
-        <button type="button" data-set-week="1">Week 1</button>
-        <button type="button" data-set-week="2">Week 2</button>
-        <button type="button" data-set-week="3" class="on">Week 3</button>
+      <div class="week-toggle" role="navigation" aria-label="Contest week">
+        <a data-week-link="1" href="week1.html">Week 1</a>
+        <a data-week-link="2" href="week2.html">Week 2</a>
+        <a data-week-link="3" href="week3.html">Week 3</a>
       </div>
       <div class="links">
-        <a data-carry-week data-href="index.html">Hub</a>
-        <a class="here" data-carry-week data-href="models.html">Models</a>
-        <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
-        <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
-        <a data-carry-week data-href="entries.html">Entries</a>
-        <a data-carry-week data-href="view.html">Docs</a>
+        <a data-hub href="week3.html">Hub</a>
+        <a class="here" href="models.html">Models</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=3">Hedge</a>
+        <a href="all_picks_2026/index.html">Field</a>
+        <a href="entries.html">Entries</a>
+        <a href="view.html">Docs</a>
       </div>
     </div>
   </nav>
@@ -141,7 +141,7 @@
         <p class="not">Does not predict: how many Circa tickets pick them.</p>
         <p class="hint">Vig-free DraftKings moneylines on the chip board. When we only have a spread, same idea is sigmoid(b · −spread) with b ≈ 0.1448 from the historical fit. Chip and leverage use this layer only for game outcomes.</p>
         <div class="links-row">
-          <a href="index.html?week=3">Week 3 chip</a>
+          <a href="week3.html">Week 3 chip</a>
         </div>
       </section>
       <section class="card">
@@ -151,7 +151,7 @@
         <p class="not">Not a model. Replace projections the day it lands.</p>
         <p class="hint">Start 25,017 / pot $25,017,000. Week 1 board 24,999. Week 2 live-in 16,978, live-out <b>8,464</b>. SF 6,741 survived; TB 6,061 died.</p>
         <div class="links-row">
-          <a href="all_picks_2026/index.html?week=1">Week 1 field</a>
+          <a href="all_picks_2026/index.html">Week 1 field</a>
           <a href="view.html?f=Weekly_models/Week3/NOTES.md">Week 2–3 notes</a>
         </div>
       </section>
@@ -171,11 +171,9 @@
         <p class="predicts">Is: 1–32 average of public lists.</p>
         <p class="not">Not a crowd model and not a win-prob model.</p>
         <p class="hint">Sep 9 pre-Week 1 and Sep 15 post-Week 1. Used as future-value color, not as pick shares.</p>
-        <div class="links-row week1-only">
-          <a href="view.html?week=1&amp;f=Power_Rankings/9-9-2026/SOURCES.md">Sep 9 sources</a>
-        </div>
-        <div class="links-row hide-week-1">
-          <a href="view.html?week=2&amp;f=Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a>
+        <div class="links-row">
+          <a href="view.html?f=Power_Rankings/9-9-2026/SOURCES.md">Sep 9 sources</a>
+          <a href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Sep 15 sources</a>
         </div>
       </section>
       <section class="card">
@@ -184,7 +182,7 @@
         <p class="predicts">Is: pot / field still alive after the games.</p>
         <p class="hint">Pot $25,017,000. Entering Week 3 a live ticket is ~$2,956 if the rest of the 8,464 also survive. Click winners on the hub to move that number.</p>
         <div class="links-row">
-          <a href="index.html?week=3">Open chip board</a>
+          <a href="week3.html">Open chip board</a>
         </div>
       </section>
     </div>

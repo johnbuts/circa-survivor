@@ -1,6 +1,6 @@
 # Circa Survivor — public site
 
-Static snapshot of the hub, Week 2 chip sandbox, hedge, field, entries, and docs. No server.
+Static snapshot. Each contest week is its own page (`week1.html`, `week2.html`, `week3.html`). `index.html` sends you to the current week. No server.
 
 ## Publish (GitHub Pages)
 

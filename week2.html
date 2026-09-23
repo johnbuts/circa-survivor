@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026 — Week 2</title>
+  <style>
+    :root {
+      --bg: #0c0d0b; --panel: #141610; --panel2: #1b1d16; --ink: #e8e4d4;
+      --muted: #8b8878; --line: #2c2f24; --gold: #d4b562; --plus: #8fce9a; --minus: #e07a5f;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+  </style>
+  <link rel="stylesheet" href="assets/circa.css" />
+  <link rel="stylesheet" href="assets/hub.css" />
+</head>
+<body data-page="hub" data-root="" data-week="2">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+      <div class="brand">
+        <b>Circa Survivor 2026</b>
+        <span>Week 2 recap</span>
+      </div>
+      <div class="week-toggle" role="navigation" aria-label="Contest week">
+        <a data-week-link="1" href="week1.html">Week 1</a>
+        <a data-week-link="2" class="on" href="week2.html">Week 2</a>
+        <a data-week-link="3" href="week3.html">Week 3</a>
+      </div>
+      <div class="links">
+        <a class="here" data-hub href="week2.html">Hub</a>
+        <a href="models.html">Models</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=2">Hedge</a>
+        <a href="all_picks_2026/index.html">Field</a>
+        <a href="entries.html">Entries</a>
+        <a href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+        <a href="view.html">Docs</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Week 2 — Circa recap</h1>
+        <p>Official: 16,978 in, <b>8,464</b> out, pot $25,017,000. TB 6,061 and LAC 1,357 died. SF 6,741 survived. Our book was 5 TB / 3 SF.</p>
+      </div>
+      <p><a href="view.html?f=Weekly_models/Week3/NOTES.md">Week 2–3 notes</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Live in</span><b>16,978</b></div>
+      <div class="stat"><span>Live out</span><b class="pos">8,464</b></div>
+      <div class="stat"><span>Dead</span><b class="neg">8,514</b></div>
+      <div class="stat"><span>Our TB</span><b class="neg">5 dead</b></div>
+      <div class="stat"><span>Our SF</span><b class="pos">3 live</b></div>
+      <div class="stat"><span>SF field n</span><b>6,741</b></div>
+      <div class="stat"><span>TB field n</span><b class="neg">6,061</b></div>
+      <div class="stat"><span>Chip now</span><b>$2,956</b></div>
+    </div>
+    <div class="grid">
+      <section class="card">
+        <h2>Our book</h2>
+        <p class="hint">8 live after Week 1. Five Bucs (3 on the Jags tickets, 1 Steelers, 1 Raiders) and three 49ers (one each on Jag / PIT / LV). Browns beat TB 23–19, so only the three Niners advanced.</p>
+        <table>
+          <thead><tr><th>Ticket</th><th>W1</th><th>W2</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>01–03</td><td>JAC</td><td>TB</td><td class="lose">L — dead</td></tr>
+            <tr><td>04</td><td>JAC</td><td>SF</td><td class="win">W — live</td></tr>
+            <tr><td>05</td><td>PIT</td><td>TB</td><td class="lose">L — dead</td></tr>
+            <tr><td>06</td><td>PIT</td><td>SF</td><td class="win">W — live</td></tr>
+            <tr><td>09</td><td>LV</td><td>TB</td><td class="lose">L — dead</td></tr>
+            <tr><td>10</td><td>LV</td><td>SF</td><td class="win">W — live</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="entries.html">Ten entries</a>
+          <a href="week3.html">Week 3 chip</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Circa PDF vs Week2_v2</h2>
+        <p class="hint">Model: field-conditioned clogit freeze. Actual: Circa counts (PHI ~910 is the remainder after published n; Circa said more than 900 Eagles). SF+TB were 75.4% of the live field, not 59.7%.</p>
+        <table>
+          <thead><tr><th>Team</th><th class="r">Circa n</th><th class="r">Circa %</th><th class="r">Model %</th></tr></thead>
+          <tbody>
+            <tr><td>SF</td><td class="r">6,741</td><td class="r">39.7</td><td class="r">30.5</td></tr>
+            <tr><td>TB</td><td class="r">6,061</td><td class="r">35.7</td><td class="r">29.2</td></tr>
+            <tr><td>LAC</td><td class="r">1,357</td><td class="r">8.0</td><td class="r">9.1</td></tr>
+            <tr><td>BAL</td><td class="r">835</td><td class="r">4.9</td><td class="r">10.6</td></tr>
+            <tr><td>PHI</td><td class="r">~910</td><td class="r">5.4</td><td class="r">4.5</td></tr>
+            <tr><td>KC</td><td class="r">241</td><td class="r">1.4</td><td class="r">3.5</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="models.html">Models</a>
+          <a href="view.html?f=Weekly_models/Week2_v2/actual_odds.md">Week2_v2 freeze</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Who died</h2>
+        <p class="hint">Browns beat TB 23–19. Raiders beat LAC 26–14. Saints beat BAL 17. Bears 50, no-pick 42. Rams 28–6 over Giants, so the 146 Rams tickets in the 8,464 count lived.</p>
+        <table>
+          <thead><tr><th>Result</th><th class="r">Tickets</th></tr></thead>
+          <tbody>
+            <tr><td>TB loss</td><td class="r">6,061</td></tr>
+            <tr><td>LAC loss</td><td class="r">1,357</td></tr>
+            <tr><td>BAL loss</td><td class="r">835</td></tr>
+            <tr><td>CHI loss</td><td class="r">50</td></tr>
+            <tr><td>No pick</td><td class="r">42</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="https://www.covers.com/industry/bucs-chargers-decimate-circa-sports-survivor-field-in-week-2-sept-21-2026" target="_blank" rel="noopener">Covers recap</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Consensus ranks · Sep 15</h2>
+        <p class="hint">Post-Week 1 media average. Still the last ranking dump we have.</p>
+        <table>
+          <thead><tr><th class="rk">#</th><th>Team</th><th class="r">Avg</th><th class="r">vs 9/9</th></tr></thead>
+          <tbody>
+            <tr><td class="rk">1</td><td>BUF</td><td class="r">2.17</td><td class="r win">+2</td></tr>
+            <tr><td class="rk">2</td><td>BAL</td><td class="r">3.67</td><td class="r win">+2</td></tr>
+            <tr><td class="rk">3</td><td>CHI</td><td class="r">5.00</td><td class="r win">+13</td></tr>
+            <tr><td class="rk">4</td><td>SF</td><td class="r">5.33</td><td class="r win">+10</td></tr>
+            <tr><td class="rk">5</td><td>SEA</td><td class="r">6.33</td><td class="r lose">−3</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">SOURCES.md</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="assets/files-bundle.js"></script>
+  <script src="assets/circa-view.js"></script>
+  <script src="assets/circa-nav.js"></script>
+</body>
+</html>

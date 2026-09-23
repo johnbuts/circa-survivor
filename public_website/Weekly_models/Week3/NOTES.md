@@ -30,3 +30,7 @@ Week2_v2 had SF 30.5 / TB 29.2 / BAL 10.6 / LAC 9.1. Actual chalk was taller (SF
 Circa Week 3 PDF is not out. Hub chip uses **PoolGenius public** (Tue 22 Sep: KC 41 / GB 13 / DET 10 / SF 9 / SEA 9 / BUF 7), scaled by Circa Week 2 burns. SF is mostly burned, so Circa-scaled SF is ~2% and KC ~43.5%.
 
 Implied win probs are vig-free DraftKings moneylines from [CBS 23 Sep](https://www.cbssports.com/betting/news/week-3-nfl-betting-odds-lines-totals-spreads/).
+
+## Our book
+
+Week 2: **5 TB / 3 SF**. Bucs: 3 on the Jags tickets, 1 Steelers, 1 Raiders. 49ers: one each on Jag / PIT / LV. Browns beat TB, so **3 live** into Week 3 (04 JAC→SF, 06 PIT→SF, 10 LV→SF). SF is burned on every remaining ticket.

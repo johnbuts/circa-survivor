@@ -3,7 +3,7 @@
     nStart: 25017,
     nAlive: 8464,
     pot: 25017000,
-    saveKey: "circa-week3-chip-v1",
+    saveKey: "circa-week3-chip-v2",
     source: "PoolGenius public 2026-09-22, scaled by Circa Week 2 burns (not the Circa PDF).",
     share: {
       ARI: 1.093116956868904e-12, ATL: 1.093116956868904e-12,

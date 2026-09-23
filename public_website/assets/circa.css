@@ -63,7 +63,9 @@ nav.top a.here { color: var(--gold); }
   overflow: hidden;
 }
 nav.top .week-toggle button,
-.week-toggle button {
+nav.top .week-toggle a,
+.week-toggle button,
+.week-toggle a {
   background: transparent;
   color: var(--muted);
   border: 0;
@@ -74,9 +76,13 @@ nav.top .week-toggle button,
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 nav.top .week-toggle button.on,
-.week-toggle button.on {
+nav.top .week-toggle a.on,
+.week-toggle button.on,
+.week-toggle a.on {
   background: var(--gold);
   color: #16140c;
 }

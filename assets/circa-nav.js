@@ -1,55 +1,56 @@
 (function () {
-  function weekFromUrl() {
-    var q = new URLSearchParams(location.search).get("week");
-    if (q === "1" || q === "2" || q === "3") return q;
-    return document.body.getAttribute("data-default-week") || "1";
+  var PAGES = { "1": "week1.html", "2": "week2.html", "3": "week3.html" };
+
+  function toRoot(path) {
+    var root = document.body.getAttribute("data-root") || "";
+    if (!root) return path;
+    var up = root.split("/").filter(Boolean).map(function () { return ".."; }).join("/");
+    return (up ? up + "/" : "") + path;
   }
 
-  function setWeek(week, push) {
+  function weekFromPage() {
+    var page = document.body.getAttribute("data-page");
+    var q = new URLSearchParams(location.search).get("week");
+    if (page === "hedge" && (q === "1" || q === "2" || q === "3")) return q;
+    return document.body.getAttribute("data-week") || "3";
+  }
+
+  function init() {
+    var week = weekFromPage();
     document.body.setAttribute("data-week", week);
-    document.querySelectorAll("[data-set-week]").forEach(function (btn) {
-      btn.classList.toggle("on", btn.getAttribute("data-set-week") === week);
+
+    var page = document.body.getAttribute("data-page");
+    var markWeek = page === "hub" || page === "hedge" || page === "field";
+    document.querySelectorAll("[data-week-link]").forEach(function (a) {
+      var n = a.getAttribute("data-week-link");
+      if (page === "hedge") {
+        a.setAttribute("href", "?week=" + n);
+      } else {
+        a.setAttribute("href", toRoot(PAGES[n]));
+      }
+      a.classList.toggle("on", markWeek && n === week);
     });
+
+    document.querySelectorAll("[data-hub]").forEach(function (a) {
+      a.setAttribute("href", toRoot(PAGES[week]));
+    });
+
+    document.querySelectorAll("[data-hedge]").forEach(function (a) {
+      a.setAttribute("href", toRoot("pick_selection/week1/index.html?week=" + week));
+    });
+
     var label = document.querySelector("[data-week-label]");
     if (label) {
       var custom = label.getAttribute("data-label-" + week);
-      label.textContent = custom || ("Week " + week);
+      if (custom) label.textContent = custom;
     }
-    document.querySelectorAll("a[data-carry-week]").forEach(function (a) {
-      var raw = a.getAttribute("data-href") || a.getAttribute("href");
-      var parts = raw.split("#");
-      var q = parts[0].indexOf("?");
-      var path = q < 0 ? parts[0] : parts[0].slice(0, q);
-      var params = new URLSearchParams(q < 0 ? "" : parts[0].slice(q + 1));
-      params.set("week", week);
-      var hash = parts[1] ? "#" + parts[1] : "";
-      a.setAttribute("href", path + "?" + params.toString() + hash);
-    });
-    var url = new URL(location.href);
-    url.searchParams.set("week", week);
-    if (push) history.pushState({ week: week }, "", url);
-    else history.replaceState({ week: week }, "", url);
+
     var hooks = window.CircaNavHooks || [];
     hooks.forEach(function (fn) {
       try { fn(week); } catch (e) {}
     });
   }
 
-  function init() {
-    setWeek(weekFromUrl(), false);
-    document.querySelectorAll("[data-set-week]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        setWeek(btn.getAttribute("data-set-week"), true);
-      });
-    });
-    window.addEventListener("popstate", function () {
-      setWeek(weekFromUrl(), false);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();

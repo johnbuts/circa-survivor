@@ -15,14 +15,25 @@ Ten Circa Survivor entries:
 
 The two **Titans** entries died. No other deaths.
 
-## Entering Week 2
+## Week 2
 
-**8 live** entries: JAC×4, PIT×2, LV×2.
+**8 live** into Week 2: JAC×4, PIT×2, LV×2.
 
-Burned on live tickets: JAC, PIT, LV.
+Actual Week 2 book: **5 TB / 3 SF**.
 
-Week 2 games for the live book:
+| Ticket | W1 | W2 | Result |
+| --- | --- | --- | --- |
+| 01–03 | JAC | TB | L vs CLE — dead |
+| 04 | JAC | SF | W vs MIA — live |
+| 05 | PIT | TB | L vs CLE — dead |
+| 06 | PIT | SF | W vs MIA — live |
+| 09 | LV | TB | L vs CLE — dead |
+| 10 | LV | SF | W vs MIA — live |
 
-- JAC @ DEN
-- PIT @ NE
-- LV @ LAC
+Three 49ers (one on each remaining W1 group) advanced. Five Bucs died.
+
+## Entering Week 3
+
+**3 live** entries: 04 JAC→SF, 06 PIT→SF, 10 LV→SF.
+
+Burned on live tickets: JAC+SF, PIT+SF, LV+SF. None of the three can reuse SF.

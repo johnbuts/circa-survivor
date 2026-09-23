@@ -34,25 +34,25 @@
   </style>
   <link rel="stylesheet" href="assets/circa.css" />
 </head>
-<body data-page="docs" data-root="" data-default-week="3" data-week="3">
+<body data-page="docs" data-root="">
   <nav class="top" aria-label="Site">
     <div class="nav-inner">
       <div class="brand">
         <b>Circa Survivor 2026</b>
-        <span data-week-label data-label-1="Week 1 docs" data-label-2="Week 2 docs" data-label-3="Week 3 docs">Week 3 docs</span>
+        <span>Docs</span>
       </div>
-      <div class="week-toggle" role="tablist" aria-label="Contest week">
-        <button type="button" data-set-week="1">Week 1</button>
-        <button type="button" data-set-week="2">Week 2</button>
-        <button type="button" data-set-week="3" class="on">Week 3</button>
+      <div class="week-toggle" role="navigation" aria-label="Contest week">
+        <a data-week-link="1" href="week1.html">Week 1</a>
+        <a data-week-link="2" href="week2.html">Week 2</a>
+        <a data-week-link="3" href="week3.html">Week 3</a>
       </div>
       <div class="links">
-        <a data-carry-week data-href="index.html">Hub</a>
-        <a data-carry-week data-href="models.html">Models</a>
-        <a data-carry-week data-href="pick_selection/week1/index.html">Hedge</a>
-        <a data-carry-week data-href="all_picks_2026/index.html">Field</a>
-        <a data-carry-week data-href="entries.html">Entries</a>
-        <a class="here" data-carry-week data-href="view.html">Docs</a>
+        <a data-hub href="week3.html">Hub</a>
+        <a href="models.html">Models</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=3">Hedge</a>
+        <a href="all_picks_2026/index.html">Field</a>
+        <a href="entries.html">Entries</a>
+        <a class="here" href="view.html">Docs</a>
       </div>
     </div>
   </nav>
@@ -118,25 +118,13 @@
       if (files[path] || path) openFile(path);
     };
 
-    function defaultDoc(week) {
-      if (week === "1") return "Power_Rankings/9-9-2026/SOURCES.md";
-      if (week === "2") return "Power_Rankings/9-15-2026/SOURCES.md";
-      return "Weekly_models/MODELS.md";
-    }
-
     const start = new URLSearchParams(location.search).get("f")
-      || defaultDoc(document.body.getAttribute("data-week") || "3");
+      || "Weekly_models/MODELS.md";
     if (files[start]) openFile(start);
     else {
       const first = side.querySelector("button[data-file]");
       if (first) openFile(first.dataset.file);
     }
-
-    window.CircaNavHooks = window.CircaNavHooks || [];
-    window.CircaNavHooks.push(function (week) {
-      if (new URLSearchParams(location.search).get("f")) return;
-      openFile(defaultDoc(week));
-    });
   </script>
 </body>
 </html>

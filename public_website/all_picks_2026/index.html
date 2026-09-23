@@ -228,55 +228,37 @@
   </style>
   <link rel="stylesheet" href="../assets/circa.css" />
 </head>
-<body data-page="field" data-root="all_picks_2026/" data-default-week="1" data-week="1">
+<body data-page="field" data-root="all_picks_2026/" data-week="1">
   <nav class="top" aria-label="Site">
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 field · prior winners" data-label-2="Week 2 field · Circa recap" data-label-3="Week 3 field · PDF not public">Week 1 field · prior winners</span>
+      <span>Week 1 field · prior winners</span>
     </div>
-    <div class="week-toggle" role="tablist" aria-label="Contest week">
-      <button type="button" data-set-week="1" class="on">Week 1</button>
-      <button type="button" data-set-week="2">Week 2</button>
-      <button type="button" data-set-week="3">Week 3</button>
+    <div class="week-toggle" role="navigation" aria-label="Contest week">
+      <a data-week-link="1" class="on" href="../week1.html">Week 1</a>
+      <a data-week-link="2" href="../week2.html">Week 2</a>
+      <a data-week-link="3" href="../week3.html">Week 3</a>
     </div>
     <div class="links">
-      <a data-carry-week data-href="../index.html">Hub</a>
-      <a data-carry-week data-href="../models.html">Models</a>
-      <a data-carry-week data-href="../pick_selection/week1/index.html">Hedge</a>
+      <a data-hub href="../week1.html">Hub</a>
+      <a href="../models.html">Models</a>
+      <a data-hedge href="../pick_selection/week1/index.html?week=1">Hedge</a>
       <a class="here" href="index.html">Field</a>
-      <a data-carry-week data-href="../entries.html">Entries</a>
-      <a class="week1-only" href="#overview">Overview</a>
-      <a class="week1-only" href="#winners">Winners</a>
-      <a class="week1-only" href="#field">Field</a>
-      <a class="week1-only" href="#crowd">Vs crowd</a>
-      <a class="week1-only" href="#missing">Missing</a>
-      <a class="week1-only" href="#audit">Audit</a>
-      <a class="week1-only" data-carry-week data-href="../view.html?f=all_picks_2026/FINDINGS.md">Notes</a>
-      <a data-carry-week data-href="../view.html">Docs</a>
+      <a href="../entries.html">Entries</a>
+      <a href="#overview">Overview</a>
+      <a href="#winners">Winners</a>
+      <a href="#field">Field</a>
+      <a href="#crowd">Vs crowd</a>
+      <a href="#missing">Missing</a>
+      <a href="#audit">Audit</a>
+      <a href="../view.html?f=all_picks_2026/FINDINGS.md">Notes</a>
+      <a href="../view.html">Docs</a>
     </div>
     </div>
   </nav>
 
   <main class="page">
-  <div class="week2-only">
-    <section class="empty-week">
-      <h1>Week 2 Circa field</h1>
-      <p>16,978 live in, <b>8,464</b> live out, pot $25,017,000. Circa PDF: SF 6,741 survived, TB 6,061 / LAC 1,357 / BAL 835 died.</p>
-      <p class="book">Week2_v2 had SF 30.5 / TB 29.2 / BAL 10.6. Actual SF 39.7 / TB 35.7 / BAL 4.9. Model had the chalk pair, not the height.</p>
-      <p><a href="../index.html?week=2">Week 2 hub</a> · <a href="../models.html?week=2">Models</a> · <a href="../view.html?week=2&amp;f=Weekly_models/Week3/NOTES.md">notes</a></p>
-    </section>
-  </div>
-  <div class="week3-only">
-    <section class="empty-week">
-      <h1>Week 3 field is not public yet</h1>
-      <p>Circa has not posted the Week 3 selections PDF. Official live field is <b>8,464</b> tickets, pot <b>$25,017,000</b>, chip if paid tonight ~$2,956.</p>
-      <p class="book">Stand-in crowd (PoolGenius public, Circa-scaled): <b>KC 43.5%</b> · <b>GB 14.2%</b> · <b>DET 10.9%</b> · <b>SEA 9.8%</b> · <b>BUF 7.7%</b>. SF is ~2% because 6,741 live tickets already used SF.</p>
-      <p><a href="../index.html?week=3">Week 3 hub</a> · <a href="../models.html?week=3">Models</a></p>
-    </section>
-  </div>
-
-  <div class="week1-only">
   <header id="overview">
     <div>
       <h1>Prior winners in the Week 1 board</h1>
@@ -397,9 +379,8 @@
   <footer>
     Circa Survivor last-person-standing, not Circa Million.
     Writeup: <a href="../view.html?week=1&amp;f=all_picks_2026/FINDINGS.md">FINDINGS.md</a>.
-    Hedge book: <a href="../pick_selection/week1/index.html">week1/index.html</a>.
+    Hedge book: <a href="../pick_selection/week1/index.html?week=1">week1/index.html</a>.
   </footer>
-  </div>
   </main>
 
   <script>

@@ -18,6 +18,9 @@ HEDGE_REL = "pick_selection/week1/index.html"
 
 PAGES = [
     "index.html",
+    "week1.html",
+    "week2.html",
+    "week3.html",
     "models.html",
     "entries.html",
     "view.html",
@@ -28,8 +31,10 @@ PAGES = [
 
 ASSETS = [
     "assets/circa.css",
+    "assets/hub.css",
     "assets/circa-nav.js",
     "assets/circa-view.js",
+    "assets/our-book.js",
     "assets/week2-crowd.js",
     "assets/week3-crowd.js",
     "assets/week2-chip.js",
