@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 import shutil
 from pathlib import Path
 
@@ -21,6 +22,8 @@ PAGES = [
     "week1.html",
     "week2.html",
     "week3.html",
+    "week4.html",
+    "week5.html",
     "models.html",
     "entries.html",
     "view.html",
@@ -37,6 +40,7 @@ ASSETS = [
     "assets/our-book.js",
     "assets/week2-crowd.js",
     "assets/week3-crowd.js",
+    "assets/week5-crowd.js",
     "assets/week2-chip.js",
 ]
 
@@ -68,6 +72,9 @@ BUNDLE_FILES = [
     "model_crafting/data/2026/portfolio_10_entries.csv",
     "Weekly_models/MODELS.md",
     "Weekly_models/Week3/NOTES.md",
+    "Weekly_models/Week5/NOTES.md",
+    "Weekly_models/Week5/out/week5_book.md",
+    "Weekly_models/Week5/out/week5_shares.csv",
     "Weekly_models/Week2_v2/actual_odds.md",
 ]
 
@@ -83,6 +90,17 @@ WIPE = (
     "model_crafting",
     "Weekly_models",
 )
+
+
+# Files that live only on the author's machine (e.g. model_crafting/) and are not in
+# this checkout: reuse the copy already published here instead of failing.
+FALLBACK: dict[str, bytes] = {}
+
+
+def cache_fallbacks(rels: list[str]) -> None:
+    for rel in rels:
+        if not (ROOT / rel).is_file() and (HERE / rel).is_file():
+            FALLBACK[rel] = (HERE / rel).read_bytes()
 
 
 def bundle_list() -> list[str]:
@@ -102,9 +120,12 @@ def portable(text: str) -> str:
 def copy_file(rel: str) -> None:
     src = ROOT / rel
     dst = HERE / rel
-    if not src.is_file():
-        raise SystemExit(f"missing {rel}")
     dst.parent.mkdir(parents=True, exist_ok=True)
+    if not src.is_file():
+        if rel not in FALLBACK:
+            raise SystemExit(f"missing {rel}")
+        dst.write_bytes(FALLBACK[rel])
+        return
     if src.suffix.lower() in {".md", ".html"}:
         dst.write_text(portable(src.read_text(encoding="utf-8", errors="replace")), encoding="utf-8")
     else:
@@ -112,10 +133,15 @@ def copy_file(rel: str) -> None:
 
 
 def wipe_generated() -> None:
+    logs = {}
     for name in WIPE:
         path = HERE / name
         if path.is_dir():
+            logs.update({log: log.read_bytes() for log in path.rglob("CHANGES.md")})
             shutil.rmtree(path)
+    for log, body in logs.items():
+        log.parent.mkdir(parents=True, exist_ok=True)
+        log.write_bytes(body)
 
 
 def write_bundle(files: list[str]) -> None:
@@ -123,10 +149,12 @@ def write_bundle(files: list[str]) -> None:
     missing: list[str] = []
     for rel in files:
         path = ROOT / rel
-        if not path.is_file():
+        if path.is_file():
+            bundle[rel] = portable(path.read_text(encoding="utf-8", errors="replace"))
+        elif rel in FALLBACK:
+            bundle[rel] = FALLBACK[rel].decode("utf-8", errors="replace")
+        else:
             missing.append(rel)
-            continue
-        bundle[rel] = portable(path.read_text(encoding="utf-8", errors="replace"))
     if missing:
         raise SystemExit("missing: " + ", ".join(missing))
     out = HERE / "assets" / "files-bundle.js"
@@ -145,14 +173,15 @@ def note_dir(path: Path) -> None:
         return
     log.write_text(
         "# Changes\n\n"
-        "- 2026-09-15 — Synced from repo root for the GitHub Pages snapshot.\n",
+        f"- {date.today().isoformat()} — Synced from repo root for the GitHub Pages snapshot.\n",
         encoding="utf-8",
     )
 
 
 def main() -> None:
-    wipe_generated()
     files = bundle_list()
+    cache_fallbacks(PAGES + ASSETS + EXTRA + files)
+    wipe_generated()
     for rel in PAGES + ASSETS + EXTRA + files:
         copy_file(rel)
         note_dir((HERE / rel).parent)

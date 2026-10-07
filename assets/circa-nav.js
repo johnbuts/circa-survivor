@@ -1,5 +1,6 @@
 (function () {
-  var PAGES = { "1": "week1.html", "2": "week2.html", "3": "week3.html" };
+  var PAGES = { "1": "week1.html", "2": "week2.html", "3": "week3.html", "4": "week4.html", "5": "week5.html" };
+  var HEDGE_WEEKS = ["1", "2", "3", "5"];
 
   function toRoot(path) {
     var root = document.body.getAttribute("data-root") || "";
@@ -11,8 +12,8 @@
   function weekFromPage() {
     var page = document.body.getAttribute("data-page");
     var q = new URLSearchParams(location.search).get("week");
-    if (page === "hedge" && (q === "1" || q === "2" || q === "3")) return q;
-    return document.body.getAttribute("data-week") || "3";
+    if (page === "hedge" && HEDGE_WEEKS.indexOf(q) >= 0) return q;
+    return document.body.getAttribute("data-week") || "5";
   }
 
   function init() {
@@ -23,7 +24,7 @@
     var markWeek = page === "hub" || page === "hedge" || page === "field";
     document.querySelectorAll("[data-week-link]").forEach(function (a) {
       var n = a.getAttribute("data-week-link");
-      if (page === "hedge") {
+      if (page === "hedge" && HEDGE_WEEKS.indexOf(n) >= 0) {
         a.setAttribute("href", "?week=" + n);
       } else {
         a.setAttribute("href", toRoot(PAGES[n]));
@@ -36,7 +37,8 @@
     });
 
     document.querySelectorAll("[data-hedge]").forEach(function (a) {
-      a.setAttribute("href", toRoot("pick_selection/week1/index.html?week=" + week));
+      var hw = HEDGE_WEEKS.indexOf(week) >= 0 ? week : "5";
+      a.setAttribute("href", toRoot("pick_selection/week1/index.html?week=" + hw));
     });
 
     var label = document.querySelector("[data-week-label]");

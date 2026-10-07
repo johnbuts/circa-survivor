@@ -1,8 +1,9 @@
 (function () {
-  const root = document.getElementById("week3Chip") || document.getElementById("week2Chip");
+  const root = document.getElementById("week5Chip") || document.getElementById("week3Chip") || document.getElementById("week2Chip");
   if (!root) return;
+  const isW5 = root.id === "week5Chip";
   const isW3 = root.id === "week3Chip";
-  const W = isW3 ? window.CIRCA_WEEK3 : window.CIRCA_WEEK2;
+  const W = isW5 ? window.CIRCA_WEEK5 : isW3 ? window.CIRCA_WEEK3 : window.CIRCA_WEEK2;
   if (!W) return;
   const N_ALIVE = W.nAlive;
   const POT = W.pot;
@@ -11,7 +12,7 @@
   const IMPLIED = W.implied;
   const GAMES = W.games;
   const ESPN_LOGO = { JAC: "jax", WAS: "wsh" };
-  const CHALK = isW3 ? ["KC", "GB", "DET", "SEA"] : ["SF", "TB", "BAL", "LAC"];
+  const CHALK = W.chalk || (isW3 ? ["KC", "GB", "DET", "SEA"] : ["SF", "TB", "BAL", "LAC"]);
 
   const NAMES = {
     ARI: "Cardinals", ATL: "Falcons", BAL: "Ravens", BUF: "Bills",
@@ -24,7 +25,7 @@
     SF: "49ers", TB: "Buccaneers", TEN: "Titans", WAS: "Commanders"
   };
 
-  const BOOK = (isW3 && window.CIRCA_BOOK && window.CIRCA_BOOK.week3Live) || [
+  const BOOK = isW5 ? ((window.CIRCA_BOOK && window.CIRCA_BOOK.week5Live) || []) : (isW3 && window.CIRCA_BOOK && window.CIRCA_BOOK.week3Live) || [
     { id: "e04", n: 1, burned: ["JAC", "SF"], label: "04 JAC→SF" },
     { id: "e06", n: 1, burned: ["PIT", "SF"], label: "06 PIT→SF" },
     { id: "e10", n: 1, burned: ["LV", "SF"], label: "10 LV→SF" }
@@ -160,8 +161,10 @@
       '<div class="stat"><span>Field alive</span><b>' + snap.fieldAlive.toLocaleString("en-US", { maximumFractionDigits: 0 }) + "</b></div>"
       + '<div class="stat"><span>Field dead</span><b class="neg">' + snap.fieldDead.toLocaleString("en-US", { maximumFractionDigits: 0 }) + "</b></div>"
       + '<div class="stat"><span>Chip / live entry</span><b class="pos">' + money(snap.chip) + "</b></div>"
-      + '<div class="stat"><span>Our live / dead / unset</span><b>' + snap.oursLive + " / " + snap.oursDead + " / " + snap.unset + "</b></div>"
-      + '<div class="stat"><span>Our ' + LIVE_N + " tickets</span><b class=\"pos\">" + money(snap.portfolio) + "</b></div>";
+      + (LIVE_N
+        ? '<div class="stat"><span>Our live / dead / unset</span><b>' + snap.oursLive + " / " + snap.oursDead + " / " + snap.unset + "</b></div>"
+          + '<div class="stat"><span>Our ' + LIVE_N + " tickets</span><b class=\"pos\">" + money(snap.portfolio) + "</b></div>"
+        : '<div class="stat"><span>Our book</span><b>not recorded</b></div>');
 
     document.getElementById("chipBook").innerHTML = snap.rows.map(function (r) {
       var banned = burnedList(r.book);
@@ -176,7 +179,7 @@
 
     document.getElementById("chipBoard").innerHTML = GAMES.map(function (g) {
       var win = state.win[g.id] || favorite(g);
-      var vs = g.id === "bal-dal" ? " vs " : " @ ";
+      var vs = g.neutral || g.id === "bal-dal" ? " vs " : " @ ";
       return '<div class="chip-game">'
         + '<div class="when">' + g.when + " · " + g.away + vs + g.home + " · " + g.line + "</div>"
         + '<div class="chip-sides">' + sideHtml(g, g.away, win) + sideHtml(g, g.home, win) + "</div>"

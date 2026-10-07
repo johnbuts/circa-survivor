@@ -1,0 +1,77 @@
+{
+  "asOf": "2026-10-07",
+  "nStart": 25017,
+  "pot": 25017000,
+  "field": {
+    "enterWeek3": 8610,
+    "enterWeek4": 6292,
+    "enterWeek5": 5972
+  },
+  "fieldSources": {
+    "enterWeek3": "https://x.com/CircaSports/status/2102411970024775807",
+    "enterWeek4": "https://x.com/CircaSports/status/2104898765954187484",
+    "enterWeek5": "https://www.circasports.com/circa-survivor"
+  },
+  "circaWeek3": {
+    "source": "https://www.circasports.com/wp-content/uploads/2026/09/Circa-Survivor-2026-Week-3-Selections.pdf",
+    "picks": 8607,
+    "noPick": 3,
+    "won": {"KC": 4398, "DET": 743, "SF": 591, "BUF": 431, "NYG": 58, "JAC": 35, "CLE": 13, "BAL": 10, "MIN": 7, "LV": 2, "IND": 2, "ATL": 2},
+    "lost": {"SEA": 1111, "GB": 497, "NO": 405, "CIN": 108, "CAR": 89, "PHI": 66, "TB": 18, "TEN": 14, "HOU": 5, "NYJ": 1, "LAR": 1}
+  },
+  "circaWeek4": {
+    "source": "https://www.circasports.com/wp-content/uploads/2026/10/Circa-Survivor-2026-Week-4-Selections.pdf",
+    "picks": 6291,
+    "noPick": 1,
+    "won": {"MIN": 2733, "BAL": 2449, "SEA": 442, "IND": 161, "GB": 81, "CHI": 62, "KC": 20, "ATL": 7, "LAR": 7, "CLE": 4, "SF": 2, "NYG": 1, "JAC": 1, "DAL": 1, "CAR": 1},
+    "lost": {"BUF": 178, "ARI": 91, "NO": 16, "DET": 13, "HOU": 9, "PIT": 6, "CIN": 4, "WAS": 1, "LAC": 1}
+  },
+  "publicWeek4": {
+    "source": "PoolGenius Week 5 article, Week 4 recap",
+    "pct": {"BAL": 38.6, "MIN": 38.3, "SEA": 5.5, "BUF": 4.7}
+  },
+  "availability": {
+    "source": "https://www.circasports.com/wp-content/uploads/2026/10/Circa-Survivor-2026-Week-5-Team-Availability.pdf",
+    "of": 5972,
+    "n": {
+      "ARI": 5972, "ATL": 5963, "BAL": 3472, "BUF": 5522, "CAR": 5898, "CHI": 5863,
+      "CIN": 5849, "CLE": 5958, "DAL": 5946, "DEN": 5968, "DET": 4650, "GB": 5859,
+      "HOU": 5972, "IND": 5809, "JAC": 2951, "KC": 1585, "LAC": 5972, "LAR": 5858,
+      "LV": 5543, "MIA": 5972, "MIN": 3209, "NE": 5813, "NO": 5972, "NYG": 5919,
+      "NYJ": 5952, "PHI": 5064, "PIT": 4670, "SEA": 5428, "SF": 691, "TB": 5972,
+      "TEN": 5972, "WAS": 5972
+    }
+  },
+  "public": {
+    "poolgenius": {
+      "source": "https://poolgenius.teamrankings.com/nfl-survivor-pool-picks/articles/week-5-strategy-advice-help-2026/",
+      "date": "2026-10-06",
+      "pct": {"DAL": 33, "CIN": 22, "HOU": 19, "DET": 9, "NE": 6}
+    },
+    "survivorgrid": {
+      "source": "https://www.survivorgrid.com/",
+      "date": "2026-10-07",
+      "pct": {"DAL": 45.3, "CIN": 26.8, "HOU": 12.9, "DET": 3.3, "JAC": 2.0, "CLE": 1.9, "NE": 1.8, "DEN": 1.6, "MIN": 1.4, "BAL": 0.8, "NYG": 0.5, "CHI": 0.4, "ATL": 0.3, "PIT": 0.3},
+      "unlistedPct": 0.05
+    }
+  },
+  "bye": ["KC", "CAR"],
+  "oddsSource": "DraftKings via ESPN odds feed, 2026-10-07 ~21:10 UTC",
+  "games": [
+    {"id": "tb-dal", "when": "Thu 8:15 ET", "away": "TB", "home": "DAL", "line": "DAL −8.5", "awayMl": 360, "homeMl": -470},
+    {"id": "phi-jac", "when": "Sun 9:30 ET", "away": "PHI", "home": "JAC", "line": "JAC −7 · London", "awayMl": 280, "homeMl": -355, "neutral": true},
+    {"id": "chi-gb", "when": "Sun 1:00 ET", "away": "CHI", "home": "GB", "line": "CHI −2.5", "awayMl": -148, "homeMl": 124},
+    {"id": "hou-ten", "when": "Sun 1:00 ET", "away": "HOU", "home": "TEN", "line": "HOU −7.5", "awayMl": -360, "homeMl": 285},
+    {"id": "cin-mia", "when": "Sun 1:00 ET", "away": "CIN", "home": "MIA", "line": "CIN −6.5", "awayMl": -340, "homeMl": 270},
+    {"id": "lv-ne", "when": "Sun 1:00 ET", "away": "LV", "home": "NE", "line": "NE −3.5", "awayMl": 164, "homeMl": -198},
+    {"id": "min-no", "when": "Sun 1:00 ET", "away": "MIN", "home": "NO", "line": "MIN −1.5", "awayMl": -125, "homeMl": 105},
+    {"id": "cle-nyj", "when": "Sun 1:00 ET", "away": "CLE", "home": "NYJ", "line": "NYJ −1.5", "awayMl": 105, "homeMl": -125},
+    {"id": "ind-pit", "when": "Sun 1:00 ET", "away": "IND", "home": "PIT", "line": "PIT −2.5", "awayMl": 124, "homeMl": -148},
+    {"id": "nyg-was", "when": "Sun 1:00 ET", "away": "NYG", "home": "WAS", "line": "WAS −3.5", "awayMl": 150, "homeMl": -180},
+    {"id": "den-lac", "when": "Sun 4:05 ET", "away": "DEN", "home": "LAC", "line": "DEN −3.5", "awayMl": -185, "homeMl": 154},
+    {"id": "det-ari", "when": "Sun 4:25 ET", "away": "DET", "home": "ARI", "line": "DET −5.5", "awayMl": -250, "homeMl": 205},
+    {"id": "sf-sea", "when": "Sun 4:25 ET", "away": "SF", "home": "SEA", "line": "SEA −2.5", "awayMl": 130, "homeMl": -155},
+    {"id": "bal-atl", "when": "Sun 8:20 ET", "away": "BAL", "home": "ATL", "line": "ATL −3.5", "awayMl": 150, "homeMl": -180},
+    {"id": "buf-lar", "when": "Mon 8:15 ET", "away": "BUF", "home": "LAR", "line": "LAR −3", "awayMl": 136, "homeMl": -162}
+  ]
+}

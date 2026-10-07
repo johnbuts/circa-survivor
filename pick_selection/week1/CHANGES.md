@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-10-07 — Hedge calculator has a `?week=5` board from `week5-crowd.js`; N and picks are set by hand since our Week 3–4 picks are not recorded.
 - 2026-09-23 — Week 2 book is 5 TB / 3 SF; Week 3 hedge is the 3 live 49ers tickets.
 - 2026-09-23 — Week 3 hedge uses 8,464 live and the Circa-scaled PoolGenius crowd; Week 3 button on the nav.
 - 2026-09-15 — Hedge defaults to the actual Circa book, Week2_v2 crowd/pot, burned-team caps, chip-board picks, and FanDuel JSON snapshot only.

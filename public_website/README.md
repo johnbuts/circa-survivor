@@ -1,6 +1,6 @@
 # Circa Survivor — public site
 
-Static snapshot. Each contest week is its own page (`week1.html`, `week2.html`, `week3.html`). `index.html` sends you to the current week. No server.
+Static snapshot. Each contest week is its own page (`week1.html` … `week5.html`; `week4.html` is the Weeks 3–4 recap). `index.html` sends you to the current week. No server.
 
 ## Publish (GitHub Pages)
 

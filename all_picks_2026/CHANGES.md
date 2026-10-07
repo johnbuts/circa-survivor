@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-10-07 — Nav links to Week 4 and Week 5.
 - 2026-09-23 — Field page is Week 1 only; Week 2/3 recaps live on those week pages.
 - 2026-09-23 — Week 2 stub is the Circa recap (8,464 live); Week 3 stub uses PoolGenius Circa-scaled crowd until the PDF.
 - 2026-09-15 — Week 2 stub uses Week2_v2 crowd and the official 16,978 / $25,017,000 field; notes and CSVs open in the in-site viewer.

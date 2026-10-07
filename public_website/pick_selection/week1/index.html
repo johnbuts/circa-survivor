@@ -284,12 +284,14 @@
     <div class="nav-inner">
     <div class="brand">
       <b>Circa Survivor 2026</b>
-      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge" data-label-3="Week 3 hedge">Week 1 hedge</span>
+      <span data-week-label data-label-1="Week 1 hedge" data-label-2="Week 2 hedge" data-label-3="Week 3 hedge" data-label-5="Week 5 hedge">Week 1 hedge</span>
     </div>
     <div class="week-toggle" role="navigation" aria-label="Contest week">
       <a data-week-link="1" class="on" href="?week=1">Week 1</a>
       <a data-week-link="2" href="?week=2">Week 2</a>
       <a data-week-link="3" href="?week=3">Week 3</a>
+      <a data-week-link="4" href="../../week4.html">Week 4</a>
+      <a data-week-link="5" href="?week=5">Week 5</a>
     </div>
     <div class="links">
       <a data-hub href="../../week1.html">Hub</a>
@@ -385,6 +387,7 @@
   <script src="../../assets/our-book.js"></script>
   <script src="../../assets/week2-crowd.js"></script>
   <script src="../../assets/week3-crowd.js"></script>
+  <script src="../../assets/week5-crowd.js"></script>
   <script>
     const NAMES = {
       ARI: "Arizona Cardinals", ATL: "Atlanta Falcons", BAL: "Baltimore Ravens",
@@ -503,6 +506,21 @@
           LAC: 0.0, LAR: 1.2, LV: 0.0, MIA: 0.0, MIN: 0.0, NE: 0.0, NO: 1.4, NYG: 1.4,
           NYJ: 0.0, PHI: 1.2, PIT: 0.0, SEA: 9.8, SF: 2.0, TB: 0.0, TEN: 0.0, WAS: 0.0
         }
+      },
+      "5": {
+        saveKey: "circa-week5-hedge-2026-10-07",
+        N: 3,
+        picks: [],
+        counts: {},
+        fieldStart: 5972,
+        pot: 25017000,
+        chalk: ["DAL", "CIN", "HOU", "DET"],
+        boardTitle: "Week 5 board — our picks not recorded",
+        crowdTitle: "Crowd split — public × Circa Week 5 availability · 5,972 live · $25,017,000",
+        lead: "Field 5,972 live. Our Week 3 and Week 4 picks are not in the repo, so set N and picks here by hand. Legs are the opponents.",
+        note: "Crowd is ½ PoolGenius + ½ SurvivorGrid public, times Circa’s Week 5 team availability — not the Circa PDF. Byes: KC, CAR. TNF is TB @ DAL. PHI @ JAC is in London.",
+        games: [],
+        crowd: {}
       }
     };
 
@@ -602,7 +620,7 @@
     }
 
     function crowdFromShared(week) {
-      const pack = week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
+      const pack = week === "5" ? window.CIRCA_WEEK5 : week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
       if (pack && pack.share) {
         const out = {};
         Object.keys(NAMES).forEach((t) => { out[t] = 100 * (pack.share[t] || 0); });
@@ -615,7 +633,7 @@
     }
 
     function fieldFromShared(week) {
-      const pack = week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
+      const pack = week === "5" ? window.CIRCA_WEEK5 : week === "3" ? window.CIRCA_WEEK3 : week === "2" ? window.CIRCA_WEEK2 : null;
       if (pack) return { start: pack.nAlive, pot: pack.pot };
       if (week === "1" && window.CIRCA_WEEK1_FIELD) {
         return { start: window.CIRCA_WEEK1_FIELD.n, pot: window.CIRCA_WEEK1_FIELD.pot };
@@ -662,12 +680,13 @@
     }
 
     function applyWeekConfig(week) {
-      const w = week === "3" ? "3" : week === "2" ? "2" : "1";
+      const w = WEEK_DATA[week] ? week : "1";
       if (ACTIVE_WEEK === w && GAMES.length) return;
       const cfg = WEEK_DATA[w];
       ACTIVE_WEEK = w;
-      if (w === "3" && window.CIRCA_WEEK3 && window.CIRCA_WEEK3.games) {
-        GAMES = window.CIRCA_WEEK3.games.map((g) => ({
+      const shared = w === "5" ? window.CIRCA_WEEK5 : w === "3" ? window.CIRCA_WEEK3 : null;
+      if (shared && shared.games) {
+        GAMES = shared.games.map((g) => ({
           id: g.id, away: g.away, home: g.home, awayMl: g.awayMl, homeMl: g.homeMl, when: g.when
         }));
       } else {
@@ -721,7 +740,9 @@
       if (crowd) crowd.textContent = cfg.crowdTitle;
       const hint = document.getElementById("crowdHint");
       if (hint) {
-        hint.textContent = w === "3"
+        hint.textContent = w === "5"
+          ? "Public pick % (PoolGenius + SurvivorGrid) times Circa’s Week 5 team availability on 5,972 live tickets. Chip = $25,017,000 / field still alive. Not the Circa PDF."
+          : w === "3"
           ? "PoolGenius public scaled by Circa Week 2 burns on 8,464 live tickets. Chip = $25,017,000 / field still alive. Not the Circa PDF."
           : w === "2"
           ? "Week2_v2 field-conditioned shares on the official 16,978 live field. Chip = $25,017,000 / field still alive. FanDuel is the JSON snapshot, not a live Odds API call."
@@ -1794,7 +1815,7 @@
     window.CircaNavHooks.push(applyWeekConfig);
     applyWeekConfig((() => {
       const q = new URLSearchParams(location.search).get("week");
-      return q === "3" || q === "2" ? q : "1";
+      return WEEK_DATA[q] ? q : "1";
     })());
   </script>
   <script src="../../assets/files-bundle.js"></script>

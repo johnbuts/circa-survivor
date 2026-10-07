@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Circa Survivor 2026 — Week 5</title>
+  <style>
+    :root {
+      --bg: #0c0d0b; --panel: #141610; --panel2: #1b1d16; --ink: #e8e4d4;
+      --muted: #8b8878; --line: #2c2f24; --gold: #d4b562; --plus: #8fce9a; --minus: #e07a5f;
+      --live: #1c2e22;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body { font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+    table { font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace; }
+  </style>
+  <link rel="stylesheet" href="assets/circa.css" />
+  <link rel="stylesheet" href="assets/hub.css" />
+</head>
+<body data-page="hub" data-root="" data-week="5">
+  <nav class="top" aria-label="Site">
+    <div class="nav-inner">
+      <div class="brand">
+        <b>Circa Survivor 2026</b>
+        <span>Week 5 live</span>
+      </div>
+      <div class="week-toggle" role="navigation" aria-label="Contest week">
+        <a data-week-link="1" href="week1.html">Week 1</a>
+        <a data-week-link="2" href="week2.html">Week 2</a>
+        <a data-week-link="3" href="week3.html">Week 3</a>
+        <a data-week-link="4" href="week4.html">Week 4</a>
+        <a data-week-link="5" class="on" href="week5.html">Week 5</a>
+      </div>
+      <div class="links">
+        <a class="here" data-hub href="week5.html">Hub</a>
+        <a href="models.html">Models</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=5">Hedge</a>
+        <a href="all_picks_2026/index.html">Field</a>
+        <a href="entries.html">Entries</a>
+        <a href="view.html?f=Power_Rankings/9-15-2026/SOURCES.md">Rankings</a>
+        <a href="view.html">Docs</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Week 5 — live chip</h1>
+        <p>Official live field <b>5,972</b> / pot $25,017,000. Crowd is public pick % scaled by Circa’s own Week 5 team availability. Circa Week 5 PDF is not out (usually Saturday). Our Week 3–4 picks are not recorded, so the board prices the field only.</p>
+      </div>
+      <p><a href="models.html">Models</a></p>
+    </header>
+    <div class="summary">
+      <div class="stat"><span>Live field</span><b class="pos">5,972</b></div>
+      <div class="stat"><span>Chip if paid now</span><b>$4,189</b></div>
+      <div class="stat"><span>Expected chip</span><b>$5,670</b></div>
+      <div class="stat"><span>DAL</span><b>40.7%</b></div>
+      <div class="stat"><span>CIN</span><b>25.0%</b></div>
+      <div class="stat"><span>HOU</span><b>16.7%</b></div>
+      <div class="stat"><span>DET</span><b>5.0%</b></div>
+      <div class="stat"><span>Byes</span><b>KC · CAR</b></div>
+    </div>
+    <div class="grid">
+      <section class="card chip-box" id="week5Chip">
+        <div class="chip-toolbar">
+          <h2>Slate · chip after the games</h2>
+          <button type="button" id="chipFavs">All favorites</button>
+        </div>
+        <p class="hint">Click a side to win. Chip = $25,017,000 / remaining field. Lines are DraftKings, vig-free, 7 Oct. If every favorite wins, ~5,749 live and chip ~$4,351. DAL alone losing leaves ~3,319 and chip ~$7,536.</p>
+        <p class="hint" id="chipRead"></p>
+        <div class="summary" id="chipStrip"></div>
+        <div class="chip-book" id="chipBook"></div>
+        <div id="chipBoard"></div>
+      </section>
+      <section class="card">
+        <h2>Crowd this week</h2>
+        <p class="hint">Labeled stand-in: ½ PoolGenius 6 Oct + ½ SurvivorGrid 7 Oct, times Circa availability. JAC is only open on 49% of live tickets, SF on 12%.</p>
+        <table>
+          <thead><tr><th>Team</th><th></th><th class="r">%</th><th class="r">win</th></tr></thead>
+          <tbody>
+            <tr><td>DAL</td><td><div class="barline"><span style="width:100%"></span></div></td><td class="r">40.7</td><td class="r">79</td></tr>
+            <tr><td>CIN</td><td><div class="barline"><span style="width:61%"></span></div></td><td class="r">25.0</td><td class="r">74</td></tr>
+            <tr><td>HOU</td><td><div class="barline"><span style="width:41%"></span></div></td><td class="r">16.7</td><td class="r">75</td></tr>
+            <tr><td>DET</td><td><div class="barline"><span style="width:12%"></span></div></td><td class="r">5.0</td><td class="r">69</td></tr>
+            <tr><td>NE</td><td><div class="barline"><span style="width:10%"></span></div></td><td class="r">4.0</td><td class="r">64</td></tr>
+            <tr><td>CLE</td><td><div class="barline"><span style="width:5%"></span></div></td><td class="r">2.1</td><td class="r">47</td></tr>
+            <tr><td>DEN</td><td><div class="barline"><span style="width:4%"></span></div></td><td class="r">1.8</td><td class="r">62</td></tr>
+            <tr><td>JAC</td><td><div class="barline"><span style="width:3%"></span></div></td><td class="r">1.1</td><td class="r">75</td></tr>
+          </tbody>
+        </table>
+        <div class="links-row">
+          <a href="models.html">Why these numbers</a>
+          <a href="view.html?f=Weekly_models/Week5/NOTES.md">NOTES.md</a>
+          <a href="view.html?f=Weekly_models/Week5/out/week5_book.md">Leverage table</a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Leverage</h2>
+        <p class="hint">Favorites ≥60%, <code>log(win) − 0.7·log(crowd)</code>. Field-level only: check your own ticket’s burns.</p>
+        <table>
+          <thead><tr><th>Team</th><th class="r">win</th><th class="r">crowd</th><th class="r">open</th></tr></thead>
+          <tbody>
+            <tr><td>WAS</td><td class="r">62</td><td class="r">0.1</td><td class="r">100</td></tr>
+            <tr><td>ATL</td><td class="r">62</td><td class="r">0.3</td><td class="r">100</td></tr>
+            <tr><td>JAC</td><td class="r">75</td><td class="r">1.1</td><td class="r">49</td></tr>
+            <tr><td>DEN</td><td class="r">62</td><td class="r">1.8</td><td class="r">100</td></tr>
+            <tr><td>NE</td><td class="r">64</td><td class="r">4.0</td><td class="r">97</td></tr>
+            <tr><td>DET</td><td class="r">69</td><td class="r">5.0</td><td class="r">78</td></tr>
+            <tr><td>HOU</td><td class="r">75</td><td class="r">16.7</td><td class="r">100</td></tr>
+            <tr><td>CIN</td><td class="r">74</td><td class="r">25.0</td><td class="r">98</td></tr>
+            <tr><td>DAL</td><td class="r">79</td><td class="r">40.7</td><td class="r">100</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="card">
+        <h2>How we got here</h2>
+        <p class="hint">Field 8,610 → 6,292 → 5,972. Week 3: KC 51% held; SEA (1,111), GB (497), NO (405) died. Week 4: MIN 43% and BAL 39% held; BUF (178) died. Entering Week 3 was 8,610, not the 8,464 shown on the Week 3 page.</p>
+        <div class="links-row">
+          <a href="week4.html">Weeks 3–4 recap</a>
+          <a href="entries.html">Ten entries</a>
+          <a href="pick_selection/week1/index.html?week=5">Week 5 hedge</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="assets/our-book.js"></script>
+  <script src="assets/week5-crowd.js"></script>
+  <script src="assets/week2-chip.js"></script>
+  <script src="assets/files-bundle.js"></script>
+  <script src="assets/circa-view.js"></script>
+  <script src="assets/circa-nav.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-10-07 — Added generated `week5-crowd.js`, empty `week5Live` in `our-book.js` (picks not recorded), and Week 4/5 pages in `circa-nav.js` (hedge stays on weeks 1/2/3/5).
 - 2026-10-07 — `week2-chip.js` reads a `week5Chip` / `CIRCA_WEEK5` pack, takes chalk and neutral-site flags from the data, and shows “not recorded” when our book is empty.
 - 2026-09-23 — Week links go to independent week pages; added `our-book.js` (5 TB / 3 SF) and `hub.css`.
 - 2026-09-23 — Added `week3-crowd.js`, Week 3 chip binding, and week 1/2/3 nav CSS.

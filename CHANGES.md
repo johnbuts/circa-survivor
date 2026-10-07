@@ -1,5 +1,6 @@
 # Changes
 
+- 2026-10-07 — Week 5 hub (`week5.html`, 5,972 live, public × Circa availability crowd) and Weeks 3–4 recap (`week4.html`); nav, redirect, Entries, Models, and hedge now go to Week 5. Corrected entering-Week-3 field to 8,610.
 - 2026-09-23 — Split weeks onto `week1.html` / `week2.html` / `week3.html` and recorded the Week 2 book (5 TB / 3 SF, 3 live into Week 3).
 - 2026-09-23 — Week 3 hub (8,464 live / PoolGenius Circa-scaled crowd), Models page, Week 2 Circa recap.
 - 2026-09-15 — One Week2_v2 crowd/pot everywhere, actual JAC/PIT/TEN/LV hedge book, chip picks on Entries, FanDuel JSON-only, docs via `view.html`, and a 404 page.

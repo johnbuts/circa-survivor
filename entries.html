@@ -85,17 +85,19 @@
     <div class="nav-inner">
       <div class="brand">
         <b>Circa Survivor 2026</b>
-        <span>10 entries · 3 live into Week 3</span>
+        <span>10 entries · Week 3+ picks not recorded</span>
       </div>
       <div class="week-toggle" role="navigation" aria-label="Contest week">
         <a data-week-link="1" href="week1.html">Week 1</a>
         <a data-week-link="2" href="week2.html">Week 2</a>
         <a data-week-link="3" href="week3.html">Week 3</a>
+        <a data-week-link="4" href="week4.html">Week 4</a>
+        <a data-week-link="5" href="week5.html">Week 5</a>
       </div>
       <div class="links">
-        <a data-hub href="week3.html">Hub</a>
+        <a data-hub href="week5.html">Hub</a>
         <a href="models.html">Models</a>
-        <a data-hedge href="pick_selection/week1/index.html?week=3">Hedge</a>
+        <a data-hedge href="pick_selection/week1/index.html?week=5">Hedge</a>
         <a href="all_picks_2026/index.html">Field</a>
         <a class="here" href="entries.html">Entries</a>
         <a href="view.html">Docs</a>
@@ -106,17 +108,17 @@
     <header>
       <div>
         <h1>Ten entries</h1>
-        <p>Actual Circa book. Week 2 was 5 TB / 3 SF. Week 3 picks come from the Week 3 chip board.</p>
+        <p>Actual Circa book through Week 2 (5 TB / 3 SF). Week 3 and Week 4 picks are not in the repo, so status after Week 2 is unknown.</p>
       </div>
     </header>
     <div class="summary">
       <div class="stat"><span>Entered</span><b>10</b></div>
-      <div class="stat"><span>Remaining</span><b class="pos" id="nLive">3</b></div>
+      <div class="stat"><span>Live into Week 3</span><b class="pos" id="nLive">3</b></div>
       <div class="stat"><span>Dead</span><b class="neg">7</b></div>
       <div class="stat"><span>Week 2</span><b>5 TB / 3 SF</b></div>
       <div class="stat"><span>Week 3 picks</span><b id="w3PickStat">unset</b></div>
     </div>
-    <p class="hint">2 TEN died in Week 1. 5 TB died in Week 2. Three 49ers tickets are live (04 JAC, 06 PIT, 10 LV). Field entering Week 3 is 8,464 / $25,017,000.</p>
+    <p class="hint">2 TEN died in Week 1. 5 TB died in Week 2. Three 49ers tickets went into Week 3 (04 JAC, 06 PIT, 10 LV). Official field entering Week 3 was 8,610; entering Week 5 it is 5,972 / $25,017,000. Week 3 shows whatever was set on the Week 3 chip board in this browser.</p>
     <div class="bar">
       <button type="button" class="on" data-filter="all">All 10</button>
       <button type="button" data-filter="live">Remaining 3</button>
@@ -173,6 +175,7 @@
           <div class="row"><span class="wk">Week 1</span><span>${e.w1.team} vs ${e.w1.opp}</span><strong class="${e.w1.result === "W" ? "pos" : "neg"}">${e.w1.result}</strong></div>
           <div class="row"><span class="wk">Week 2</span><span>${w2Line(e)}</span><span class="wk">${e.live ? "remaining" : ""}</span></div>
           <div class="row"><span class="wk">Week 3</span><span>${w3Line(e)}</span><span></span></div>
+          <div class="row"><span class="wk">Week 4–5</span><span>${e.live ? "Not recorded" : "—"}</span><span></span></div>
           <div class="row"><span class="wk">Burned</span><span>${burned}</span><span></span></div>
         </article>`;
       }).join("");
